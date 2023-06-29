@@ -13,6 +13,7 @@ datasource db {
 enum Role {
   ADMIN
   USER
+  STAFF
 }
 
 model Account {
