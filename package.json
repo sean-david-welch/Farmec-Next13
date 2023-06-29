@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.362.0",
         "@fortawesome/free-brands-svg-icons": "^6.4.0",
         "@fortawesome/free-regular-svg-icons": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -19,11 +20,11 @@
         "@types/react": "18.2.14",
         "@types/react-dom": "18.2.6",
         "autoprefixer": "10.4.14",
-        "aws-sdk": "^2.1407.0",
         "axios": "^1.4.0",
         "eslint": "8.43.0",
         "eslint-config-next": "13.4.7",
         "framer-motion": "^10.12.17",
+        "multer": "^1.4.5-lts.1",
         "next": "13.4.7",
         "next-auth": "^4.22.1",
         "postcss": "8.4.24",
@@ -34,5 +35,8 @@
         "stripe": "^12.10.0",
         "tailwindcss": "3.3.2",
         "typescript": "5.1.6"
+    },
+    "devDependencies": {
+        "@types/multer": "^1.4.7"
     }
 }
