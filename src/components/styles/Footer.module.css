@@ -1,0 +1,60 @@
+.footer {
+    @apply bg-zinc-900 py-12;
+    @apply grid grid-cols-3;
+    @apply justify-center justify-items-center;
+}
+
+.footer img {
+    @apply mx-auto;
+}
+
+.footerInfo {
+    @apply flex flex-col mx-auto;
+}
+
+.footerInfo > * {
+    @apply my-2 mx-auto;
+}
+
+.companyInfo {
+    @apply flex flex-col mx-auto text-center items-center;
+}
+
+.companyInfo > * {
+    @apply my-1 text-lg font-semibold;
+}
+
+.accreditation {
+    @apply flex flex-col mx-auto;
+}
+
+.socialLinks {
+    @apply flex flex-row mx-auto items-center text-center justify-center;
+}
+
+.socialLinks svg {
+    @apply mx-5;
+    @apply border-4 rounded-lg;
+    @apply cursor-pointer p-1;
+    @apply transition-all ease-in-out duration-700;
+}
+
+.socialLinks path {
+    @apply transition-all ease-in-out duration-700;
+}
+
+.socialLinks svg:hover {
+    @apply border-red-700;
+}
+
+.socialLinks svg:hover path {
+    @apply fill-red-700;
+}
+
+.navLinks {
+    @apply flex flex-col;
+}
+
+.navLinks > * {
+    @apply my-2;
+}

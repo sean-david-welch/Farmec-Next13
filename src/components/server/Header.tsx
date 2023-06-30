@@ -1,6 +1,6 @@
 import styles from '../styles/Header.module.css';
 
-import Navbar from './Navbar';
+import Navbar from '../client/Navbar';
 
 const Header = () => {
     return (

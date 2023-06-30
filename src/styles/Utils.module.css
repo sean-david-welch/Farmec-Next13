@@ -1,0 +1,17 @@
+.mainHeading {
+    @apply text-3xl font-semibold underline mx-auto;
+}
+
+.btn {
+    @apply items-center justify-center rounded-xl bg-red-700 px-8 py-2 text-center text-lg font-semibold;
+    @apply transition-all duration-700 ease-in-out hover:bg-red-600;
+}
+
+.btn:hover {
+    @apply boxshadow;
+}
+
+.boxshadow {
+    box-shadow: 0 0 0 2px rgba(200, 1, 1, 0.5), 0 0 0 3px rgba(200, 1, 1, 0.5),
+        0 0 0 4px rgba(200, 1, 1, 0.5), 0 0 0 5px rgba(200, 1, 1, 0.5);
+}

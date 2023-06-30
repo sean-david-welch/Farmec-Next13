@@ -2,6 +2,7 @@ import '~/styles/globals.css';
 import { Dosis } from 'next/font/google';
 
 import Header from '~/components/server/Header';
+import Footer from '~/components/server/Footer';
 
 const dosis = Dosis({
     weight: ['400', '500', '600', '700'],
@@ -25,6 +26,7 @@ export default function RootLayout({
                 <main>
                     <div className="container">{children}</div>
                 </main>
+                <Footer />
             </body>
         </html>
     );
