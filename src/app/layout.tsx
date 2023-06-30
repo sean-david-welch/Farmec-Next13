@@ -1,9 +1,12 @@
 import '~/styles/globals.css';
-import { Inter } from 'next/font/google';
+import { Dosis } from 'next/font/google';
 
 import Header from '~/components/server/Header';
 
-const inter = Inter({ subsets: ['latin'] });
+const dosis = Dosis({
+    weight: ['400', '500', '600', '700'],
+    subsets: ['latin'],
+});
 
 export const metadata = {
     title: 'Farmec Ireland Ltd',
@@ -16,7 +19,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={inter.className}>
+        <html lang="en" className={dosis.className}>
             <body className="min-h-screen">
                 <Header />
                 <main>
