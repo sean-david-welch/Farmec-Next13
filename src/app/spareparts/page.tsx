@@ -5,3 +5,5 @@ const SpareParts = () => {
         </section>
     );
 };
+
+export default SpareParts;
