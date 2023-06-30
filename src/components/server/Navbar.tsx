@@ -2,16 +2,18 @@
 
 import styles from '../styles/Header.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useState } from 'react';
 
 const Navbar = () => {
     interface NavItemProps {
         title: string;
-        children: React.ReactNode;
+        link: string;
+        children?: React.ReactNode;
     }
 
-    const NavItem: React.FC<NavItemProps> = ({ title, children }) => {
+    const NavItem: React.FC<NavItemProps> = ({ title, link, children }) => {
         const [isOpen, setIsOpen] = useState(false);
 
         return (
@@ -19,7 +21,7 @@ const Navbar = () => {
                 className={styles.navItem}
                 onMouseEnter={() => setIsOpen(true)}
                 onMouseLeave={() => setIsOpen(false)}>
-                <Link href="/">{title}</Link>
+                <Link href={link}>{title}</Link>
                 <ul className={isOpen ? styles.navDrop : styles.navDropClosed}>
                     {children}
                 </ul>
@@ -29,32 +31,48 @@ const Navbar = () => {
 
     return (
         <nav className={styles.navbar}>
-            <h1>Farmec</h1>
+            <Image src="/farmeclogo.png" alt="logo" width={225} height={225} />
+
             <ul className={styles.navList}>
-                <NavItem title="Hey">
+                <NavItem link="/" title="About Us">
                     <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
+                        <Link href={'/'}>Staff & Management</Link>
                     </li>
                     <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
-                    </li>
-                </NavItem>
-                <NavItem title="Hey-2">
-                    <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
-                    </li>
-                    <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
+                        <Link href={'/'}>Company History</Link>
                     </li>
                 </NavItem>
-                <NavItem title="Hey-3">
+
+                <NavItem link="/" title="Suppliers">
                     <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
+                        <Link href={'/'}>Sip Slovenia</Link>
                     </li>
                     <li className={styles.navDropItem}>
-                        <Link href={'/'}>hi</Link>
+                        <Link href={'/'}>Sulky</Link>
                     </li>
                 </NavItem>
+
+                <NavItem link="/" title="Spare Parts">
+                    <li className={styles.navDropItem}>
+                        <Link href={'/'}>Sip Slovenia</Link>
+                    </li>
+                    <li className={styles.navDropItem}>
+                        <Link href={'/'}>Sulky</Link>
+                    </li>
+                </NavItem>
+
+                <NavItem link="/" title="Blog">
+                    <li className={styles.navDropItem}>
+                        <Link href={'/'}>Latest Posts</Link>
+                    </li>
+                    <li className={styles.navDropItem}>
+                        <Link href={'/'}>Exhibition Information</Link>
+                    </li>
+                </NavItem>
+
+                <NavItem link="/" title="Contact" />
+
+                <NavItem link="/" title="Login" />
             </ul>
         </nav>
     );

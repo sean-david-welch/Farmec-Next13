@@ -1,39 +1,51 @@
 .navbar {
-    @apply flex flex-row justify-center;
-    @apply py-10 bg-zinc-900;
+    @apply flex flex-row justify-between;
+    @apply py-5 bg-zinc-900;
 }
 
 .navbar > * {
     @apply mx-10;
 }
 
+.navbar img {
+    @apply flex justify-center my-auto;
+}
+
 .navList {
-    @apply relative flex flex-row;
+    @apply relative flex flex-row justify-center my-auto;
 }
 
 .navList > * {
-    @apply mx-5;
+    @apply mx-14;
 }
 
 .navItem {
-    @apply flex flex-col relative font-medium text-3xl;
-}
-
-.navListItem {
-    @apply absolute;
+    @apply grid grid-cols-1 relative font-semibold text-lg;
 }
 
 .navDrop {
-    @apply bg-zinc-800;
-    @apply my-10 mx-auto;
-    @apply px-5;
+    @apply bg-zinc-900;
+    @apply my-10 mx-auto w-[10rem];
+    @apply -left-11 top-1;
     @apply absolute flex flex-col text-center justify-center;
-    @apply top-0 left-0;
     @apply opacity-100;
+    @apply rounded-lg;
     @apply transition-opacity duration-500 ease-in-out;
 }
 
 .navDropClosed {
     @apply navDrop;
     @apply opacity-0;
+}
+
+.navDropItem {
+    @apply text-sm font-semibold;
+    @apply px-2 py-2 my-2;
+    @apply mx-auto w-[10rem];
+    @apply rounded-lg;
+    @apply transition-colors duration-500 ease-in-out;
+}
+
+.navDropItem:hover {
+    @apply bg-red-600;
 }
