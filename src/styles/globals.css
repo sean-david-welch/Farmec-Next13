@@ -38,3 +38,19 @@ body {
 .container {
     @apply mx-auto min-h-screen items-center text-center max-w-[100vw] overflow-x-hidden;
 }
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 5rem;
+    height: 5rem;
+}
+
+.error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
