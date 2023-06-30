@@ -65,3 +65,169 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+// Supplier Models: 
+model Supplier {
+  id               String    @id @default(uuid())
+  name             String?   
+  logo_image       String?   @default("/default.jpg")
+  marketing_image  String?   @default("/default.jpg")
+  description      String?
+  social_facebook  String?   
+  social_twitter   String?   
+  social_instagram String?   
+  social_youtube   String?   
+  social_linkedin  String?   
+  social_website   String?   
+  created          DateTime  @default(now())
+  machines         Machine[]
+  spare_parts      SpareParts[]
+}
+
+model Machine {
+  id            String   @id @default(uuid())
+  supplierId    String
+  supplier      Supplier @relation(fields: [supplierId], references: [id])
+  name          String?  
+  machine_image String?  @default("/default.jpg")
+  description   String?
+  machine_link  String?  
+  created       DateTime @default(now())
+  products      Product[]
+}
+
+model Product {
+  id         String   @id @default(uuid())
+  machineId  String
+  machine    Machine  @relation(fields: [machineId], references: [id])
+  name       String?
+  product_image String?  @default("/default.jpg")
+  description String?
+  product_link String?
+}
+
+model SpareParts {
+  id         String   @id @default(uuid())
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  name       String?
+  parts_image String?  @default("/default.jpg")
+  description String?
+  spare_parts_link String?
+}
+
+// About models:
+model Employee {
+  id             String   @id @default(uuid())
+  name           String?  
+  email          String?  
+  role           String?  
+  bio            String?  
+  profile_image  String?  @default("/default.jpg")
+  social_twitter String?  
+  social_linkedin String?  
+  social_whatsapp String?  
+  created        DateTime @default(now())
+}
+
+model Timeline {
+  id      String   @id @default(uuid())
+  title   String?  
+  date    String?  
+  body    String?  
+  created DateTime @default(now())
+}
+
+model Terms {
+  id      String   @id @default(uuid())
+  title   String?  
+  body    String?  
+  created DateTime @default(now())
+}
+
+model Privacy {
+  id      String   @id @default(uuid())
+  title   String?  
+  body    String?  
+  created DateTime @default(now())
+}
+
+// Blog models:
+model Blog {
+  id          String   @id @default(uuid())
+  title       String?  
+  date        String?  
+  main_image  String?  @default("/default.jpg")
+  subheading  String?  
+  body        String?  
+  created     DateTime @default(now())
+}
+
+model Exhibition {
+  id      String   @id @default(uuid())
+  title   String?  
+  date    String?  
+  location String?  
+  info    String?  
+  created DateTime @default(now())
+}
+
+model PaymentProduct {
+  id           String  @id @default(uuid())
+  name         String? 
+  price        Decimal @default(0)
+  image        String? @default("/default.jpg")
+}
+
+// Registration models: 
+model WarrantyClaim {
+  id              String          @id @default(uuid())
+  dealer          String? 
+  dealer_contact  String? 
+  owner_name      String? 
+  machine_model   String? 
+  serial_number   String? 
+  install_date    String? 
+  failure_date    String? 
+  repair_date     String? 
+  failure_details String? 
+  repair_details  String? 
+  labour_hours    String? 
+  completed_by    String? 
+  created         DateTime       @default(now())
+  parts           PartsRequired[]
+}
+
+model PartsRequired {
+  id              String         @id @default(uuid())
+  warrantyId      String
+  warranty        WarrantyClaim  @relation(fields: [warrantyId], references: [id])
+  part_number     String? 
+  quantity_needed String?        @default("1")
+  invoice_number  String? 
+  description     String? 
+  created         DateTime       @default(now())
+}
+
+model MachineRegistration {
+  id                String    @id @default(uuid())
+  dealer_name       String? 
+  dealer_address    String? 
+  owner_name        String? 
+  owner_address     String? 
+  machine_model     String? 
+  serial_number     String? 
+  install_date      String? 
+  invoice_number    String? 
+  complete_supply   Boolean   @default(false)
+  pdi_complete      Boolean   @default(false)
+  pto_correct       Boolean   @default(false)
+  machine_test_run  Boolean   @default(false)
+  safety_induction  Boolean   @default(false)
+  operator_handbook Boolean   @default(false)
+  date              String? 
+  completed_by      String? 
+  created           DateTime  @default(now())
+}
+
+

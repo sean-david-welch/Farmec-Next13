@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
-
     interface NavItemProps {
         title: string;
         children: React.ReactNode;
