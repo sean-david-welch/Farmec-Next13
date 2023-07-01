@@ -1,6 +1,11 @@
 .navbar {
     @apply flex flex-row justify-center my-auto;
     @apply py-5 bg-zinc-900;
+    @apply fixed top-0 z-10;
+}
+
+.navbar.transparent {
+    @apply bg-transparent;
 }
 
 .navbar > * {

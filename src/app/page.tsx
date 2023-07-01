@@ -1,9 +1,10 @@
 import styles from '~/styles/Home.module.css';
+import { Carousel } from '~/components/client/Carousel';
 
 const Home = () => {
     return (
         <section id={styles.home}>
-            <h1>Hello world</h1>
+            <Carousel />
         </section>
     );
 };

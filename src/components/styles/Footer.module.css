@@ -1,5 +1,5 @@
 .footer {
-    @apply bg-zinc-900 py-12;
+    @apply bg-zinc-900 py-12 border-t-2 border-red-600;
     @apply grid grid-cols-3;
     @apply justify-center justify-items-center;
 }

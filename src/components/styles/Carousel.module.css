@@ -1,0 +1,30 @@
+.slideshow {
+    @apply h-screen w-full relative m-auto;
+}
+.slideshow img {
+    @apply inline-block h-screen w-screen object-cover object-center;
+}
+
+.slideButton {
+    @apply flex items-center justify-center;
+    @apply mx-auto text-white transition-all duration-700 ease-in-out;
+    @apply aspect-square w-[48px] text-center;
+}
+
+.slideButton svg path {
+    @apply fill-gray-200;
+}
+
+.prevButton {
+    @apply absolute left-1 top-[50%] -translate-y-2/4;
+    @apply slideButton;
+}
+
+.nextButton {
+    @apply absolute right-1 top-[50%] -translate-y-2/4;
+    @apply slideButton;
+}
+
+.slides {
+    @apply absolute left-0 top-0 h-full w-full object-fill object-center;
+}

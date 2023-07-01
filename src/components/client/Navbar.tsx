@@ -1,13 +1,16 @@
 'use client';
-
 import styles from '../styles/Header.module.css';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import useTransparentHeader from '~/hooks/useTransparentHeader';
 
 import { useState } from 'react';
 import { SignInButton } from './Buttons';
 
 const Navbar = () => {
+    const isTransparent = useTransparentHeader();
+
     interface NavItemProps {
         title: string;
         link: string;
@@ -31,7 +34,10 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={styles.navbar}>
+        <nav
+            className={`${styles.navbar} ${
+                isTransparent ? styles.transparent : null
+            }`}>
             <Link href={'/'}>
                 <Image
                     src="/farmeclogo.png"
