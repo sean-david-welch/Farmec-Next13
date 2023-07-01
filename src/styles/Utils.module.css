@@ -1,9 +1,15 @@
+/* Misc */
+
 .mainHeading {
     @apply text-3xl font-semibold underline mx-auto;
 }
 
+/* Forms */
+
+/* Buttons */
 .btn {
-    @apply items-center justify-center rounded-xl bg-red-700 px-8 py-2 text-center text-lg font-semibold;
+    @apply items-center justify-center rounded-xl bg-red-700;
+    @apply px-8 py-2 text-center text-base font-semibold whitespace-nowrap;
     @apply transition-all duration-700 ease-in-out hover:bg-red-600;
 }
 
@@ -14,4 +20,20 @@
 .boxshadow {
     box-shadow: 0 0 0 2px rgba(200, 1, 1, 0.5), 0 0 0 3px rgba(200, 1, 1, 0.5),
         0 0 0 4px rgba(200, 1, 1, 0.5), 0 0 0 5px rgba(200, 1, 1, 0.5);
+}
+
+.signIn {
+    @apply flex flex-row;
+}
+
+.profileImage {
+    @apply mx-4 rounded-lg;
+}
+
+.signInButton {
+    @apply btn;
+}
+
+.signOutButton {
+    @apply btn;
 }

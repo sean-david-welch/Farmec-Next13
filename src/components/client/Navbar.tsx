@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useState } from 'react';
+import { SignInButton } from './Buttons';
 
 const Navbar = () => {
     interface NavItemProps {
@@ -79,7 +80,7 @@ const Navbar = () => {
 
                 <NavItem link="/" title="Contact" />
 
-                <NavItem link="/" title="Login" />
+                <SignInButton />
             </ul>
         </nav>
     );

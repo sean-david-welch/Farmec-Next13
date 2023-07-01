@@ -3,6 +3,7 @@ import { Dosis } from 'next/font/google';
 
 import Header from '~/components/server/Header';
 import Footer from '~/components/server/Footer';
+import AuthProvider from './AuthProvider';
 
 const dosis = Dosis({
     weight: ['400', '500', '600', '700'],
@@ -14,20 +15,20 @@ export const metadata = {
     description: 'Importers & Distributors of Quality Farm Machinery',
 };
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <html lang="en" className={dosis.className}>
-            <body className="min-h-screen">
-                <Header />
-                <main>
-                    <div className="container">{children}</div>
-                </main>
-                <Footer />
-            </body>
-        </html>
+        <AuthProvider>
+            <html lang="en" className={dosis.className}>
+                <body className="min-h-screen">
+                    <Header />
+                    <main>
+                        <div className="container">{children}</div>
+                    </main>
+                    <Footer />
+                </body>
+            </html>
+        </AuthProvider>
     );
-}
+};
+
+export default RootLayout;
