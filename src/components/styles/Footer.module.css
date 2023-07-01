@@ -24,12 +24,20 @@
     @apply my-1 text-lg font-semibold;
 }
 
+.footerLinks {
+    @apply grid grid-cols-1 items-center place-items-center justify-center mx-auto;
+}
+
 .accreditation {
-    @apply flex flex-col mx-auto;
+    @apply flex flex-col mx-auto items-center text-center justify-center;
+}
+
+.accreditation img {
+    @apply flex flex-col items-center text-center justify-center ml-4 mt-2;
 }
 
 .socialLinks {
-    @apply flex flex-row mx-auto items-center text-center justify-center;
+    @apply flex flex-row mx-auto my-2 items-center text-center justify-center;
 }
 
 .socialLinks svg {

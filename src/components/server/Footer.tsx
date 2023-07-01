@@ -5,7 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {
+    faFacebook,
+    faLinkedin,
+    faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
     return (
@@ -54,6 +58,11 @@ const Footer = () => {
                         href={'https://twitter.com/farmec1?lang=en'}
                         target={'_blank'}>
                         <FontAwesomeIcon icon={faTwitter} height={50} />
+                    </Link>
+                    <Link
+                        href={'https://twitter.com/farmec1?lang=en'}
+                        target={'_blank'}>
+                        <FontAwesomeIcon icon={faLinkedin} height={50} />
                     </Link>
                 </div>
             </div>
