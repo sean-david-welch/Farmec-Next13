@@ -8,7 +8,11 @@ import useTransparentHeader from '~/hooks/useTransparentHeader';
 import { useState } from 'react';
 import { SignInButton } from './Buttons';
 
-const Navbar = () => {
+interface Props {
+    user?: { role: string } | null;
+}
+
+const Navbar = ({ user }: Props) => {
     const isTransparent = useTransparentHeader();
 
     interface NavItemProps {
@@ -84,7 +88,11 @@ const Navbar = () => {
                     </li>
                 </NavItem>
 
-                <NavItem link="/" title="Contact" />
+                {user && (user.role === 'ADMIN' || user.role === 'STAFF') ? (
+                    <NavItem link="/" title="Account" />
+                ) : (
+                    <NavItem link="/" title="Contact" />
+                )}
 
                 <SignInButton />
             </ul>

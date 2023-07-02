@@ -50,19 +50,22 @@ const Footer = () => {
                 </div>
                 <div className={styles.socialLinks}>
                     <Link
+                        className={styles.socials}
                         href={'https://www.facebook.com/FarmecIreland/'}
                         target={'_blank'}>
-                        <FontAwesomeIcon icon={faFacebook} height={50} />
+                        <FontAwesomeIcon icon={faFacebook} size={'2x'} />
                     </Link>
                     <Link
+                        className={styles.socials}
                         href={'https://twitter.com/farmec1?lang=en'}
                         target={'_blank'}>
-                        <FontAwesomeIcon icon={faTwitter} height={50} />
+                        <FontAwesomeIcon icon={faTwitter} size={'2x'} />
                     </Link>
                     <Link
+                        className={styles.socials}
                         href={'https://twitter.com/farmec1?lang=en'}
                         target={'_blank'}>
-                        <FontAwesomeIcon icon={faLinkedin} height={50} />
+                        <FontAwesomeIcon icon={faLinkedin} size={'2x'} />
                     </Link>
                 </div>
             </div>
