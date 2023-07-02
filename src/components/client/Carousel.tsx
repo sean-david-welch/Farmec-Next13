@@ -32,13 +32,13 @@ export const Carousel = () => {
         animate: {
             opacity: 1,
             transition: {
-                opacity: { duration: 0.5 },
+                opacity: { duration: 0.2 },
             },
         },
         exit: {
             opacity: 0,
             transition: {
-                opacity: { duration: 0.5 },
+                opacity: { duration: 0.2 },
             },
         },
     };

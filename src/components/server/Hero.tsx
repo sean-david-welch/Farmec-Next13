@@ -1,5 +1,8 @@
 import { Carousel } from '~/components/client/Carousel';
-import { Typewriter } from '../client/TypeWriter';
+
+import dynamic from 'next/dynamic';
+
+const Typewriter = dynamic(() => import('../client/TypeWriter'));
 
 export const Hero = () => {
     return (

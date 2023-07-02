@@ -3,7 +3,7 @@ import utils from '~/styles/Utils.module.css';
 
 import TypewriterComponent from 'typewriter-effect';
 
-export const Typewriter = () => {
+const Typewriter = () => {
     return (
         <h1 className={utils.typewriter}>
             <TypewriterComponent
@@ -24,3 +24,5 @@ export const Typewriter = () => {
         </h1>
     );
 };
+
+export default Typewriter;
