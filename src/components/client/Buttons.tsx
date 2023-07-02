@@ -17,7 +17,7 @@ export const SignInButton = () => {
             <>
                 <ul className={styles.signIn}>
                     <SignOutButton />
-                    <Link href={`/dashboard`}>
+                    <Link href={'/'}>
                         <Image
                             src={session.user?.image ?? '/favicon.ico'}
                             width={42}

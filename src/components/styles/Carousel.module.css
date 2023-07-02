@@ -1,5 +1,5 @@
 .slideshow {
-    @apply h-screen w-full relative m-auto;
+    @apply h-screen w-full m-auto absolute top-0 left-0 z-0;
 }
 .slideshow img {
     @apply inline-block h-screen w-screen object-cover object-center;

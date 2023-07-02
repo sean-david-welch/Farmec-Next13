@@ -1,5 +1,3 @@
-import styles from '../styles/Header.module.css';
-
 import Navbar from '../client/Navbar';
 import { getSessionAndUser } from '~/lib/utils';
 
