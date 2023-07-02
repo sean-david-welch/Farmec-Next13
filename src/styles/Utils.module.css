@@ -31,9 +31,9 @@
 }
 
 .signInButton {
-    @apply btn;
+    @apply btn text-gray-200;
 }
 
 .signOutButton {
-    @apply btn;
+    @apply btn text-gray-200;
 }

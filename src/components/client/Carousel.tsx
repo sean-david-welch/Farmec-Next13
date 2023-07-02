@@ -19,79 +19,74 @@ export const Carousel = () => {
         '/mxloader.jpeg',
         '/sipout.jpeg',
     ];
-    const [index, setIndex] = useState(0);
-    const [direction, setDirection] = useState(0);
+
+    const [carouselState, setCarouselState] = useState({
+        index: 0,
+        direction: 0,
+    });
 
     const variants = {
-        initial: (direction: number) => {
-            return {
-                x: direction > 0 ? 1000 : -1000,
-                opacity: 0,
-            };
+        initial: {
+            opacity: 0,
         },
         animate: {
-            x: 0,
             opacity: 1,
             transition: {
-                x: { type: 'spring', stiffness: 300, damping: 30 },
-                opacity: { duration: 0.4 },
+                opacity: { duration: 0.5 },
             },
         },
-        exit: (direction: number) => {
-            return {
-                x: direction > 0 ? -1000 : 1000,
-                opacity: 0,
-                transition: {
-                    x: { type: 'spring', stiffness: 300, damping: 30 },
-                    opacity: { duration: 0.4 },
-                },
-            };
+        exit: {
+            opacity: 0,
+            transition: {
+                opacity: { duration: 0.5 },
+            },
         },
     };
 
     function nextStep() {
-        setDirection(1);
-        if (index === images.length - 1) {
-            setIndex(0);
-            return;
-        }
-        setIndex(index + 1);
+        setCarouselState(prevState => {
+            if (prevState.index === images.length - 1) {
+                return { index: 0, direction: 1 };
+            }
+            return { index: prevState.index + 1, direction: 1 };
+        });
     }
 
     function prevStep() {
-        setDirection(-1);
-        if (index === 0) {
-            setIndex(images.length - 1);
-            return;
-        }
-        setIndex(index - 1);
+        setCarouselState(prevState => {
+            if (prevState.index === 0) {
+                return { index: images.length - 1, direction: -1 };
+            }
+            return { index: prevState.index - 1, direction: -1 };
+        });
     }
 
     return (
         <div className={styles.slideshow}>
-            <AnimatePresence initial={false} custom={direction}>
+            <AnimatePresence initial={false} custom={carouselState.direction}>
                 <motion.div
                     variants={variants}
                     animate="animate"
                     initial="initial"
                     exit="exit"
-                    key={images[index]}
-                    custom={direction}>
+                    key={images[carouselState.index]}
+                    custom={carouselState.direction}>
                     <Image
-                        src={images[index]}
+                        src={images[carouselState.index]}
                         alt="slides"
                         className={styles.slides}
-                        width={500}
-                        height={500}
-                        priority={index === 0}
+                        fill={true}
+                        style={{ objectFit: 'cover' }}
+                        quality={100}
+                        priority={carouselState.index === 0}
                     />
                 </motion.div>
             </AnimatePresence>
             <button className={styles.prevButton} onClick={prevStep}>
-                <FontAwesomeIcon icon={faChevronLeft} height={60} />
+                <FontAwesomeIcon icon={faChevronLeft} height={65} />
             </button>
             <button className={styles.nextButton} onClick={nextStep}>
-                <FontAwesomeIcon icon={faChevronRight} height={60} />
+                <FontAwesomeIcon icon={faChevronRight} height={65} />
             </button>
         </div>
     );

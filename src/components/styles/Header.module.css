@@ -5,7 +5,7 @@
 }
 
 .navbar.transparent {
-    @apply bg-transparent;
+    @apply bg-transparent text-zinc-950;
 }
 
 .navbar > * {
@@ -25,7 +25,7 @@
 }
 
 .navItem {
-    @apply grid grid-cols-1 relative font-semibold text-lg;
+    @apply grid grid-cols-1 relative font-bold text-lg;
 }
 
 .navDrop {
@@ -48,6 +48,7 @@
     @apply px-2 py-2 my-2;
     @apply mx-auto w-[10rem];
     @apply rounded-lg;
+    @apply text-gray-200;
     @apply transition-colors duration-500 ease-in-out;
 }
 

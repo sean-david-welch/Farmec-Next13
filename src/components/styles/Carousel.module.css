@@ -8,7 +8,6 @@
 .slideButton {
     @apply flex items-center justify-center;
     @apply mx-auto text-white transition-all duration-700 ease-in-out;
-    @apply aspect-square w-[48px] text-center;
 }
 
 .slideButton svg path {
