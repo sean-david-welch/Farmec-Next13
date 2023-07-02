@@ -13,8 +13,8 @@ const upload = multer({ storage: storage });
 
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegions = process.env.BUCKET_REGION;
-const awsAccessKey = process.env.AWS_ACCESS_KEY as string;
-const awsSecretKey = process.env.AWS_SECRET_KEY as string;
+const awsAccessKey = process.env.AWS_ACCESS_KEY_ as string;
+const awsSecretKey = process.env.AWS_SECRET_KEY_ as string;
 
 const clientParams = {
     region: bucketRegions,
