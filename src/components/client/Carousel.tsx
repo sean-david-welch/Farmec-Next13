@@ -1,5 +1,6 @@
 'use client';
 import styles from '../styles/Carousel.module.css';
+import Image from 'next/image';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,12 +12,12 @@ import {
 
 export const Carousel = () => {
     const images = [
-        '/sulkydx30.webp',
-        '/sip1250.webp',
-        '/mx.webp',
-        '/sulkydx20.webp',
-        '/twosecutter.webp',
-        'sipout.webp',
+        '/sulkydx30.jpeg',
+        '/sip1250.jpeg',
+        '/mx.jpeg',
+        '/sulkydx20.jpeg',
+        '/mxloader.jpeg',
+        '/sipout.jpeg',
     ];
     const [index, setIndex] = useState(0);
     const [direction, setDirection] = useState(0);
@@ -69,17 +70,22 @@ export const Carousel = () => {
     return (
         <div className={styles.slideshow}>
             <AnimatePresence initial={false} custom={direction}>
-                <motion.img
+                <motion.div
                     variants={variants}
                     animate="animate"
                     initial="initial"
                     exit="exit"
-                    src={images[index]}
-                    alt="slides"
-                    className={styles.slides}
                     key={images[index]}
-                    custom={direction}
-                />
+                    custom={direction}>
+                    <Image
+                        src={images[index]}
+                        alt="slides"
+                        className={styles.slides}
+                        width={500}
+                        height={500}
+                        priority={index === 0}
+                    />
+                </motion.div>
             </AnimatePresence>
             <button className={styles.prevButton} onClick={prevStep}>
                 <FontAwesomeIcon icon={faChevronLeft} height={60} />
