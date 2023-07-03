@@ -52,7 +52,7 @@ const Navbar = ({ user }: Props) => {
             </Link>
 
             <ul className={styles.navList}>
-                <NavItem link="/" title="About Us">
+                <NavItem link={'/about'} title="About Us">
                     <li className={styles.navDropItem}>
                         <Link href={'/'}>Staff & Management</Link>
                     </li>
@@ -61,7 +61,7 @@ const Navbar = ({ user }: Props) => {
                     </li>
                 </NavItem>
 
-                <NavItem link="/" title="Suppliers">
+                <NavItem link={'/suppliers'} title="Suppliers">
                     <li className={styles.navDropItem}>
                         <Link href={'/'}>Sip Slovenia</Link>
                     </li>
