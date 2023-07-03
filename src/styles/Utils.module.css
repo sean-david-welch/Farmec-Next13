@@ -12,6 +12,10 @@
     @apply absolute bottom-0 left-0 right-0 z-10 text-gray-300 font-bold text-4xl py-10;
 }
 
+.heroContainer {
+    @apply relative overflow-hidden h-screen w-screen;
+}
+
 /* Forms */
 
 /* Buttons */

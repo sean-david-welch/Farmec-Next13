@@ -19,7 +19,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>
             <html lang="en" className={dosis.className}>
-                <body className="min-h-screen">
+                <body className="min-h-screen w-[100vw] overflow-x-hidden">
                     <Header />
                     <main>
                         <div className="container">{children}</div>

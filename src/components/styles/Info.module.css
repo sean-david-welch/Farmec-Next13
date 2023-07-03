@@ -1,0 +1,51 @@
+.stats {
+    @apply grid grid-cols-4 my-5 w-full mx-10;
+}
+
+.statList {
+    @apply grid grid-cols-1 mx-auto w-[20rem];
+}
+
+.statList > * {
+    @apply my-4 mx-4;
+}
+
+.statListItem {
+    @apply text-2xl font-semibold text-zinc-800;
+}
+
+.statListItem:nth-child(2) {
+    @apply text-xl font-medium;
+}
+
+.specialListItem svg {
+    @apply mx-auto;
+}
+
+.statListItem svg path {
+    @apply fill-zinc-800;
+}
+
+.specials {
+    @apply grid grid-cols-4 my-5 w-full mx-10;
+}
+
+.specialList {
+    @apply grid grid-cols-1 mx-auto w-[20rem];
+}
+
+.specialList > * {
+    @apply my-5 mx-4;
+}
+
+.specialListItem {
+    @apply text-2xl font-semibold text-zinc-800 my-5;
+}
+
+.specialListItem:nth-child(3) {
+    @apply text-lg font-medium mx-auto w-[15rem];
+}
+
+.specialListItem svg path {
+    @apply fill-zinc-800;
+}
