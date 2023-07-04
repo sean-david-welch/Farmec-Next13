@@ -28,9 +28,9 @@ html::-webkit-scrollbar-track {
 body {
     background-image: linear-gradient(
         to bottom,
-        rgb(213, 213, 213) 0%,
-        rgb(193, 192, 192) 50%,
-        rgb(175, 175, 175) 100%
+        rgb(227, 227, 227) 0%,
+        rgb(206, 206, 206) 50%,
+        rgb(201, 201, 201) 100%
     );
     color: rgb(233, 233, 233);
 }
