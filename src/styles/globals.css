@@ -36,7 +36,7 @@ body {
 }
 
 .container {
-    @apply mx-0 min-h-screen items-center text-center;
+    @apply flex flex-col mx-auto;
 }
 
 .loading-spinner {
@@ -55,6 +55,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
+/* ID Sections */
 #Info {
-    @apply w-[100vw];
+    @apply py-5;
 }

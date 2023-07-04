@@ -34,6 +34,10 @@
         0 0 0 4px rgba(200, 1, 1, 0.5), 0 0 0 5px rgba(200, 1, 1, 0.5);
 }
 
+.btnRound {
+    @apply btn rounded-3xl px-12;
+}
+
 .signIn {
     @apply flex flex-row;
 }

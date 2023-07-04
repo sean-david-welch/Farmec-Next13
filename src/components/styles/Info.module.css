@@ -1,41 +1,78 @@
+.infoSection {
+    @apply my-10;
+}
+
+.infoSection .mainHeading {
+    @apply decoration-red-600;
+}
+
 .stats {
-    @apply grid grid-cols-4 my-5 w-full mx-10;
+    @apply grid grid-cols-4 mt-5;
 }
 
 .statList {
-    @apply grid grid-cols-1 mx-auto w-[20rem];
+    @apply grid grid-cols-1;
+    @apply transition-all ease-in-out duration-700;
+}
+
+.statList:hover {
+    @apply scale-105;
+}
+
+.statList:hover svg path {
+    @apply fill-red-700;
+}
+
+.statList:hover .statListItem {
+    @apply text-red-700;
 }
 
 .statList > * {
-    @apply my-4 mx-4;
+    @apply my-2 mx-4;
 }
 
 .statListItem {
-    @apply text-2xl font-semibold text-zinc-800;
+    @apply text-xl font-semibold text-zinc-800 mx-5;
 }
 
-.statListItem:nth-child(2) {
-    @apply text-xl font-medium;
+.statListItem:nth-child(3) {
+    @apply text-lg font-normal;
 }
 
-.specialListItem svg {
-    @apply mx-auto;
+.statListItem svg {
+    @apply mx-auto my-2;
 }
 
 .statListItem svg path {
-    @apply fill-zinc-800;
+    @apply fill-zinc-900;
+    @apply transition-all ease-in-out duration-700;
 }
 
+/* Specails */
+
 .specials {
-    @apply grid grid-cols-4 my-5 w-full mx-10;
+    @apply grid grid-cols-4 mb-2;
 }
 
 .specialList {
-    @apply grid grid-cols-1 mx-auto w-[20rem];
+    @apply grid grid-cols-1;
+    @apply transition-all ease-in-out duration-700;
+}
+
+.specialList:hover {
+    @apply scale-105;
+}
+
+.specialList:hover svg path {
+    @apply fill-red-700;
+}
+
+.specialList:hover .specialListItem {
+    @apply text-red-700;
 }
 
 .specialList > * {
-    @apply my-5 mx-4;
+    @apply my-2 mx-4;
 }
 
 .specialListItem {
@@ -43,9 +80,14 @@
 }
 
 .specialListItem:nth-child(3) {
-    @apply text-lg font-medium mx-auto w-[15rem];
+    @apply text-base font-normal mx-auto;
+}
+
+.specialListItem svg {
+    @apply mx-auto;
 }
 
 .specialListItem svg path {
-    @apply fill-zinc-800;
+    @apply fill-zinc-900;
+    @apply transition-all ease-in-out duration-700;
 }

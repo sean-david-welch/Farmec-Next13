@@ -31,41 +31,47 @@ const StatsSection = () => {
             <ul className={styles.statList}>
                 <Link href={link}>
                     <li className={styles.statListItem}>{title}</li>
-                    <li className={styles.statListItem}>{description}</li>
                     <li className={styles.statListItem}>
-                        <FontAwesomeIcon icon={icon} size={'4x'} />
+                        <FontAwesomeIcon icon={icon} size={'3x'} />
                     </li>
+                    <li className={styles.statListItem}>{description}</li>
                 </Link>
             </ul>
         );
     };
 
     return (
-        <div className={styles.stats}>
-            <StatsItem
-                title="Large Network"
-                description="50+ Dealers Nationwide"
-                icon={faUsers}
-                link="/about"
-            />
-            <StatsItem
-                title="Experience"
-                description="25+ Years in Business"
-                icon={faBusinessTime}
-                link="/about"
-            />
-            <StatsItem
-                title="Diverse Range"
-                description="10+ Quality Suppliers"
-                icon={faHandshake}
-                link="/about"
-            />
-            <StatsItem
-                title="Committment"
-                description="Warranty Gaurentee"
-                icon={faWrench}
-                link="/about"
-            />
+        <div className={styles.infoSection}>
+            <h1 className={utils.mainHeading}>Farmec At A Glance:</h1>
+            <p className={utils.subHeading}>
+                This is a Quick Look at what Separates us from our Competetitors
+            </p>
+            <div className={styles.stats}>
+                <StatsItem
+                    title="Large Network"
+                    description="50+ Dealers Nationwide"
+                    icon={faUsers}
+                    link="/about"
+                />
+                <StatsItem
+                    title="Experience"
+                    description="25+ Years in Business"
+                    icon={faBusinessTime}
+                    link="/about"
+                />
+                <StatsItem
+                    title="Diverse Range"
+                    description="10+ Quality Suppliers"
+                    icon={faHandshake}
+                    link="/about"
+                />
+                <StatsItem
+                    title="Committment"
+                    description="Warranty Gaurentee"
+                    icon={faWrench}
+                    link="/about"
+                />
+            </div>
         </div>
     );
 };
