@@ -6,11 +6,6 @@ import {
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-import multer from 'multer';
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 const bucketName = process.env.BUCKET_NAME;
 const bucketRegions = process.env.BUCKET_REGION;
 const awsAccessKey = process.env.AWS_ACCESS_KEY_ as string;
@@ -25,8 +20,8 @@ const clientParams = {
 };
 const s3 = new S3Client(clientParams);
 
-export function uploadFile(
-    fileBuffer: string,
+export async function uploadFile(
+    fileBuffer: Buffer,
     fileName: string,
     mimetype: string
 ) {
@@ -37,7 +32,9 @@ export function uploadFile(
         ContentType: mimetype,
     };
 
-    return s3.send(new PutObjectCommand(uploadParams));
+    await s3.send(new PutObjectCommand(uploadParams));
+
+    return `https://${bucketName}.s3.${bucketRegions}.amazonaws.com/${fileName}`;
 }
 
 export function deleteFile(fileName: string) {

@@ -21,9 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <html lang="en" className={dosis.className}>
                 <body className="min-h-screen w-[100vw] overflow-x-hidden">
                     <Header />
-                    <main>
-                        <div className="container">{children}</div>
-                    </main>
+                    <main>{children}</main>
                     <Footer />
                 </body>
             </html>

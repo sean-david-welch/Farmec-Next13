@@ -1,4 +1,5 @@
 import { prisma } from '~/lib/prisma';
+import { uploadFile } from '~/lib/aws';
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/lib/utils';
 
@@ -13,11 +14,29 @@ export const POST = async (request: NextRequest) => {
         await validateUser(request);
         const data = await request.json();
 
+        const logoImageBuffer = Buffer.from(data.logo_image, 'base64');
+        const marketingImageBuffer = Buffer.from(
+            data.marketing_image,
+            'base64'
+        );
+
+        const logoImageResponse = await uploadFile(
+            logoImageBuffer,
+            data.logo_image_name,
+            data.logo_image_type
+        );
+
+        const marketingImageResponse = await uploadFile(
+            marketingImageBuffer,
+            data.marketing_image_name,
+            data.marketing_image_type
+        );
+
         const supplier = await prisma.supplier.create({
             data: {
                 name: data.name,
-                logo_image: data.logo_image,
-                marketing_image: data.marketing_image,
+                logo_image: logoImageResponse,
+                marketing_image: marketingImageResponse,
                 description: data.description,
                 social_facebook: data.social_facebook,
                 social_twitter: data.social_twitter,

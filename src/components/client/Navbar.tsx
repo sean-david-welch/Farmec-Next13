@@ -40,7 +40,7 @@ const Navbar = ({ user }: Props) => {
     return (
         <nav
             className={`${styles.navbar} ${
-                isTransparent ? styles.transparent : null
+                isTransparent ? styles.transparent : ''
             }`}>
             <Link href={'/'}>
                 <Image

@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-function useTransparentHeader() {
+const useTransparentHeader = () => {
     const pathname = usePathname();
     const isHomePage = pathname === '/';
+
     const [isTransparent, setIsTransparent] = useState(isHomePage);
 
     useEffect(() => {
@@ -21,6 +22,6 @@ function useTransparentHeader() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage]);
     return isTransparent;
-}
+};
 
 export default useTransparentHeader;
