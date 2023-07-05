@@ -1,7 +1,13 @@
+import sharp from 'sharp';
+import multer from 'multer';
+
 import { prisma } from '~/lib/prisma';
 import { uploadFile } from '~/lib/aws';
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/lib/utils';
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 export const GET = async () => {
     const projects = await prisma.supplier.findMany();
@@ -11,31 +17,31 @@ export const GET = async () => {
 
 export const POST = async (request: NextRequest) => {
     try {
-        await validateUser(request);
+        console.log('Received data:', request.body);
         const data = await request.json();
 
-        const logoImageBuffer = Buffer.from(data.logo_image, 'base64');
-        console.log(logoImageBuffer);
+        const logoBuffer = await sharp(data.logo_image.buffer).toBuffer();
 
-        const marketingImageBuffer = Buffer.from(
-            data.marketing_image,
-            'base64'
-        );
-        console.log(marketingImageBuffer);
+        const marketingBuffer = await sharp(
+            data.marketing_image.buffer
+        ).toBuffer();
 
         const logoImageResponse = await uploadFile(
-            logoImageBuffer,
+            logoBuffer,
             data.logo_image_name,
             data.logo_image_type
         );
         console.log(logoImageResponse);
 
         const marketingImageResponse = await uploadFile(
-            marketingImageBuffer,
+            marketingBuffer,
             data.marketing_image_name,
             data.marketing_image_type
         );
         console.log(logoImageResponse);
+
+        upload.single('logo_image');
+        upload.single('marketing_image');
 
         const supplier = await prisma.supplier.create({
             data: {

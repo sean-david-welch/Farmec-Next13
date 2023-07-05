@@ -1,4 +1,5 @@
 'use client';
+import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -21,9 +22,14 @@ const SupplierForm = () => {
             }
         });
 
-        const response = await axios.post('/api/suppliers', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
+        const response = await axios
+            .post('/api/suppliers', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            })
+            .catch(error => {
+                console.error('Failed to create project', error);
+                return error.response;
+            });
 
         if (response.status >= 200 && response.status <= 300) {
             console.log('response', response);
@@ -35,7 +41,7 @@ const SupplierForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={utils.form} onSubmit={handleSubmit}>
             {formFields.map(field => (
                 <div key={field.name}>
                     <label htmlFor={field.name}>{field.label}</label>
@@ -46,7 +52,9 @@ const SupplierForm = () => {
                     />
                 </div>
             ))}
-            <button type="submit">Submit</button>
+            <button className={utils.btnRound} type="submit">
+                Submit
+            </button>
         </form>
     );
 };

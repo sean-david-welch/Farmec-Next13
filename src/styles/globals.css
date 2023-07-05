@@ -36,7 +36,7 @@ body {
 }
 
 .container {
-    @apply flex flex-col mx-auto py-32;
+    @apply flex flex-col mx-auto my-40;
 }
 
 .loading-spinner {
