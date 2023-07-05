@@ -18,23 +18,32 @@ const clientParams = {
         secretAccessKey: awsSecretKey,
     },
 };
-const s3 = new S3Client(clientParams);
+const client = new S3Client(clientParams);
 
 export async function uploadFile(
-    fileBuffer: Buffer,
+    fileBuffer: string | File,
     fileName: string,
     mimetype: string
 ) {
-    const uploadParams = {
-        Bucket: bucketName,
-        Body: fileBuffer,
-        Key: fileName,
-        ContentType: mimetype,
-    };
+    try {
+        const uploadParams = {
+            Bucket: bucketName,
+            Body: fileBuffer,
+            Key: fileName,
+            ContentType: mimetype,
+        };
+        console.log('Upload params:', uploadParams);
 
-    await s3.send(new PutObjectCommand(uploadParams));
+        console.log('File buffer:', fileBuffer, 'Size:', fileBuffer.length);
+        await client.send(new PutObjectCommand(uploadParams));
 
-    return `https://${bucketName}.s3.${bucketRegions}.amazonaws.com/${fileName}`;
+        const fileUrl = `https://${bucketName}.s3.${bucketRegions}.amazonaws.com/${fileName}`;
+        console.log('File URL:', fileUrl);
+        return fileUrl;
+    } catch (error: any) {
+        console.error('Error in uploadFile function:', error);
+        throw error.message;
+    }
 }
 
 export function deleteFile(fileName: string) {
@@ -43,7 +52,7 @@ export function deleteFile(fileName: string) {
         Key: fileName,
     };
 
-    return s3.send(new DeleteObjectCommand(deleteParams));
+    return client.send(new DeleteObjectCommand(deleteParams));
 }
 
 // export async function getObjectSignedUrl(key: string) {
@@ -52,10 +61,9 @@ export function deleteFile(fileName: string) {
 //         Key: key,
 //     };
 
-//     // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
 //     const command = new GetObjectCommand(params);
 //     const seconds = 60;
-//     const url = await getSignedUrl(s3, command, { expiresIn: seconds });
+//     const url = await getSignedUrl(client, command, { expiresIn: seconds });
 
 //     return url;
 // }

@@ -13,15 +13,6 @@ const SupplierForm = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-        formFields.forEach(field => {
-            const value = formData.get(field.name);
-            if (field.type === 'file' && value instanceof File) {
-                formData.append(field.name, value, value.name);
-                formData.append(`${field.name}_name`, value.name);
-                formData.append(`${field.name}_type`, value.type);
-            }
-        });
-
         const response = await axios
             .post('/api/suppliers', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
