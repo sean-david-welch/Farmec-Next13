@@ -25,8 +25,8 @@ const SupplierForm = () => {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
 
-        if (response.status === 200) {
-            console.log('Project created successfully!');
+        if (response.status >= 200 && response.status <= 300) {
+            console.log('response', response);
         } else {
             console.error('Failed to create project', response);
         }

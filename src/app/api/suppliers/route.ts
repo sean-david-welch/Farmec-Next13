@@ -15,22 +15,27 @@ export const POST = async (request: NextRequest) => {
         const data = await request.json();
 
         const logoImageBuffer = Buffer.from(data.logo_image, 'base64');
+        console.log(logoImageBuffer);
+
         const marketingImageBuffer = Buffer.from(
             data.marketing_image,
             'base64'
         );
+        console.log(marketingImageBuffer);
 
         const logoImageResponse = await uploadFile(
             logoImageBuffer,
             data.logo_image_name,
             data.logo_image_type
         );
+        console.log(logoImageResponse);
 
         const marketingImageResponse = await uploadFile(
             marketingImageBuffer,
             data.marketing_image_name,
             data.marketing_image_type
         );
+        console.log(logoImageResponse);
 
         const supplier = await prisma.supplier.create({
             data: {
@@ -47,6 +52,8 @@ export const POST = async (request: NextRequest) => {
             },
         });
 
+        console.log(NextResponse.json(supplier));
+        console.log(supplier);
         return NextResponse.json(supplier);
     } catch (error: any) {
         return errorResponse(500, error.message || 'Internal Server Error');
