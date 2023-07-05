@@ -4,21 +4,49 @@ import {
     DeleteObjectCommand,
     GetObjectCommand,
 } from '@aws-sdk/client-s3';
+
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-const bucketName = process.env.BUCKET_NAME;
-const bucketRegions = process.env.BUCKET_REGION;
+export const bucketName = process.env.BUCKET_NAME;
+const bucketRegion = process.env.BUCKET_REGION;
 const awsAccessKey = process.env.AWS_ACCESS_KEY_ as string;
 const awsSecretKey = process.env.AWS_SECRET_KEY_ as string;
 
 const clientParams = {
-    region: bucketRegions,
+    region: bucketRegion,
     credentials: {
         accessKeyId: awsAccessKey,
         secretAccessKey: awsSecretKey,
     },
 };
 const client = new S3Client(clientParams);
+
+export async function generateUploadURL(bucketName: string, key: string) {
+    const presignedPostData = await createPresignedPost(client, {
+        Bucket: bucketName,
+        Key: key,
+        Expires: 3600,
+    });
+
+    const url = presignedPostData.url;
+
+    const s3UrlBase = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com`;
+    const publicUrl = `${s3UrlBase}/${key}`;
+
+    return { presignedUrl: url, publicUrl };
+}
+
+export async function getUploadURL(key: string, bucket: string) {
+    const command = new GetObjectCommand({
+        Key: key,
+        Bucket: bucket,
+    });
+
+    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+
+    return url;
+}
 
 export async function uploadFile(
     fileBuffer: string | File,
@@ -37,7 +65,7 @@ export async function uploadFile(
         console.log('File buffer:', fileBuffer, 'Size:', fileBuffer.length);
         await client.send(new PutObjectCommand(uploadParams));
 
-        const fileUrl = `https://${bucketName}.s3.${bucketRegions}.amazonaws.com/${fileName}`;
+        const fileUrl = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com/${fileName}`;
         console.log('File URL:', fileUrl);
         return fileUrl;
     } catch (error: any) {
@@ -45,25 +73,3 @@ export async function uploadFile(
         throw error.message;
     }
 }
-
-export function deleteFile(fileName: string) {
-    const deleteParams = {
-        Bucket: bucketName,
-        Key: fileName,
-    };
-
-    return client.send(new DeleteObjectCommand(deleteParams));
-}
-
-// export async function getObjectSignedUrl(key: string) {
-//     const params = {
-//         Bucket: bucketName,
-//         Key: key,
-//     };
-
-//     const command = new GetObjectCommand(params);
-//     const seconds = 60;
-//     const url = await getSignedUrl(client, command, { expiresIn: seconds });
-
-//     return url;
-// }

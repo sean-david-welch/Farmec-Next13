@@ -1,7 +1,9 @@
 import { prisma } from '~/lib/prisma';
-import { uploadFile } from '~/lib/aws';
+
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/lib/utils';
+
+import { generateUploadURL, bucketName } from '~/lib/aws';
 
 export const GET = async () => {
     const projects = await prisma.supplier.findMany();
@@ -12,21 +14,12 @@ export const GET = async () => {
 export const POST = async (request: NextRequest) => {
     try {
         const data = await request.json();
-        const body = await request.formData();
-
-        console.log('data', data);
-        console.log('body', body);
-
-        const logoImage = data.logo_image as File;
-        const marketingImage = data.marketing_image as File;
-
-        if (!logoImage || !marketingImage) {
-            return errorResponse(400, 'Missing image');
-        }
 
         const {
             name,
             description,
+            logo_image,
+            marketing_image,
             social_facebook,
             social_twitter,
             social_instagram,
@@ -35,26 +28,20 @@ export const POST = async (request: NextRequest) => {
             social_website,
         } = data;
 
-        const logoImageResponse = await uploadFile(
-            logoImage,
-            data.logo_image_name,
-            data.logo_image_type
-        );
-        console.log(logoImageResponse);
+        if (!bucketName) return errorResponse(500, 'Bucket name not found');
 
-        const marketingImageResponse = await uploadFile(
-            marketingImage,
-            data.marketing_image_name,
-            data.marketing_image_type
+        const logo_image_data = await generateUploadURL(bucketName, logo_image);
+        const marketing_image_data = await generateUploadURL(
+            bucketName,
+            marketing_image
         );
-        console.log(logoImageResponse);
 
         const supplier = await prisma.supplier.create({
             data: {
                 name,
                 description,
-                logo_image: logoImageResponse,
-                marketing_image: marketingImageResponse,
+                logo_image: logo_image_data.publicUrl,
+                marketing_image: marketing_image_data.publicUrl,
                 social_facebook,
                 social_twitter,
                 social_instagram,
@@ -64,8 +51,6 @@ export const POST = async (request: NextRequest) => {
             },
         });
 
-        console.log(NextResponse.json(supplier));
-        console.log(supplier);
         return NextResponse.json(supplier);
     } catch (error: any) {
         return errorResponse(500, error.message || 'Internal Server Error');
