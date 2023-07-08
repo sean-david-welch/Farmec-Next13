@@ -36,7 +36,7 @@ const SupplierForm = () => {
                 </div>
             ))}
 
-            <button className={utils.btnRound} type="submit">
+            <button className={utils.btnForm} type="submit">
                 Submit
             </button>
         </form>

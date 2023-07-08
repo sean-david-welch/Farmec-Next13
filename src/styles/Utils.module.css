@@ -18,7 +18,7 @@
 
 /* Forms */
 .form {
-    @apply flex flex-col bg-zinc-800 text-center items-center mx-48 rounded-lg;
+    @apply flex flex-col bg-zinc-800 text-center mx-40 rounded-lg;
 }
 
 .form > * {
@@ -30,7 +30,7 @@
 }
 
 .form input {
-    @apply block w-full rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900;
+    @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
@@ -56,6 +56,10 @@
 
 .btnRound {
     @apply btn rounded-3xl px-12;
+}
+
+.btnForm {
+    @apply btnRound mx-auto;
 }
 
 .signIn {
