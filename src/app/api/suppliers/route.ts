@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/utils';
-import cloudinary from '~/lib/cloudinary';
+import cloudinary, { cloudinaryConfig } from '~/lib/cloudinary';
 
 export const GET = async () => {
     const projects = await prisma.supplier.findMany();
@@ -30,14 +30,18 @@ export const POST = async (request: NextRequest) => {
 
         const timestamp = Math.round(new Date().getTime() / 1000);
 
+        if (!cloudinaryConfig.api_secret) {
+            throw new Error('Missing credentials for cloudinary');
+        }
+
         const logoSignature = cloudinary.utils.api_sign_request(
             { timestamp: timestamp },
-            process.env.CLOUDINARY_PRIVATE!
+            cloudinaryConfig.api_secret
         );
 
         const marketingSignature = cloudinary.utils.api_sign_request(
             { timestamp: timestamp },
-            process.env.CLOUDINARY_PRIVATE!
+            cloudinaryConfig.api_secret
         );
 
         const logoUploadUrl = cloudinary.url(logo_image, {

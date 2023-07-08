@@ -39,8 +39,6 @@ const SupplierForm = () => {
                 const logoFile = formData.get('logo_image');
                 const marketingFile = formData.get('marketing_image');
 
-                console.log(typeof logoFile);
-
                 if (logoFile instanceof Blob) {
                     await uploadImage(logoFile, logoSignature, timestamp);
                 }
@@ -53,8 +51,6 @@ const SupplierForm = () => {
                 }
 
                 router.refresh();
-            } else {
-                console.error('Failed to create supplier', response);
             }
         } catch (error) {
             console.error('Failed to create supplier', error);

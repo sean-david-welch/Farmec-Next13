@@ -37,7 +37,6 @@
         "postcss": "8.4.24",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-dropzone": "^14.2.3",
         "react-intersection-observer": "^9.5.2",
         "stripe": "^12.10.0",
         "tailwindcss": "3.3.2",
