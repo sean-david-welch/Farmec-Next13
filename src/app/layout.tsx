@@ -21,6 +21,12 @@ export const metadata = {
     },
 };
 
+if (process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = 'https://farmec-next13.vercel.app';
+} else {
+    axios.defaults.baseURL = 'http://localhost:3000';
+}
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>

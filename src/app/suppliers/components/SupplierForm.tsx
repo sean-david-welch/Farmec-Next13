@@ -3,7 +3,8 @@ import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { getFormFields } from '../utils/utils';
+import { uploadImage } from '../utils/uploadImage';
+import { getFormFields } from '../utils/getFormFields';
 
 const SupplierForm = () => {
     const router = useRouter();
@@ -13,41 +14,26 @@ const SupplierForm = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-        const response = await axios.post('/api/suppliers', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
+        const response = await axios.post('/api/suppliers', formData, {});
+
+        console.log(response);
+        console.log(response.data);
 
         if (response.status >= 200 && response.status <= 300) {
-            console.log('response', response);
-
-            const { logo_image, marketing_image } = response.data;
+            const { logoSignature, marketingSignature, timestamp } =
+                response.data;
 
             const logoFile = formData.get('logo_image');
             const marketingFile = formData.get('marketing_image');
 
-            const logoFormData = new FormData();
-            const marketingFormData = new FormData();
+            console.log(typeof logoFile);
 
             if (logoFile instanceof Blob) {
-                logoFormData.append('file', logoFile);
+                await uploadImage(logoFile, logoSignature, timestamp);
             }
             if (marketingFile instanceof Blob) {
-                marketingFormData.append('file', marketingFile);
+                await uploadImage(marketingFile, marketingSignature, timestamp);
             }
-
-            await axios.post(logo_image, logoFormData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            await axios.post(marketing_image, marketingFormData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
         } else {
             console.error('Failed to create project', response);
         }
