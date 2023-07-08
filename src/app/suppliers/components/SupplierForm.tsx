@@ -36,17 +36,25 @@ const SupplierForm = () => {
                 const { logoSignature, marketingSignature, timestamp } =
                     response.data;
 
-                const logoFile = formData.get('logo_image');
-                const marketingFile = formData.get('marketing_image');
+                const logoFile = formData.get('logo_image') as File;
+                const marketingFile = formData.get('marketing_image') as File;
 
-                if (logoFile instanceof Blob) {
-                    await uploadImage(logoFile, logoSignature, timestamp);
+                console.log('logoSignature:', logoSignature);
+
+                if (logoFile) {
+                    await uploadImage(
+                        logoFile,
+                        logoSignature,
+                        timestamp,
+                        logoFile.name
+                    );
                 }
-                if (marketingFile instanceof Blob) {
+                if (marketingFile) {
                     await uploadImage(
                         marketingFile,
                         marketingSignature,
-                        timestamp
+                        timestamp,
+                        marketingFile.name
                     );
                 }
 
