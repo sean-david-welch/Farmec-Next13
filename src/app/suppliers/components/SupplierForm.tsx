@@ -14,34 +14,58 @@ const SupplierForm = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-        const response = await axios.post('/api/suppliers', formData, {});
+        const body = {
+            name: formData.get('name'),
+            description: formData.get('description'),
+            logo_image: formData.get('logo_image'),
+            marketing_image: formData.get('marketing_image'),
+            social_facebook: formData.get('social_facebook'),
+            social_twitter: formData.get('social_twitter'),
+            social_instagram: formData.get('social_instagram'),
+            social_youtube: formData.get('social_youtube'),
+            social_linkedin: formData.get('social_linkedin'),
+            social_website: formData.get('social_website'),
+        };
 
-        console.log(response);
-        console.log(response.data);
+        try {
+            const response = await axios.post('/api/suppliers', body);
+            console.log(response.data);
 
-        if (response.status >= 200 && response.status <= 300) {
-            const { logoSignature, marketingSignature, timestamp } =
-                response.data;
+            if (response.status >= 200 && response.status <= 300) {
+                console.log(response.data);
+                const { logoSignature, marketingSignature, timestamp } =
+                    response.data;
 
-            const logoFile = formData.get('logo_image');
-            const marketingFile = formData.get('marketing_image');
+                const logoFile = formData.get('logo_image');
+                const marketingFile = formData.get('marketing_image');
 
-            console.log(typeof logoFile);
+                console.log(typeof logoFile);
 
-            if (logoFile instanceof Blob) {
-                await uploadImage(logoFile, logoSignature, timestamp);
+                if (logoFile instanceof Blob) {
+                    await uploadImage(logoFile, logoSignature, timestamp);
+                }
+                if (marketingFile instanceof Blob) {
+                    await uploadImage(
+                        marketingFile,
+                        marketingSignature,
+                        timestamp
+                    );
+                }
+
+                router.refresh();
+            } else {
+                console.error('Failed to create supplier', response);
             }
-            if (marketingFile instanceof Blob) {
-                await uploadImage(marketingFile, marketingSignature, timestamp);
-            }
-        } else {
-            console.error('Failed to create project', response);
+        } catch (error) {
+            console.error('Failed to create supplier', error);
         }
-        router.refresh();
     }
 
     return (
-        <form className={utils.form} onSubmit={handleSubmit}>
+        <form
+            className={utils.form}
+            onSubmit={handleSubmit}
+            encType="multipart/form-data">
             {formFields.map(field => (
                 <div key={field.name}>
                     <label htmlFor={field.name}>{field.label}</label>

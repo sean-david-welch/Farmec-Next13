@@ -12,20 +12,21 @@ export const GET = async () => {
 
 export const POST = async (request: NextRequest) => {
     try {
-        const body = await request.formData();
+        const data = await request.json();
+        console.log(data);
 
-        const name = body.get('name') as string;
-        const logo_image = body.get('logo_image') as string;
-        const marketing_image = body.get('marketing_image') as string;
-        const description = body.get('description') as string;
-        const social_facebook = body.get('social_facebook') as string;
-        const social_twitter = body.get('social_twitter') as string;
-        const social_instagram = body.get('social_instagram') as string;
-        const social_youtube = body.get('social_youtube') as string;
-        const social_linkedin = body.get('social_linkedin') as string;
-        const social_website = body.get('social_website') as string;
-
-        console.log(typeof logo_image);
+        const {
+            name,
+            description,
+            logo_image,
+            marketing_image,
+            social_facebook,
+            social_twitter,
+            social_instagram,
+            social_youtube,
+            social_linkedin,
+            social_website,
+        } = data;
 
         const timestamp = Math.round(new Date().getTime() / 1000);
 
@@ -39,9 +40,6 @@ export const POST = async (request: NextRequest) => {
             process.env.CLOUDINARY_PRIVATE!
         );
 
-        console.log(logoSignature);
-        console.log(marketingSignature);
-
         const logoUploadUrl = cloudinary.url(logo_image, {
             sign_url: true,
             timestamp: timestamp,
@@ -53,9 +51,6 @@ export const POST = async (request: NextRequest) => {
             timestamp: timestamp,
             signature: marketingSignature,
         });
-
-        console.log(logoUploadUrl);
-        console.log(marketingUploadUrl);
 
         const supplier = await prisma.supplier.create({
             data: {
