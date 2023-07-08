@@ -1,4 +1,5 @@
 import '~/styles/globals.css';
+import axios from 'axios';
 import { Dosis } from 'next/font/google';
 
 import Header from '~/components/server/Header';
@@ -19,6 +20,12 @@ export const metadata = {
         maximumScale: 1,
     },
 };
+// Set api base url for axios in development and production
+if (process.env.NODE_ENV === 'development') {
+    axios.defaults.baseURL = 'http://localhost:3000';
+} else {
+    axios.defaults.baseURL = 'https://farmec-next13.vercel.app';
+}
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
