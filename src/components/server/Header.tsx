@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { getSessionAndUser } from '~/lib/utils';
+import { getSessionAndUser } from '~/utils/utils';
 
 const Navbar = dynamic(() => import('../client/Navbar'));
 

@@ -1,7 +1,7 @@
 import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
-import { validateUser, errorResponse } from '~/lib/utils';
+import { validateUser, errorResponse } from '~/utils/utils';
 
 export const GET = async () => {
     const projects = await prisma.supplier.findMany();
