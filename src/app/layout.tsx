@@ -13,15 +13,22 @@ const dosis = Dosis({
 export const metadata = {
     title: 'Farmec Ireland Ltd',
     description: 'Importers & Distributors of Quality Farm Machinery',
+    viewport: {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1,
+    },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>
             <html lang="en" className={dosis.className}>
-                <body className="min-h-screen w-[100vw] overflow-x-hidden">
+                <body className="min-h-screen overflow-x-hidden mx-auto max-w-full">
                     <Header />
-                    <main>{children}</main>
+                    <main className="max-w-full overflow-x-hidden mx-auto">
+                        {children}
+                    </main>
                     <Footer />
                 </body>
             </html>
