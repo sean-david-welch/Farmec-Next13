@@ -13,25 +13,11 @@ const SupplierForm = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-        const logoFormData = new FormData();
-        const marketingFormData = new FormData();
-
-        console.log('formData', formData);
-
-        const body = {
-            name: formData.get('name') as string,
-            logo_image: formData.get('logo_image') as Blob,
-            marketing_image: formData.get('marketing_image') as Blob,
-            description: formData.get('description') as string,
-            social_facebook: formData.get('social_facebook') as string,
-            social_instagram: formData.get('social_instagram') as string,
-            social_twitter: formData.get('social_twitter') as string,
-            social_linkedin: formData.get('social_linkedin') as string,
-            social_youtube: formData.get('social_youtube') as string,
-            social_website: formData.get('social_website') as string,
-        };
-
-        const response = await axios.post('/api/suppliers', body);
+        const response = await axios.post('/api/suppliers', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
         if (response.status >= 200 && response.status <= 300) {
             console.log('response', response);
@@ -41,6 +27,9 @@ const SupplierForm = () => {
             const logoFile = formData.get('logo_image');
             const marketingFile = formData.get('marketing_image');
 
+            const logoFormData = new FormData();
+            const marketingFormData = new FormData();
+
             if (logoFile instanceof Blob) {
                 logoFormData.append('file', logoFile);
             }
@@ -48,8 +37,17 @@ const SupplierForm = () => {
                 marketingFormData.append('file', marketingFile);
             }
 
-            await axios.post(logo_image, logoFormData);
-            await axios.post(marketing_image, marketingFormData);
+            await axios.post(logo_image, logoFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            await axios.post(marketing_image, marketingFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
         } else {
             console.error('Failed to create project', response);
         }

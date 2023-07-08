@@ -12,22 +12,18 @@ export const GET = async () => {
 
 export const POST = async (request: NextRequest) => {
     try {
-        const data = await request.json();
         const body = await request.formData();
 
-        const {
-            name,
-            description,
-            social_facebook,
-            social_twitter,
-            social_instagram,
-            social_youtube,
-            social_linkedin,
-            social_website,
-        } = data;
-
-        const logo_image = body.get('logo_image');
-        const marketing_image = body.get('marketing_image');
+        const name = body.get('name') as string;
+        const logo_image = body.get('logo_image') as File;
+        const marketing_image = body.get('marketing_image') as File;
+        const description = body.get('description') as string;
+        const social_facebook = body.get('social_facebook') as string;
+        const social_twitter = body.get('social_twitter') as string;
+        const social_instagram = body.get('social_instagram') as string;
+        const social_youtube = body.get('social_youtube') as string;
+        const social_linkedin = body.get('social_linkedin') as string;
+        const social_website = body.get('social_website') as string;
 
         const timestamp = Math.round(new Date().getTime() / 1000);
 
@@ -68,7 +64,11 @@ export const POST = async (request: NextRequest) => {
             },
         });
 
-        return NextResponse.json(supplier);
+        return NextResponse.json({
+            supplier,
+            logoSignature,
+            marketingSignature,
+        });
     } catch (error: any) {
         return errorResponse(500, error.message || 'Internal Server Error');
     }
