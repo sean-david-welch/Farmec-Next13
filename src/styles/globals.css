@@ -22,7 +22,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 html::-webkit-scrollbar-track {
-    background-color: var(--dark-color);
+    @apply bg-zinc-900;
 }
 
 body {
