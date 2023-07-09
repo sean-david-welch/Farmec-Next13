@@ -7,7 +7,8 @@ export const uploadImage = async (
     file: Blob,
     signature: string,
     timestamp: number,
-    filename: string
+    filename: string,
+    folder: string
 ) => {
     const imageFormData = new FormData();
     const filePublicId = filename.split('.').slice(0, -1).join('.');
@@ -17,7 +18,7 @@ export const uploadImage = async (
     }
 
     imageFormData.append('public_id', filePublicId);
-    imageFormData.append('folder', 'SIP');
+    imageFormData.append('folder', folder);
     imageFormData.append('timestamp', String(timestamp));
     imageFormData.append('api_key', cloudinary_public_key as string);
     imageFormData.append('signature', signature);

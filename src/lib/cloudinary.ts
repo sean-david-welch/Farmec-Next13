@@ -7,4 +7,33 @@ export const cloudinaryConfig = cloudinary.config({
     secure: true,
 });
 
+export const uploadToCloudinary = async (
+    file: string,
+    folder: string
+): Promise<{ url: string; signature: string; timestamp: number }> => {
+    const publicId = file.split('.').slice(0, -1).join('.');
+    const timestamp = Math.round(new Date().getTime() / 1000);
+
+    if (!cloudinaryConfig.api_secret) {
+        throw new Error('Missing credentials for cloudinary');
+    }
+
+    const signature = cloudinary.utils.api_sign_request(
+        {
+            public_id: publicId,
+            folder: folder,
+            timestamp: timestamp,
+        },
+        cloudinaryConfig.api_secret
+    );
+
+    const url = cloudinary.url(`${folder}/${publicId}`);
+
+    return {
+        url: url,
+        signature: signature,
+        timestamp: timestamp,
+    };
+};
+
 export default cloudinary;

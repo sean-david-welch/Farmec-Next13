@@ -2,13 +2,15 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { uploadImage } from '../utils/uploadImage';
+import { uploadImage } from '../../../utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
 
 const SupplierForm = () => {
     const router = useRouter();
     const formFields = getFormFields();
+    const [showForm, setShowForm] = useState(false);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -34,8 +36,13 @@ const SupplierForm = () => {
             const response = await axios.post('/api/suppliers', body);
 
             if (response.status >= 200 && response.status <= 300) {
-                const { logoSignature, marketingSignature, timestamp } =
-                    response.data;
+                const {
+                    logoSignature,
+                    logoTimestamp,
+                    marketingSignature,
+                    marketingTimestamp,
+                    folder,
+                } = response.data;
 
                 const logoFile = formData.get('logo_image') as File;
                 const marketingFile = formData.get('marketing_image') as File;
@@ -44,45 +51,56 @@ const SupplierForm = () => {
                     await uploadImage(
                         logoFile,
                         logoSignature,
-                        timestamp,
-                        logoFile.name
+                        logoTimestamp,
+                        logoFile.name,
+                        folder
                     );
                 }
                 if (marketingFile) {
                     await uploadImage(
                         marketingFile,
                         marketingSignature,
-                        timestamp,
-                        marketingFile.name
+                        marketingTimestamp,
+                        marketingFile.name,
+                        folder
                     );
                 }
             }
-            router.refresh();
         } catch (error) {
             console.error('Failed to create supplier', error);
         }
+        setShowForm(false);
+        router.refresh();
     }
 
     return (
-        <form
-            className={utils.form}
-            onSubmit={handleSubmit}
-            encType="multipart/form-data">
-            {formFields.map(field => (
-                <div key={field.name}>
-                    <label htmlFor={field.name}>{field.label}</label>
-                    <input
-                        type={field.type}
-                        name={field.name}
-                        id={field.name}
-                    />
-                </div>
-            ))}
-
-            <button className={utils.btnForm} type="submit">
-                Submit
+        <section id="form">
+            <button
+                className={utils.btnForm}
+                onClick={() => setShowForm(!showForm)}>
+                Create Supplier
             </button>
-        </form>
+            {showForm && (
+                <form
+                    className={utils.form}
+                    onSubmit={handleSubmit}
+                    encType="multipart/form-data">
+                    {formFields.map(field => (
+                        <div key={field.name}>
+                            <label htmlFor={field.name}>{field.label}</label>
+                            <input
+                                type={field.type}
+                                name={field.name}
+                                id={field.name}
+                            />
+                        </div>
+                    ))}
+                    <button className={utils.btnForm} type="submit">
+                        Submit
+                    </button>
+                </form>
+            )}
+        </section>
     );
 };
 

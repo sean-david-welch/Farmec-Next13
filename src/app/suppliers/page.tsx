@@ -1,10 +1,12 @@
 import { prisma } from '~/lib/prisma';
 import { Supplier } from '@prisma/client';
+import { getSessionAndUser } from '~/utils/user';
 
 import Link from 'next/link';
 import SupplierForm from './components/SupplierForm';
 
 const Suppliers = async () => {
+    const { user } = await getSessionAndUser();
     const suppliers: Supplier[] = await prisma.supplier.findMany();
 
     if (!suppliers) {

@@ -1,52 +1,25 @@
 import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
-import { validateUser, errorResponse } from '~/utils/utils';
-import cloudinary, { cloudinaryConfig } from '~/lib/cloudinary';
-
-export const GET = async () => {
-    const projects = await prisma.supplier.findMany();
-
-    return NextResponse.json(projects);
-};
+import { validateUser, errorResponse } from '~/utils/user';
+import { uploadToCloudinary } from '~/lib/cloudinary';
 
 export const POST = async (request: NextRequest) => {
     try {
         const data = await request.json();
 
-        const folder = 'SIP';
-        const logoPublicId = data.logo_image.split('.').slice(0, -1).join('.');
-        const marketingPublicId = data.marketing_image
-            .split('.')
-            .slice(0, -1)
-            .join('.');
+        const folder = 'Suppliers';
 
-        const timestamp = Math.round(new Date().getTime() / 1000);
-
-        if (!cloudinaryConfig.api_secret) {
-            throw new Error('Missing credentials for cloudinary');
-        }
-
-        const logoSignature = cloudinary.utils.api_sign_request(
-            {
-                public_id: logoPublicId,
-                folder: folder,
-                timestamp: timestamp,
-            },
-            cloudinaryConfig.api_secret
-        );
-
-        const marketingSignature = cloudinary.utils.api_sign_request(
-            {
-                public_id: marketingPublicId,
-                folder: folder,
-                timestamp: timestamp,
-            },
-            cloudinaryConfig.api_secret
-        );
-
-        const logoUrl = cloudinary.url(`${folder}/${logoPublicId}`);
-        const marketingUrl = cloudinary.url(`${folder}/${marketingPublicId}`);
+        const {
+            url: logoUrl,
+            signature: logoSignature,
+            timestamp: logoTimestamp,
+        } = await uploadToCloudinary(data.logo_image, folder);
+        const {
+            url: marketingUrl,
+            signature: marketingSignature,
+            timestamp: marketingTimestamp,
+        } = await uploadToCloudinary(data.marketing_image, folder);
 
         const supplier = await prisma.supplier.create({
             data: {
@@ -66,8 +39,10 @@ export const POST = async (request: NextRequest) => {
         return NextResponse.json({
             supplier,
             logoSignature,
+            logoTimestamp,
             marketingSignature,
-            timestamp,
+            marketingTimestamp,
+            folder,
         });
     } catch (error: any) {
         console.log(error);
