@@ -14,21 +14,14 @@ export const POST = async (request: NextRequest) => {
     try {
         const data = await request.json();
 
+        const folder = 'SIP';
         const logoPublicId = data.logo_image.split('.').slice(0, -1).join('.');
         const marketingPublicId = data.marketing_image
             .split('.')
             .slice(0, -1)
             .join('.');
 
-        console.log(
-            'logoPublicId:',
-            logoPublicId,
-            'marketingPublicId:',
-            marketingPublicId
-        );
-
         const timestamp = Math.round(new Date().getTime() / 1000);
-        const folder = 'SIP';
 
         if (!cloudinaryConfig.api_secret) {
             throw new Error('Missing credentials for cloudinary');
@@ -52,24 +45,15 @@ export const POST = async (request: NextRequest) => {
             cloudinaryConfig.api_secret
         );
 
-        const logoUploadUrl = cloudinary.url(data.logo_image, {
-            sign_url: true,
-            timestamp: timestamp,
-            signature: logoSignature,
-        });
-
-        const marketingUploadUrl = cloudinary.url(data.marketing_image, {
-            sign_url: true,
-            timestamp: timestamp,
-            signature: marketingSignature,
-        });
+        const logoUrl = cloudinary.url(`${folder}/${logoPublicId}`);
+        const marketingUrl = cloudinary.url(`${folder}/${marketingPublicId}`);
 
         const supplier = await prisma.supplier.create({
             data: {
                 name: data.name,
                 description: data.description,
-                logo_image: logoUploadUrl,
-                marketing_image: marketingUploadUrl,
+                logo_image: logoUrl,
+                marketing_image: marketingUrl,
                 social_facebook: data.social_facebook,
                 social_twitter: data.social_twitter,
                 social_instagram: data.social_instagram,

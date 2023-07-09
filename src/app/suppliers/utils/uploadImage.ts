@@ -10,10 +10,7 @@ export const uploadImage = async (
     filename: string
 ) => {
     const imageFormData = new FormData();
-
     const filePublicId = filename.split('.').slice(0, -1).join('.');
-
-    console.log('filePublicId:', filePublicId);
 
     if (!(file instanceof File)) {
         file = new File([file], filename);
@@ -25,9 +22,6 @@ export const uploadImage = async (
     imageFormData.append('api_key', cloudinary_public_key as string);
     imageFormData.append('signature', signature);
     imageFormData.append('file', file);
-
-    let formDataEntries = Array.from(imageFormData.entries());
-    console.log('imageFormData:', formDataEntries);
 
     try {
         if (!cloudinary_api) {

@@ -32,10 +32,8 @@ const SupplierForm = () => {
 
         try {
             const response = await axios.post('/api/suppliers', body);
-            console.log(response.data);
 
             if (response.status >= 200 && response.status <= 300) {
-                console.log(response.data);
                 const { logoSignature, marketingSignature, timestamp } =
                     response.data;
 
@@ -58,9 +56,8 @@ const SupplierForm = () => {
                         marketingFile.name
                     );
                 }
-
-                router.refresh();
             }
+            router.refresh();
         } catch (error) {
             console.error('Failed to create supplier', error);
         }
