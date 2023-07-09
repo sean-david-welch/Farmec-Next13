@@ -1,10 +1,9 @@
-'use client';
 import styles from '../styles/Header.module.css';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import useTransparentHeader from '~/hooks/useTransparentHeader';
 
+import { prisma } from '~/lib/prisma';
 import { NavItem } from '../client/Navitem';
 import { SignInButton } from '../client/Buttons';
 
@@ -12,14 +11,15 @@ interface Props {
     user?: { role: string } | null;
 }
 
-const Navbar = ({ user }: Props) => {
-    const isTransparent = useTransparentHeader();
+export const NavList = async ({ user }: Props) => {
+    const suppliers = await prisma.supplier.findMany();
+
+    if (!suppliers) {
+        return <div>loading...</div>;
+    }
 
     return (
-        <nav
-            className={`${styles.navbar} ${
-                isTransparent ? styles.transparent : ''
-            }`}>
+        <>
             <Link href={'/'}>
                 <Image
                     src="/farmeclogo.png"
@@ -43,18 +43,16 @@ const Navbar = ({ user }: Props) => {
                     <li className={styles.navDropItem}>
                         <Link href={'/'}>Sip Slovenia</Link>
                     </li>
-                    <li className={styles.navDropItem}>
-                        <Link href={'/'}>Sulky</Link>
-                    </li>
                 </NavItem>
 
                 <NavItem link="/" title="Spare Parts">
-                    <li className={styles.navDropItem}>
-                        <Link href={'/'}>Sip Slovenia</Link>
-                    </li>
-                    <li className={styles.navDropItem}>
-                        <Link href={'/'}>Sulky</Link>
-                    </li>
+                    {suppliers.map(supplier => (
+                        <li key={supplier.id} className={styles.navDropItem}>
+                            <Link href={`/suppliers/${supplier.id}`}>
+                                {supplier.name}
+                            </Link>
+                        </li>
+                    ))}
                 </NavItem>
 
                 <NavItem link="/" title="Blog">
@@ -74,8 +72,6 @@ const Navbar = ({ user }: Props) => {
 
                 <SignInButton />
             </ul>
-        </nav>
+        </>
     );
 };
-
-export default Navbar;

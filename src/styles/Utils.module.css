@@ -59,7 +59,7 @@
 }
 
 .btnForm {
-    @apply btnRound mx-auto;
+    @apply btnRound mx-auto pb-4;
 }
 
 .signIn {

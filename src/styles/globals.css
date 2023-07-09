@@ -35,7 +35,7 @@ body {
 }
 
 .container {
-    @apply mx-auto min-h-screen text-center max-w-full overflow-x-hidden my-36;
+    @apply mx-auto min-h-screen text-center max-w-full overflow-x-hidden my-28;
 }
 
 .loading-spinner {

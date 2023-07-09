@@ -1,8 +1,7 @@
 import { prisma } from '~/lib/prisma';
 import { authOptions } from '~/lib/auth';
-
+import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { NextRequest, NextResponse } from 'next/server';
 
 export const errorResponse = (status: number, messgae: string) => {
     return NextResponse.json({
@@ -11,7 +10,7 @@ export const errorResponse = (status: number, messgae: string) => {
     });
 };
 
-export const validateUser = async (request: NextRequest) => {
+export const validateUser = async () => {
     const session = await getServerSession(authOptions);
 
     if (!session) throw new Error(`Not Logged In!`);

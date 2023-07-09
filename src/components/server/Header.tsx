@@ -1,4 +1,4 @@
-import Navbar from './Navbar';
+import Navbar from '../client/Navbar';
 
 import { getSessionAndUser } from '~/utils/user';
 

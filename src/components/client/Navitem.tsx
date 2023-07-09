@@ -11,15 +11,22 @@ interface NavItemProps {
 }
 
 export const NavItem: React.FC<NavItemProps> = ({ title, link, children }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [hover, setHover] = useState(false);
 
     return (
-        <li
-            className={styles.navItem}
-            onMouseEnter={() => setIsOpen(true)}
-            onMouseLeave={() => setIsOpen(false)}>
-            <Link href={link}>{title}</Link>
-            <ul className={isOpen ? styles.navDrop : styles.navDropClosed}>
+        <li className={styles.navItem}>
+            <div
+                className={styles.navListItem}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}>
+                <Link href={link}>{title}</Link>
+            </div>
+            <ul
+                className={`${styles.navDrop} ${
+                    hover ? styles.navDropActive : ''
+                }`}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}>
                 {children}
             </ul>
         </li>

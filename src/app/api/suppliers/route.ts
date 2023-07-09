@@ -7,6 +7,7 @@ import { uploadToCloudinary } from '~/lib/cloudinary';
 export const POST = async (request: NextRequest) => {
     try {
         const data = await request.json();
+        await validateUser();
 
         const folder = 'Suppliers';
 

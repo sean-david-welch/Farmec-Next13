@@ -17,7 +17,7 @@
 }
 
 .navList {
-    @apply relative flex flex-row justify-center my-auto;
+    @apply flex flex-row justify-center my-auto;
 }
 
 .navList > * {
@@ -25,22 +25,29 @@
 }
 
 .navItem {
-    @apply grid grid-cols-1 relative font-bold text-lg;
+    @apply grid grid-cols-1 relative font-bold text-lg z-10;
+}
+
+.navListItem {
+    @apply relative z-20;
 }
 
 .navDrop {
     @apply bg-zinc-900;
     @apply my-10 mx-auto w-[10rem];
-    @apply -left-11 top-1;
+    @apply -left-[45px] top-2;
     @apply absolute flex flex-col text-center justify-center;
-    @apply opacity-100;
+    @apply opacity-0;
     @apply rounded-lg;
-    @apply transition-opacity duration-500 ease-in-out;
+    @apply transition-all duration-500 ease-in-out;
+    @apply collapse;
+    @apply left-1/2 -translate-x-1/2;
+    @apply transform;
 }
 
-.navDropClosed {
-    @apply navDrop;
-    @apply opacity-0;
+.navDropActive {
+    @apply opacity-100;
+    @apply visible;
 }
 
 .navDropItem {
