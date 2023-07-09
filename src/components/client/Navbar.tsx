@@ -5,9 +5,10 @@ import { NavList } from '../server/NavList';
 
 interface Props {
     user?: { role: string } | null;
+    suppliers?: { name: string | null; id: string | null }[];
 }
 
-const Navbar = ({ user }: Props) => {
+const Navbar = ({ user, suppliers }: Props) => {
     const isTransparent = useTransparentHeader();
 
     return (
@@ -15,7 +16,7 @@ const Navbar = ({ user }: Props) => {
             className={`${styles.navbar} ${
                 isTransparent ? styles.transparent : ''
             }`}>
-            <NavList user={user} />
+            <NavList user={user} suppliers={suppliers} />
         </nav>
     );
 };

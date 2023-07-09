@@ -69,7 +69,7 @@ const Suppliers = async () => {
                                 {description}
                             </p>
                             <Link href={`/suppliers/${id}`}>
-                                <button className={utils.btnRound}>
+                                <button className={utils.btn}>
                                     Learn More
                                 </button>
                             </Link>

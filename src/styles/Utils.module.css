@@ -55,7 +55,11 @@
 }
 
 .btnRound {
-    @apply btn rounded-3xl px-12;
+    @apply btn rounded-3xl px-12 flex flex-row mx-auto my-2;
+}
+
+.btnRound svg {
+    @apply w-4 h-4 ml-2;
 }
 
 .btnForm {
