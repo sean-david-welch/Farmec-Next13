@@ -35,8 +35,7 @@ body {
 }
 
 .container {
-    @apply mx-auto min-h-screen text-center max-w-full overflow-x-hidden my-40;
-    @apply flex flex-col mx-auto my-40;
+    @apply mx-auto min-h-screen text-center max-w-full overflow-x-hidden my-36;
 }
 
 .loading-spinner {
