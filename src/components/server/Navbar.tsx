@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useTransparentHeader from '~/hooks/useTransparentHeader';
 
-import { useState } from 'react';
-import { SignInButton } from './Buttons';
+import { NavItem } from '../client/Navitem';
+import { SignInButton } from '../client/Buttons';
 
 interface Props {
     user?: { role: string } | null;
@@ -14,28 +14,6 @@ interface Props {
 
 const Navbar = ({ user }: Props) => {
     const isTransparent = useTransparentHeader();
-
-    interface NavItemProps {
-        title: string;
-        link: string;
-        children?: React.ReactNode;
-    }
-
-    const NavItem: React.FC<NavItemProps> = ({ title, link, children }) => {
-        const [isOpen, setIsOpen] = useState(false);
-
-        return (
-            <li
-                className={styles.navItem}
-                onMouseEnter={() => setIsOpen(true)}
-                onMouseLeave={() => setIsOpen(false)}>
-                <Link href={link}>{title}</Link>
-                <ul className={isOpen ? styles.navDrop : styles.navDropClosed}>
-                    {children}
-                </ul>
-            </li>
-        );
-    };
 
     return (
         <nav

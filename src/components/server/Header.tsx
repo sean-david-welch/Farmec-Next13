@@ -1,7 +1,6 @@
-import dynamic from 'next/dynamic';
-import { getSessionAndUser } from '~/utils/user';
+import Navbar from './Navbar';
 
-const Navbar = dynamic(() => import('../client/Navbar'));
+import { getSessionAndUser } from '~/utils/user';
 
 const Header = async () => {
     const { user, session } = await getSessionAndUser();
