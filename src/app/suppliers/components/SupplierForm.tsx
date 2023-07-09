@@ -14,11 +14,14 @@ const SupplierForm = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
+        const logoFile = formData.get('logo_image') as File;
+        const marketingFile = formData.get('marketing_image') as File;
+
         const body = {
             name: formData.get('name'),
             description: formData.get('description'),
-            logo_image: formData.get('logo_image'),
-            marketing_image: formData.get('marketing_image'),
+            logo_image: logoFile ? logoFile.name : null,
+            marketing_image: marketingFile ? marketingFile.name : null,
             social_facebook: formData.get('social_facebook'),
             social_twitter: formData.get('social_twitter'),
             social_instagram: formData.get('social_instagram'),
@@ -38,8 +41,6 @@ const SupplierForm = () => {
 
                 const logoFile = formData.get('logo_image') as File;
                 const marketingFile = formData.get('marketing_image') as File;
-
-                console.log('logoSignature:', logoSignature);
 
                 if (logoFile) {
                     await uploadImage(

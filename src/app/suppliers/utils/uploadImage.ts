@@ -11,22 +11,23 @@ export const uploadImage = async (
 ) => {
     const imageFormData = new FormData();
 
-    // Convert Blob to File if necessary
+    const filePublicId = filename.split('.').slice(0, -1).join('.');
+
+    console.log('filePublicId:', filePublicId);
+
     if (!(file instanceof File)) {
         file = new File([file], filename);
     }
 
-    imageFormData.append('file', file);
-    imageFormData.append('signature', signature);
-    imageFormData.append('api_key', cloudinary_public_key as string);
+    imageFormData.append('public_id', filePublicId);
     imageFormData.append('folder', 'SIP');
     imageFormData.append('timestamp', String(timestamp));
-    imageFormData.append('public_id', file.name);
+    imageFormData.append('api_key', cloudinary_public_key as string);
+    imageFormData.append('signature', signature);
+    imageFormData.append('file', file);
 
     let formDataEntries = Array.from(imageFormData.entries());
     console.log('imageFormData:', formDataEntries);
-
-    console.log('filename:', file.name);
 
     try {
         if (!cloudinary_api) {
