@@ -3,7 +3,7 @@ import utils from '~/styles/Utils.module.css';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import SupplierForm from './components/SupplierForm';
+import SupplierForm from './components/CreateSupplier';
 
 import { prisma } from '~/lib/prisma';
 import { Supplier } from '@prisma/client';

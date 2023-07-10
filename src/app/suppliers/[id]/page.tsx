@@ -1,8 +1,8 @@
 import styles from '../styles/Suppliers.module.css';
 import utils from '~/styles/Utils.module.css';
-import Image from 'next/image';
 
 import { prisma } from '~/lib/prisma';
+import { SupplierForm } from '../components/UpdateSupplier';
 import { SocialLinks } from '../components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
 
@@ -25,7 +25,6 @@ const SupplierDetail = async ({ params }: Props) => {
     const {
         name,
         description,
-        logo_image,
         social_facebook,
         social_instagram,
         social_linkedin,
@@ -56,6 +55,9 @@ const SupplierDetail = async ({ params }: Props) => {
                 </div>
 
                 <p className={styles.supplierDescription}>{description}</p>
+                {user && user.role === 'ADMIN' && (
+                    <SupplierForm supplier={supplier} />
+                )}
             </div>
         </section>
     );

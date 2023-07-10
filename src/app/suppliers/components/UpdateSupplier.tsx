@@ -1,18 +1,27 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import { Supplier } from '@prisma/client';
 import { useState } from 'react';
+
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '../../../utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
 
-const SupplierForm = () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { DeleteButton } from './DeleteSupplier';
+
+export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
     const router = useRouter();
-    const formFields = getFormFields();
+    const formFields = getFormFields(supplier);
     const [showForm, setShowForm] = useState(false);
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>,
+        supplierID: string
+    ) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
@@ -33,7 +42,10 @@ const SupplierForm = () => {
         };
 
         try {
-            const response = await axios.post('/api/suppliers', body);
+            const response = await axios.put(
+                `/api/suppliers/${supplierID}`,
+                body
+            );
 
             if (response.status >= 200 && response.status <= 300) {
                 const {
@@ -71,19 +83,22 @@ const SupplierForm = () => {
         }
         setShowForm(false);
         router.refresh();
-    }
+    };
 
     return (
         <section id="form">
             <button
                 className={utils.btnForm}
                 onClick={() => setShowForm(!showForm)}>
-                Create Supplier
+                <FontAwesomeIcon icon={faPenToSquare} />
             </button>
+            {supplier && <DeleteButton SupplierId={supplier?.id} />}
             {showForm && (
                 <form
                     className={utils.form}
-                    onSubmit={handleSubmit}
+                    onSubmit={event =>
+                        supplier && handleSubmit(event, supplier.id)
+                    }
                     encType="multipart/form-data">
                     {formFields.map(field => (
                         <div key={field.name}>
@@ -92,6 +107,7 @@ const SupplierForm = () => {
                                 type={field.type}
                                 name={field.name}
                                 id={field.name}
+                                defaultValue={field.defaultValue || ''}
                             />
                         </div>
                     ))}
@@ -103,5 +119,3 @@ const SupplierForm = () => {
         </section>
     );
 };
-
-export default SupplierForm;
