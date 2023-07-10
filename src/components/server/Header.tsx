@@ -1,6 +1,7 @@
 import Navbar from '../client/Navbar';
 
 import { prisma } from '~/lib/prisma';
+import { NavList } from '../server/NavList';
 import { getSessionAndUser } from '~/utils/user';
 
 const Header = async () => {
@@ -10,13 +11,17 @@ const Header = async () => {
     if (!session) {
         return (
             <header>
-                <Navbar suppliers={suppliers} />
+                <Navbar>
+                    <NavList suppliers={suppliers} />
+                </Navbar>
             </header>
         );
     }
     return (
         <header>
-            <Navbar user={user} suppliers={suppliers} />
+            <Navbar>
+                <NavList user={user} suppliers={suppliers} />
+            </Navbar>
         </header>
     );
 };

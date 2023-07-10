@@ -1,24 +1,22 @@
 'use client';
 import styles from '../styles/Header.module.css';
 import useTransparentHeader from '~/hooks/useTransparentHeader';
-import { NavList } from '../server/NavList';
 
 interface Props {
-    user?: { role: string } | null;
-    suppliers?: { name: string | null; id: string | null }[];
+    children: React.ReactNode;
 }
 
-const Navbar = ({ user, suppliers }: Props) => {
+const Navbar = ({ children }: Props) => {
     const isTransparent = useTransparentHeader();
+    const getClassName = () => {
+        let className = styles.navbar;
+        if (isTransparent) {
+            className += ` ${styles.transparent}`;
+        }
+        return className;
+    };
 
-    return (
-        <nav
-            className={`${styles.navbar} ${
-                isTransparent ? styles.transparent : ''
-            }`}>
-            <NavList user={user} suppliers={suppliers} />
-        </nav>
-    );
+    return <nav className={getClassName()}>{children}</nav>;
 };
 
 export default Navbar;
