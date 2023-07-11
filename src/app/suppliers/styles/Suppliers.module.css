@@ -9,7 +9,11 @@
 }
 
 .supplierImage {
-    @apply border-4 border-zinc-400 rounded-lg;
+    @apply border-2 border-zinc-400 rounded-lg;
+}
+
+.supplierDetail .supplierImage {
+    @apply mx-auto;
 }
 
 .supplierHead {

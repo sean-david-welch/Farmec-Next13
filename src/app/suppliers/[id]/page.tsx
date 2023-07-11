@@ -1,5 +1,6 @@
 import styles from '../styles/Suppliers.module.css';
 import utils from '~/styles/Utils.module.css';
+import Image from 'next/image';
 
 import { prisma } from '~/lib/prisma';
 import { SupplierForm } from '../components/UpdateSupplier';
@@ -24,6 +25,7 @@ const SupplierDetail = async ({ params }: Props) => {
     const { user } = await getSessionAndUser();
     const {
         name,
+        marketing_image,
         description,
         social_facebook,
         social_instagram,
@@ -48,11 +50,19 @@ const SupplierDetail = async ({ params }: Props) => {
                 />
             </div>
 
+            <div className={utils.index}>
+                <h1 className={utils.mainHeading}>Index:</h1>
+                <h1 className={utils.subHeading}>Machinery</h1>
+            </div>
+
             <div className={styles.supplierDetail}>
-                <div className={utils.index}>
-                    <h1 className={utils.mainHeading}>Index:</h1>
-                    <h1 className={utils.subHeading}>Machinery</h1>
-                </div>
+                <Image
+                    src={marketing_image ?? '/default.jpg'}
+                    alt={'/dafault.jpg'}
+                    className={styles.supplierImage}
+                    width={750}
+                    height={750}
+                />
 
                 <p className={styles.supplierDescription}>{description}</p>
                 {user && user.role === 'ADMIN' && (

@@ -67,7 +67,7 @@
 }
 
 .optionsBtn {
-    @apply mx-auto flex flex-row;
+    @apply mx-auto flex flex-row justify-center;
 }
 
 .optionsBtn > * {
@@ -88,4 +88,11 @@
 
 .signOutButton {
     @apply btn text-gray-200;
+}
+
+/* Mics */
+.index {
+    @apply flex flex-col items-center justify-center;
+    @apply bg-zinc-800 text-gray-200;
+    @apply mx-32 rounded-2xl border-4 border-zinc-600;
 }
