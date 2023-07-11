@@ -24,6 +24,7 @@ export const getFormFields = async (machine?: Machine) => {
             type: 'select',
             options: supplierOptions,
             placeholder: 'Select supplier',
+            defaultValue: machine?.supplierId,
         },
         {
             name: 'machine_image',
