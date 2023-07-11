@@ -87,12 +87,14 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                <FontAwesomeIcon icon={faPenToSquare} />
-            </button>
-            {supplier && <DeleteButton SupplierId={supplier?.id} />}
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {supplier && <DeleteButton SupplierId={supplier?.id} />}
+            </div>
             {showForm && (
                 <form
                     className={utils.form}

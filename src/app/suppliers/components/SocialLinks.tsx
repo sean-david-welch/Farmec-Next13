@@ -31,42 +31,63 @@ export const SocialLinks = ({
 }: SocialLinksProps) => {
     return (
         <div className={styles.socialLinks}>
-            <Link
-                href={facebook || '#'}
-                target="_blank"
-                className={styles.facebookButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faFacebook} />
-            </Link>
-            <Link
-                href={twitter || '#'}
-                target="_blank"
-                className={styles.twitterButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faTwitter} />
-            </Link>
-            <Link
-                href={instagram || '#'}
-                target="_blank"
-                className={styles.instagramButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faInstagram} />
-            </Link>
-            <Link
-                href={linkedin || '#'}
-                target="_blank"
-                className={styles.linkedinButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faLinkedin} />
-            </Link>
-            <Link
-                href={website || '#'}
-                target="_blank"
-                className={styles.websiteButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faGlobe} />
-            </Link>
-            <Link
-                href={youtube || '#'}
-                target="_blank"
-                className={styles.youtubeButton}>
-                <FontAwesomeIcon className={styles.icon} icon={faYoutube} />
-            </Link>
+            {facebook && (
+                <Link
+                    href={facebook}
+                    target="_blank"
+                    className={styles.facebookButton}>
+                    <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faFacebook}
+                    />
+                </Link>
+            )}
+            {twitter && (
+                <Link
+                    href={twitter}
+                    target="_blank"
+                    className={styles.twitterButton}>
+                    <FontAwesomeIcon className={styles.icon} icon={faTwitter} />
+                </Link>
+            )}
+            {instagram && (
+                <Link
+                    href={instagram}
+                    target="_blank"
+                    className={styles.instagramButton}>
+                    <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faInstagram}
+                    />
+                </Link>
+            )}
+            {linkedin && (
+                <Link
+                    href={linkedin}
+                    target="_blank"
+                    className={styles.linkedinButton}>
+                    <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faLinkedin}
+                    />
+                </Link>
+            )}
+            {website && (
+                <Link
+                    href={website}
+                    target="_blank"
+                    className={styles.websiteButton}>
+                    <FontAwesomeIcon className={styles.icon} icon={faGlobe} />
+                </Link>
+            )}
+            {youtube && (
+                <Link
+                    href={youtube}
+                    target="_blank"
+                    className={styles.youtubeButton}>
+                    <FontAwesomeIcon className={styles.icon} icon={faYoutube} />
+                </Link>
+            )}
         </div>
     );
 };

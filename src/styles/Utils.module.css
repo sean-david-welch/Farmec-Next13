@@ -66,6 +66,14 @@
     @apply btnRound mx-auto pb-4;
 }
 
+.optionsBtn {
+    @apply mx-auto flex flex-row;
+}
+
+.optionsBtn > * {
+    @apply mx-2;
+}
+
 .signIn {
     @apply flex flex-row;
 }

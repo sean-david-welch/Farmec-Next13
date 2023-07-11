@@ -22,16 +22,14 @@ export const DeleteButton: React.FC<Props> = ({ SupplierId }) => {
             if (response.status >= 200 && response.status < 300) {
                 router.push('/suppliers');
                 router.refresh();
-            } else {
-                alert(`Error: ${response.status}`);
             }
         } catch (error) {
-            alert(`Network error: ${error}`);
+            console.error('Failed to delete supplier', error);
         }
     };
 
     return (
-        <button className={utils.btn} onClick={onDelete}>
+        <button className={utils.btnForm} onClick={onDelete}>
             <FontAwesomeIcon icon={faTrash} />
         </button>
     );

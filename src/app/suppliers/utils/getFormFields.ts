@@ -13,14 +13,12 @@ export const getFormFields = (suppler?: Supplier) => [
         label: 'Logo Image',
         type: 'file',
         placeholder: 'Upload logo image',
-        defaultValue: suppler?.logo_image,
     },
     {
         name: 'marketing_image',
         label: 'Marketing Image',
         type: 'file',
         placeholder: 'Upload marketing image',
-        defaultValue: suppler?.marketing_image,
     },
     {
         name: 'description',

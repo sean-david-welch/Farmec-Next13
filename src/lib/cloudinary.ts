@@ -2,7 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 
 export const cloudinaryConfig = cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_PUBLIC,
+    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_PUBLIC,
     api_secret: process.env.CLOUDINARY_PRIVATE,
     secure: true,
 });
@@ -11,6 +11,10 @@ export const uploadToCloudinary = async (
     file: string,
     folder: string
 ): Promise<{ url: string; signature: string; timestamp: number }> => {
+    if (!file) {
+        throw new Error('Missing file');
+    }
+
     const publicId = file.split('.').slice(0, -1).join('.');
     const timestamp = Math.round(new Date().getTime() / 1000);
 
