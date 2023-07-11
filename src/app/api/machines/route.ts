@@ -9,18 +9,30 @@ export const POST = async (request: NextRequest) => {
         await validateUser();
         const data = await request.json();
 
+        console.log('info sent to the backend', data);
+
         const folder = 'Machines';
 
         const {
             url: machineUrl,
             signature: machineSignature,
             timestamp: machineTimestamp,
-        } = await uploadToCloudinary(data.logo_image, folder);
+        } = await uploadToCloudinary(data.machine_image, folder);
+
+        const supplier = await prisma.supplier.findUnique({
+            where: {
+                id: data.supplier,
+            },
+        });
+
+        if (!supplier) {
+            throw new Error('Supplier not found');
+        }
 
         const machine = await prisma.machine.create({
             data: {
                 name: data.name,
-                supplierId: data.supplierId,
+                supplierId: supplier.id,
                 machine_image: machineUrl,
                 description: data.description,
                 machine_link: data.machine_link,
