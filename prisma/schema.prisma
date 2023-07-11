@@ -80,14 +80,14 @@ model Supplier {
   social_linkedin  String?   
   social_website   String?   
   created          DateTime  @default(now())
-  machines         Machine[]
+  machines         Machine[] 
   spare_parts      SpareParts[]
 }
 
 model Machine {
   id            String   @id @default(uuid())
   supplierId    String
-  supplier      Supplier @relation(fields: [supplierId], references: [id])
+  supplier      Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
   name          String?  
   machine_image String?  @default("/default.jpg")
   description   String?
@@ -99,7 +99,7 @@ model Machine {
 model Product {
   id         String   @id @default(uuid())
   machineId  String
-  machine    Machine  @relation(fields: [machineId], references: [id])
+  machine    Machine  @relation(fields: [machineId], references: [id], onDelete: Cascade)
   name       String?
   product_image String?  @default("/default.jpg")
   description String?
@@ -109,7 +109,7 @@ model Product {
 model SpareParts {
   id         String   @id @default(uuid())
   supplierId String
-  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplier   Supplier @relation(fields: [supplierId], references: [id] , onDelete: Cascade)
   name       String?
   parts_image String?  @default("/default.jpg")
   description String?
@@ -201,7 +201,7 @@ model WarrantyClaim {
 model PartsRequired {
   id              String         @id @default(uuid())
   warrantyId      String
-  warranty        WarrantyClaim  @relation(fields: [warrantyId], references: [id])
+  warranty        WarrantyClaim  @relation(fields: [warrantyId], references: [id], onDelete: Cascade)
   part_number     String? 
   quantity_needed String?        @default("1")
   invoice_number  String? 

@@ -1,12 +1,12 @@
 import { Supplier } from '@prisma/client';
 
-export const getFormFields = (suppler?: Supplier) => [
+export const getFormFields = (supplier?: Supplier) => [
     {
         name: 'name',
         label: 'Name',
         type: 'text',
         placeholder: 'Enter name',
-        defaultValue: suppler?.name,
+        defaultValue: supplier?.name,
     },
     {
         name: 'logo_image',
@@ -25,48 +25,48 @@ export const getFormFields = (suppler?: Supplier) => [
         label: 'Description',
         type: 'text',
         placeholder: 'Enter description',
-        defaultValue: suppler?.description,
+        defaultValue: supplier?.description,
     },
     {
         name: 'social_facebook',
         label: 'Facebook',
         type: 'text',
         placeholder: 'Enter Facebook URL',
-        defaultValue: suppler?.social_facebook,
+        defaultValue: supplier?.social_facebook,
     },
     {
         name: 'social_instagram',
         label: 'Instagram',
         type: 'text',
         placeholder: 'Enter Instagram URL',
-        defaultValue: suppler?.social_instagram,
+        defaultValue: supplier?.social_instagram,
     },
     {
         name: 'social_twitter',
         label: 'Twitter',
         type: 'text',
         placeholder: 'Enter Twitter URL',
-        defaultValue: suppler?.social_twitter,
+        defaultValue: supplier?.social_twitter,
     },
     {
         name: 'social_linkedin',
         label: 'LinkedIn',
         type: 'text',
         placeholder: 'Enter LinkedIn URL',
-        defaultValue: suppler?.social_linkedin,
+        defaultValue: supplier?.social_linkedin,
     },
     {
         name: 'social_youtube',
         label: 'YouTube',
         type: 'text',
         placeholder: 'Enter YouTube URL',
-        defaultValue: suppler?.social_youtube,
+        defaultValue: supplier?.social_youtube,
     },
     {
         name: 'social_website',
         label: 'Website',
         type: 'text',
         placeholder: 'Enter website URL',
-        defaultValue: suppler?.social_website,
+        defaultValue: supplier?.social_website,
     },
 ];
