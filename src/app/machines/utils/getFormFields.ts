@@ -1,8 +1,11 @@
+import axios from 'axios';
 import { Machine, Supplier } from '@prisma/client';
-import { prisma } from '~/lib/prisma';
 
 export const getFormFields = async (machine?: Machine) => {
-    const suppliers: Supplier[] = await prisma.supplier.findMany();
+    const suppliers = await axios
+        .get<Supplier[]>('/api/suppliers')
+        .then(res => res.data);
+
     const supplierOptions = suppliers.map(supplier => ({
         label: supplier.name,
         value: supplier.id,

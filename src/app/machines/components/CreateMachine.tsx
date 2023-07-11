@@ -85,14 +85,30 @@ const MachineForm = () => {
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                            />
+                            {field.type === 'select' ? (
+                                <select
+                                    name={field.name}
+                                    id={field.name}
+                                    placeholder={field.placeholder}>
+                                    {field.options?.map(option => (
+                                        <option
+                                            key={option.value}
+                                            value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type={field.type}
+                                    name={field.name}
+                                    id={field.name}
+                                    placeholder={field.placeholder}
+                                />
+                            )}
                         </div>
                     ))}
+
                     <button className={utils.btnForm} type="submit">
                         Submit
                     </button>
