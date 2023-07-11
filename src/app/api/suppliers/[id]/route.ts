@@ -77,12 +77,12 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
         const marketingId =
             marketing_image?.split('/').pop()?.split('.')[0] ?? '';
 
-        const project = await prisma.supplier.delete({
+        await prisma.supplier.delete({
             where: {
                 id: id,
             },
         });
-        console.log('project deleted');
+        console.log('Supplier deleted');
 
         if (logoId) {
             await deleteFromCloudinary(logoId);
@@ -91,7 +91,9 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
             await deleteFromCloudinary(marketingId);
         }
 
-        return NextResponse.json(project);
+        return NextResponse.json({
+            message: 'Supplier deleted',
+        });
     } catch (error: any) {
         console.error(error);
         return errorResponse(500, error.message || 'Internal Server Error');
