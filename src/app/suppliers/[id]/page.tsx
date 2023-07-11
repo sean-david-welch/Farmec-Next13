@@ -6,6 +6,7 @@ import { prisma } from '~/lib/prisma';
 import { SupplierForm } from '../components/UpdateSupplier';
 import { SocialLinks } from '../components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
+import Machines from '../components/Machines';
 
 interface Props {
     params: { id: string };
@@ -69,6 +70,8 @@ const SupplierDetail = async ({ params }: Props) => {
                     <SupplierForm supplier={supplier} />
                 )}
             </div>
+
+            <Machines supplier={supplier} />
         </section>
     );
 };

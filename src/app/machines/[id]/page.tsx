@@ -3,11 +3,11 @@ import utils from '~/styles/Utils.module.css';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import MachineForm from '../components/CreateMachine';
 
 import { prisma } from '~/lib/prisma';
 import { Machine } from '@prisma/client';
 import { getSessionAndUser } from '~/utils/user';
-import MachineForm from './components/CreateMachine';
 
 const Machines = async () => {
     const { user } = await getSessionAndUser();
