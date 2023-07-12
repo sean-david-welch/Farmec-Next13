@@ -172,6 +172,8 @@ model Exhibition {
   created DateTime @default(now())
 }
 
+// Payment models:
+
 model PaymentProduct {
   id           String  @id @default(uuid())
   name         String? 
