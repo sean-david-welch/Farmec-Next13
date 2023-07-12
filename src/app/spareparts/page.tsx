@@ -1,9 +1,5 @@
 const SpareParts = () => {
-    return (
-        <section id="spareParts">
-            <h1>Spare Parts</h1>
-        </section>
-    );
+    return <section id="spareParts"></section>;
 };
 
 export default SpareParts;

@@ -43,10 +43,10 @@ export const NavList = async ({ user, suppliers }: Props) => {
                     ))}
                 </NavItem>
 
-                <NavItem link="/" title="Spare Parts">
+                <NavItem link={'/spareparts'} title="Spare Parts">
                     {suppliers?.map(supplier => (
                         <li key={supplier.id} className={styles.navDropItem}>
-                            <Link href={`/suppliers/${supplier.id}`}>
+                            <Link href={`/spareparts/${supplier.id}`}>
                                 {supplier.name}
                             </Link>
                         </li>

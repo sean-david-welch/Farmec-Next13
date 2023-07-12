@@ -4,6 +4,12 @@ import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
 import { uploadToCloudinary } from '~/lib/cloudinary';
 
+export const GET = async () => {
+    const spareparts = await prisma.spareParts.findMany({});
+
+    return NextResponse.json(spareparts);
+};
+
 export const POST = async (request: NextRequest) => {
     try {
         await validateUser();
