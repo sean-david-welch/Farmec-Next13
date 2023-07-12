@@ -9,6 +9,8 @@ import UpdateMachine from '~/app/machines/components/UpdateMachine';
 import { prisma } from '~/lib/prisma';
 import { Machine, Supplier } from '@prisma/client';
 import { getSessionAndUser } from '~/utils/user';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     supplier: Supplier;
@@ -32,20 +34,30 @@ const Machines = async ({ supplier }: Props) => {
             {machines.map(machine => (
                 <div className={styles.machineCard} key={machine.id}>
                     <div className={styles.machineGrid}>
-                        <h1 className={utils.mainHeading}>{machine.name}</h1>
                         <Image
                             src={machine.machine_image || '/default.jpg'}
                             alt={'/default.jpg'}
                             className={styles.machineImage}
-                            width={200}
-                            height={200}
+                            width={600}
+                            height={600}
                         />
-                        <p>{machine.description}</p>
-                        <Link
-                            href={machine.machine_link || '#'}
-                            target={'_blank'}>
-                            Link
-                        </Link>
+                        <div className={styles.machineInfo}>
+                            <h1 className={utils.mainHeading}>
+                                {machine.name}
+                            </h1>
+                            <p className={utils.subHeading}>
+                                {machine.description}
+                            </p>
+                            <button className={utils.btnRound}>
+                                <Link href={`/machines/${machine.id}`}>
+                                    View Products
+                                    {'  '}
+                                    <FontAwesomeIcon
+                                        icon={faRightFromBracket}
+                                    />
+                                </Link>
+                            </button>
+                        </div>
                     </div>
                     {user && user.role === 'ADMIN' && (
                         <UpdateMachine machine={machine} />

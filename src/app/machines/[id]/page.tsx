@@ -1,47 +1,51 @@
-import styles from './styles/Machines.module.css';
+import styles from '../styles/Machines.module.css';
 import utils from '~/styles/Utils.module.css';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import MachineForm from '../components/CreateMachine';
+import Products from '../components/products/Products';
 
 import { prisma } from '~/lib/prisma';
-import { Machine } from '@prisma/client';
+
 import { getSessionAndUser } from '~/utils/user';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
-const Machines = async () => {
-    const { user } = await getSessionAndUser();
-    const machines: Machine[] = await prisma.machine.findMany();
+interface Props {
+    params: { id: string };
+}
 
-    if (!machines) {
+const MachineDetail = async ({ params }: Props) => {
+    const machine = await prisma.machine.findUnique({
+        where: {
+            id: params.id,
+        },
+    });
+
+    if (!machine) {
         return <div>loading...</div>;
     }
 
+    const { user } = await getSessionAndUser();
+
+    const { machine_link } = machine;
+
     return (
-        <section id="machines">
-            {machines.map(
-                ({ id, name, machine_image, description, machine_link }) => (
-                    <div className={styles.machineCard} key={id}>
-                        <div className={styles.machineGrid}>
-                            <h1 className={utils.mainHeading}>{name}</h1>
-                            <Image
-                                src={machine_image || '/default.jpg'}
-                                alt={'/default.jpg'}
-                                className={styles.machineImage}
-                                width={200}
-                                height={200}
-                            />
-                            <p>{description}</p>
-                            <Link href={machine_link || '#'} target={'_blank'}>
-                                Link
-                            </Link>
-                        </div>
-                    </div>
-                )
-            )}
-            {user && user.role === 'ADMIN' && <MachineForm />}
+        <section id="machineDetai">
+            <div className={utils.index}>
+                <h1 className={utils.mainHeading}>Product Index:</h1>
+                <h1 className={utils.subHeading}>Products</h1>
+                <button>
+                    <button className={utils.btnRound}>
+                        <Link href={machine_link || '#'} target="_blank">
+                            Supplier Website {'  '}
+                            <FontAwesomeIcon icon={faRightFromBracket} />
+                        </Link>
+                    </button>
+                </button>
+            </div>
+            <Products machine={machine} />
         </section>
     );
 };
 
-export default Machines;
+export default MachineDetail;
