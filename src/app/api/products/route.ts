@@ -11,6 +11,12 @@ export const POST = async (request: NextRequest) => {
 
         const folder = 'Products';
 
+        const { name, product_image, product_link, description } = data;
+
+        if (!product_image) {
+            throw new Error('Product image not found');
+        }
+
         const {
             url: productUrl,
             signature: productSignature,
@@ -29,11 +35,11 @@ export const POST = async (request: NextRequest) => {
 
         const product = await prisma.product.create({
             data: {
-                name: data.name,
+                name: name,
                 machineId: machine.id,
                 product_image: productUrl,
-                description: data.description,
-                product_link: data.product_link,
+                description: description,
+                product_link: product_link,
             },
         });
 

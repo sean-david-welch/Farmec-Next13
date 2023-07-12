@@ -9,19 +9,19 @@ export const POST = async (request: NextRequest) => {
         await validateUser();
         const data = await request.json();
 
-        const folder = 'Machines';
+        const folder = 'Spareparts';
 
-        const { name, machine_image, description, machine_link } = data;
+        const { name, description, spare_parts_link, parts_image } = data;
 
-        if (!machine_image) {
-            throw new Error('Machine image not found');
+        if (!parts_image) {
+            throw new Error('Parts image not found');
         }
 
         const {
-            url: machineUrl,
-            signature: machineSignature,
-            timestamp: machineTimestamp,
-        } = await uploadToCloudinary(data.machine_image, folder);
+            url: sparepartUrl,
+            signature: sparepartSignature,
+            timestamp: sparepartTimestamp,
+        } = await uploadToCloudinary(data.sparepart_image, folder);
 
         const supplier = await prisma.supplier.findUnique({
             where: {
@@ -33,20 +33,20 @@ export const POST = async (request: NextRequest) => {
             throw new Error('Supplier not found');
         }
 
-        const machine = await prisma.machine.create({
+        const sparepart = await prisma.spareParts.create({
             data: {
                 name: name,
                 supplierId: supplier.id,
-                machine_image: machineUrl,
+                parts_image: sparepartUrl,
                 description: description,
-                machine_link: machine_link,
+                spare_parts_link: spare_parts_link,
             },
         });
 
         return NextResponse.json({
-            machine,
-            machineSignature,
-            machineTimestamp,
+            sparepart,
+            sparepartSignature,
+            sparepartTimestamp,
             folder,
         });
     } catch (error: any) {

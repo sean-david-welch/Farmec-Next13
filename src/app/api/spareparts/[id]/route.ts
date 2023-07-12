@@ -11,47 +11,47 @@ export const PUT = async (request: NextRequest) => {
         await validateUser();
         const data = await request.json();
 
-        const folder = 'Products';
+        const folder = 'Spareparts';
 
-        const { name, product_image, description, product_link } = data;
+        const { name, description, spare_parts_link, parts_image } = data;
 
-        if (!product_image) {
-            throw new Error('Product image not found');
+        if (!parts_image) {
+            throw new Error('Parts image not found');
         }
 
         const {
-            url: productUrl,
-            signature: productSignature,
-            timestamp: productTimestamp,
-        } = await uploadToCloudinary(product_image, folder);
+            url: sparepartUrl,
+            signature: sparepartSignature,
+            timestamp: sparepartTimestamp,
+        } = await uploadToCloudinary(parts_image, folder);
 
-        const machine = await prisma.machine.findUnique({
+        const supplier = await prisma.supplier.findUnique({
             where: {
-                id: data.machine,
+                id: data.supplier,
             },
         });
 
-        if (!machine) {
-            throw new Error('Machine not found');
+        if (!supplier) {
+            throw new Error('Supplier not found');
         }
 
-        const product = await prisma.product.update({
+        const sparepart = await prisma.spareParts.update({
             where: {
                 id: id,
             },
             data: {
                 name: name,
-                machineId: machine.id,
-                product_image: productUrl,
+                supplierId: supplier.id,
+                parts_image: sparepartUrl,
                 description: description,
-                product_link: product_link,
+                spare_parts_link: spare_parts_link,
             },
         });
 
         return NextResponse.json({
-            product,
-            productSignature,
-            productTimestamp,
+            sparepart,
+            sparepartSignature,
+            sparepartTimestamp,
             folder,
         });
     } catch (error: any) {
@@ -65,33 +65,33 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
     try {
         await validateUser();
 
-        const product = await prisma.product.findUnique({
+        const sparepart = await prisma.spareParts.findUnique({
             where: {
                 id: id,
             },
         });
 
-        if (!product) {
-            throw new Error('Product not found');
+        if (!sparepart) {
+            throw new Error('Sparepart not found');
         }
 
-        const { product_image } = product;
-        const productId = product_image?.split('/').pop()?.split('.')[0] ?? '';
+        const { parts_image } = sparepart;
+        const partsId = parts_image?.split('/').pop()?.split('.')[0] ?? '';
 
-        await prisma.product.delete({
+        await prisma.spareParts.delete({
             where: {
                 id: id,
             },
         });
 
-        if (productId) {
-            await deleteFromCloudinary(productId);
+        if (partsId) {
+            await deleteFromCloudinary(partsId);
         } else {
-            throw new Error('Product image not found');
+            throw new Error('Parts image not found');
         }
 
         return NextResponse.json({
-            message: 'Product deleted successfully',
+            message: 'Sparepart deleted successfully',
         });
     } catch (error: any) {
         return errorResponse(500, error.message || 'Internal Server Error');

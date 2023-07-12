@@ -15,6 +15,10 @@ export const PUT = async (request: NextRequest) => {
 
         const { name, machine_image, description, machine_link } = data;
 
+        if (!machine_image) {
+            throw new Error('Machine image not found');
+        }
+
         const {
             url: machineUrl,
             signature: machineSignature,
@@ -82,6 +86,8 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
 
         if (machineId) {
             await deleteFromCloudinary(machineId);
+        } else {
+            throw new Error('Machine image not found');
         }
 
         return NextResponse.json({ message: 'Machine deleted' });

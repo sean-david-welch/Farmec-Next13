@@ -14,6 +14,27 @@ export const PUT = async (request: NextRequest) => {
         const folder = 'Suppliers';
 
         const {
+            name,
+            description,
+            logo_image,
+            marketing_image,
+            social_facebook,
+            social_instagram,
+            social_linkedin,
+            social_twitter,
+            social_youtube,
+            social_website,
+        } = data;
+
+        if (!logo_image) {
+            throw new Error('Logo image not found');
+        }
+
+        if (!marketing_image) {
+            throw new Error('Marketing image not found');
+        }
+
+        const {
             url: logoUrl,
             signature: logoSignature,
             timestamp: logoTimestamp,
@@ -29,16 +50,16 @@ export const PUT = async (request: NextRequest) => {
                 id: id,
             },
             data: {
-                name: data.name,
-                description: data.description,
+                name: name,
+                description: description,
                 logo_image: logoUrl,
                 marketing_image: marketingUrl,
-                social_facebook: data.social_facebook,
-                social_twitter: data.social_twitter,
-                social_instagram: data.social_instagram,
-                social_youtube: data.social_youtube,
-                social_linkedin: data.social_linkedin,
-                social_website: data.social_website,
+                social_facebook: social_facebook,
+                social_twitter: social_twitter,
+                social_instagram: social_instagram,
+                social_youtube: social_youtube,
+                social_linkedin: social_linkedin,
+                social_website: social_website,
             },
         });
 
@@ -86,9 +107,14 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
 
         if (logoId) {
             await deleteFromCloudinary(logoId);
+        } else {
+            console.log('Logo image not found');
         }
+
         if (marketingId) {
             await deleteFromCloudinary(marketingId);
+        } else {
+            console.log('Marketing image not found');
         }
 
         return NextResponse.json({
