@@ -6,6 +6,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
+import { SpareParts } from '@prisma/client';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { DeleteButton } from './DeleteSparepart';
 
 interface FormField {
     name: string;
@@ -16,7 +21,7 @@ interface FormField {
     options?: { label: string | null; value: string }[];
 }
 
-const SparepartsForm = () => {
+const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
 
@@ -24,13 +29,16 @@ const SparepartsForm = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const fields = await getFormFields();
+            const fields = await getFormFields(sparepart);
             setFormFields(fields);
         };
         fetchData();
     }, []);
 
-    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(
+        event: React.FormEvent<HTMLFormElement>,
+        sparepartID: string
+    ) {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
@@ -39,13 +47,16 @@ const SparepartsForm = () => {
         const body = {
             name: formData.get('name'),
             supplier: formData.get('supplier'),
-            parts_image: sparepartFile ? sparepartFile.name : null,
+            sparepart_image: sparepartFile ? sparepartFile.name : null,
             description: formData.get('description'),
-            spare_parts_link: formData.get('spare_part_link'),
+            sparepart_link: formData.get('spare_part_link'),
         };
 
         try {
-            const response = await axios.post('/api/spareparts', body);
+            const response = await axios.post(
+                `/api/spareparts/${sparepartID}`,
+                body
+            );
 
             if (response.status >= 200 && response.status <= 300) {
                 const { sparepartSignature, sparepartTimestamp, folder } =
@@ -72,14 +83,19 @@ const SparepartsForm = () => {
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                Create Spare Part
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                    {sparepart && <DeleteButton sparepartID={sparepart?.id} />}
+                </button>
+            </div>
             {showForm && (
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={event =>
+                        sparepart && handleSubmit(event, sparepart.id)
+                    }
                     className={utils.form}
                     encType="multipart/form-data">
                     {formFields.map(field => (
@@ -118,4 +134,4 @@ const SparepartsForm = () => {
     );
 };
 
-export default SparepartsForm;
+export default UpdatePartForm;

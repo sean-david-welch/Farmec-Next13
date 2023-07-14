@@ -27,8 +27,10 @@ const MachineDetail = async ({ params }: Props) => {
 
     return (
         <section id="machineDetai">
+            <h1 className={utils.sectionHeading}>Products</h1>
+
             <div className={utils.index}>
-                <h1 className={utils.mainHeading}>Product Index:</h1>
+                <h1 className={utils.sectionHeading}>Product Index:</h1>
                 <h1 className={utils.subHeading}>Products</h1>
                 <button className={utils.btnRound}>
                     <Link href={machine_link || '#'} target="_blank">

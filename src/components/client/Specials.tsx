@@ -43,7 +43,7 @@ const SpecialsSection = () => {
 
     return (
         <div className={styles.infoSection}>
-            <h1 className={utils.mainHeading}>We Specialize In:</h1>
+            <h1 className={utils.sectionHeading}>We Specialize In:</h1>
             <p className={utils.subHeading}>
                 Farmec is Commited to Bringing Value for our Customers - These
                 are our Specialitse:

@@ -1,12 +1,13 @@
 import styles from '../styles/Suppliers.module.css';
 import utils from '~/styles/Utils.module.css';
+
 import Image from 'next/image';
+import Machines from '../components/Machines';
 
 import { prisma } from '~/lib/prisma';
 import { SupplierForm } from '../components/UpdateSupplier';
 import { SocialLinks } from '../components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
-import Machines from '../components/Machines';
 
 interface Props {
     params: { id: string };
@@ -39,7 +40,7 @@ const SupplierDetail = async ({ params }: Props) => {
     return (
         <section id="supplierDetail">
             <div className={styles.supplierHeading}>
-                <h1 className={utils.mainHeading}>{name}</h1>
+                <h1 className={utils.sectionHeading}>{name}</h1>
 
                 <SocialLinks
                     facebook={social_facebook}

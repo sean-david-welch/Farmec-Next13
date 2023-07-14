@@ -1,5 +1,11 @@
 /* Misc */
 
+.sectionHeading {
+    @apply my-5;
+    @apply text-3xl font-semibold mx-auto;
+    @apply text-zinc-900 underline decoration-red-600 decoration-4 underline-offset-8;
+}
+
 .mainHeading {
     @apply text-3xl font-semibold underline mx-auto;
 }
@@ -18,7 +24,8 @@
 
 /* Forms */
 .form {
-    @apply flex flex-col bg-zinc-800 text-center mx-40 rounded-lg;
+    @apply flex flex-col bg-zinc-800 text-center mx-40 rounded-lg border-4 border-zinc-600;
+    @apply p-2 my-5;
 }
 
 .form > * {
@@ -64,7 +71,7 @@
 }
 
 .btnRound svg {
-    @apply w-4 h-4 ml-2;
+    @apply w-4 h-4 ml-2 whitespace-nowrap;
 }
 
 .btnForm {
@@ -99,5 +106,5 @@
 .index {
     @apply flex flex-col items-center justify-center;
     @apply bg-zinc-800 text-gray-200;
-    @apply mx-32 rounded-2xl border-4 border-zinc-600;
+    @apply mx-32 rounded-2xl border-4 border-zinc-600 my-5;
 }

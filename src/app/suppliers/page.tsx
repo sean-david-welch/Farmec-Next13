@@ -20,6 +20,11 @@ const Suppliers = async () => {
 
     return (
         <section id="suppliers">
+            <h1 className={utils.sectionHeading}>Suppliers</h1>
+
+            <div className={utils.index}>
+                <h1 className={utils.mainHeading}>Suppliers</h1>
+            </div>
             {suppliers.map(
                 ({
                     id,

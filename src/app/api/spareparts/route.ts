@@ -15,6 +15,8 @@ export const POST = async (request: NextRequest) => {
         await validateUser();
         const data = await request.json();
 
+        console.log(data);
+
         const folder = 'Spareparts';
 
         const { name, description, spare_parts_link, parts_image } = data;
@@ -27,7 +29,7 @@ export const POST = async (request: NextRequest) => {
             url: sparepartUrl,
             signature: sparepartSignature,
             timestamp: sparepartTimestamp,
-        } = await uploadToCloudinary(data.sparepart_image, folder);
+        } = await uploadToCloudinary(parts_image, folder);
 
         const supplier = await prisma.supplier.findUnique({
             where: {
