@@ -30,8 +30,8 @@ const Products = async ({ machine }: Props) => {
 
     return (
         <section id="products">
-            {products.map(product => (
-                <div className={styles.productGrid}>
+            <div className={styles.productGrid}>
+                {products.map(product => (
                     <div className={styles.productCard} key={product.id}>
                         <h1 className={utils.mainHeading}>{product.name}</h1>
                         <Link
@@ -52,8 +52,8 @@ const Products = async ({ machine }: Props) => {
                             <UpdateProduct product={product} />
                         )}
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
             {user && user.role === 'ADMIN' && <ProductForm />}
         </section>
     );
