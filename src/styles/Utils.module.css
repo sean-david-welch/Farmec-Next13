@@ -7,7 +7,7 @@
 }
 
 .mainHeading {
-    @apply text-3xl font-semibold underline mx-auto;
+    @apply text-2xl font-semibold underline mx-auto;
 }
 
 .subHeading {
