@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { prisma } from '~/lib/prisma';
 import { AboutForm } from './components/CreateAbout';
 import { getSessionAndUser } from '~/utils/user';
+import { Employees } from './components/Employees';
+import { Timeline } from './components/Timeline';
 
 const About = async () => {
     const { user } = await getSessionAndUser();
@@ -14,29 +16,12 @@ const About = async () => {
     return (
         <section id="about">
             <h1 className={utils.sectionHeading}>Our Team</h1>
-            {employees.map(employee => (
-                <div key={employee.id}>
-                    <h2>{employee.name}</h2>
-                    <Image
-                        src={employee.profile_image || '/default.jpg'}
-                        alt={'/default.jpg'}
-                        width={200}
-                        height={200}
-                    />
-                </div>
-            ))}
+            <Employees />
             {user && user.role === 'ADMIN' && (
                 <AboutForm modelName="employee" />
             )}
             <h1 className={utils.sectionHeading}>Our Story</h1>
-            {timeline.map(event => (
-                <div key={event.id}>
-                    <h2>
-                        {event.title} - {event.date}
-                    </h2>
-                    <p>{event.body}</p>
-                </div>
-            ))}
+            <Timeline />
             {user && user.role === 'ADMIN' && (
                 <AboutForm modelName="timeline" />
             )}

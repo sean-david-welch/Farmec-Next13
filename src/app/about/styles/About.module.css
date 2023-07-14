@@ -1,0 +1,23 @@
+.employees {
+    @apply grid grid-cols-3;
+    @apply my-5;
+}
+
+.employeeCard {
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
+    @apply grid grid-cols-1 mx-14;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.employeeCard:hover {
+    @apply border-zinc-400;
+    @apply scale-[1.025];
+}
+
+.employeeCard > * {
+    @apply mb-10;
+}
+
+.employeeCard img {
+    @apply mx-auto w-full rounded-t-xl;
+}
