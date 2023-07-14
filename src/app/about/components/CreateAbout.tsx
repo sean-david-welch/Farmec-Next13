@@ -58,33 +58,42 @@ export const AboutForm = ({ modelName }: Props) => {
         const getFormDataFunction = getFormDataFunctions[modelName];
 
         if (modelName === 'employee') {
-            const file = formData.get(`profile_image`) as File;
+            const EmployeeFile = formData.get(`profile_image`) as File;
 
             const body = getFormDataFunction
                 ? {
-                      ...getFormDataFunction(formData),
-                      ['profile_image']: file ? file.name : null,
+                      model: modelName,
+                      data: {
+                          ...getFormDataFunction(formData),
+                          ['profile_image']: EmployeeFile
+                              ? EmployeeFile.name
+                              : null,
+                      },
                   }
                 : {};
 
             const response = await axios.post(`/api/about`, body);
 
             if (response.status === 200) {
-                const { signature, timestamp, folder } = response.data;
+                const { profileSignature, profileTimestamp, folder } =
+                    response.data;
 
-                if (file) {
+                if (EmployeeFile) {
                     await uploadImage(
-                        file,
-                        signature,
-                        timestamp,
-                        file.name,
+                        EmployeeFile,
+                        profileSignature,
+                        profileTimestamp,
+                        EmployeeFile.name,
                         folder
                     );
                 }
             }
         } else {
             const body = getFormDataFunction
-                ? getFormDataFunction(formData)
+                ? {
+                      model: modelName,
+                      data: getFormDataFunction(formData),
+                  }
                 : {};
 
             try {

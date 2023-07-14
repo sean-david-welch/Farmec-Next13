@@ -4,7 +4,7 @@ export const getEmployeeFormData = (formData: FormData) => ({
     phone: formData.get('phone') as string,
     role: formData.get('role') as string,
     bio: formData.get('bio') as string,
-    profile_image: formData.get('profile_image') as string,
+    profile_image: formData.get('profile_image') as File,
 });
 
 export const getTimelineFormData = (formData: FormData) => ({

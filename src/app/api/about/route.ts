@@ -77,7 +77,7 @@ export const POST = async (request: NextRequest) => {
                 url: profileUrl,
                 signature,
                 timestamp,
-            } = await uploadToCloudinary(data.profile_image, folder);
+            } = await uploadToCloudinary(profile_image, folder);
 
             profileSignature = signature;
             profileTimestamp = timestamp;

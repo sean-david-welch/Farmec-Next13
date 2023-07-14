@@ -47,13 +47,13 @@ const timelineFormFields = [
     {
         name: 'date',
         label: 'Date',
-        type: 'date',
+        type: 'text',
         placeholder: 'Enter date',
     },
     {
         name: 'body',
         label: 'Body',
-        type: 'textarea',
+        type: 'text',
         placeholder: 'Enter body',
     },
 ];
@@ -68,7 +68,7 @@ const termsFormFields = [
     {
         name: 'body',
         label: 'Body',
-        type: 'textarea',
+        type: 'text',
         placeholder: 'Enter body',
     },
 ];
@@ -83,7 +83,7 @@ const privacyFormFields = [
     {
         name: 'body',
         label: 'Body',
-        type: 'textarea',
+        type: 'text',
         placeholder: 'Enter body',
     },
 ];
