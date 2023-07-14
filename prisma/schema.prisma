@@ -121,12 +121,10 @@ model Employee {
   id             String   @id @default(uuid())
   name           String?  
   email          String?  
+  phone          String?
   role           String?  
   bio            String?  
   profile_image  String?  @default("/default.jpg")
-  social_twitter String?  
-  social_linkedin String?  
-  social_whatsapp String?  
   created        DateTime @default(now())
 }
 
