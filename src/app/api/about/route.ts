@@ -36,6 +36,8 @@ export const POST = async (request: NextRequest) => {
         await validateUser();
         const { model, data } = await request.json();
 
+        console.log(model, data);
+
         if (!model || !data) {
             return NextResponse.json({ error: 'Invalid request' });
         }

@@ -35,12 +35,6 @@ const employeeFormFields = [
         type: 'file',
         placeholder: 'Upload profile image',
     },
-    {
-        name: 'created',
-        label: 'Created Date',
-        type: 'date',
-        placeholder: 'Select date',
-    },
 ];
 
 const timelineFormFields = [
@@ -62,12 +56,6 @@ const timelineFormFields = [
         type: 'textarea',
         placeholder: 'Enter body',
     },
-    {
-        name: 'created',
-        label: 'Created Date',
-        type: 'date',
-        placeholder: 'Select date',
-    },
 ];
 
 const termsFormFields = [
@@ -83,12 +71,6 @@ const termsFormFields = [
         type: 'textarea',
         placeholder: 'Enter body',
     },
-    {
-        name: 'created',
-        label: 'Created Date',
-        type: 'date',
-        placeholder: 'Select date',
-    },
 ];
 
 const privacyFormFields = [
@@ -103,12 +85,6 @@ const privacyFormFields = [
         label: 'Body',
         type: 'textarea',
         placeholder: 'Enter body',
-    },
-    {
-        name: 'created',
-        label: 'Created Date',
-        type: 'date',
-        placeholder: 'Select date',
     },
 ];
 

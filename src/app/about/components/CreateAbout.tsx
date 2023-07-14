@@ -55,20 +55,21 @@ export const AboutForm = ({ modelName }: Props) => {
 
         const formData = new FormData(event.currentTarget);
 
-        const file = formData.get(`${modelName}_image`) as File;
         const getFormDataFunction = getFormDataFunctions[modelName];
 
-        const body = getFormDataFunction
-            ? {
-                  ...getFormDataFunction(formData),
-                  [`${modelName}_image`]: file ? file.name : null,
-              }
-            : {};
+        if (modelName === 'employee') {
+            const file = formData.get(`profile_image`) as File;
 
-        try {
+            const body = getFormDataFunction
+                ? {
+                      ...getFormDataFunction(formData),
+                      ['profile_image']: file ? file.name : null,
+                  }
+                : {};
+
             const response = await axios.post(`/api/about`, body);
 
-            if (modelName === 'employee' && response.status >= 200) {
+            if (response.status === 200) {
                 const { signature, timestamp, folder } = response.data;
 
                 if (file) {
@@ -81,8 +82,17 @@ export const AboutForm = ({ modelName }: Props) => {
                     );
                 }
             }
-        } catch (error) {
-            console.error('failed to create model', error);
+        } else {
+            const body = getFormDataFunction
+                ? getFormDataFunction(formData)
+                : {};
+
+            try {
+                const response = await axios.post(`/api/about`, body);
+                console.log('response', response);
+            } catch (error) {
+                console.error('failed to create model', error);
+            }
         }
         setShowForm(false);
         router.refresh();
@@ -96,14 +106,17 @@ export const AboutForm = ({ modelName }: Props) => {
     };
 
     return (
-        <section id={styles.form}>
+        <section id="form">
             <button
                 className={utils.btnForm}
                 onClick={() => setShowForm(!showForm)}>
                 {buttonTexts[modelName] || 'Add'}
             </button>
             {showForm && (
-                <form onSubmit={handleSubmit}>
+                <form
+                    onSubmit={handleSubmit}
+                    className={utils.form}
+                    encType="multipart/form-data">
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -130,7 +143,7 @@ export const AboutForm = ({ modelName }: Props) => {
                             )}
                         </div>
                     ))}
-                    <button className={styles.btn} type="submit">
+                    <button className={utils.btnForm} type="submit">
                         Submit
                     </button>
                 </form>
