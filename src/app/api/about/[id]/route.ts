@@ -15,34 +15,19 @@ interface Data {
     bio?: string;
 }
 
-export const GET = async () => {
-    const employee = prisma.employee.findMany();
-    const timeline = prisma.timeline.findMany();
-    const terms = prisma.terms.findMany();
-    const privacy = prisma.privacy.findMany();
-
-    const data = {
-        employee,
-        timeline,
-        terms,
-        privacy,
-    };
-
-    return NextResponse.json(data);
-};
-
-export const POST = async (request: NextRequest) => {
+export const PUT = async (request: NextRequest): Promise<NextResponse> => {
     try {
         await validateUser();
-        const { model, data } = await request.json();
+        const { model, id, data } = await request.json();
 
         if (!model || !data) {
             return NextResponse.json({ error: 'Invalid request' });
         }
 
-        const createFunctions = {
+        const updateFunctions = {
             timeline: (data: Data) =>
-                prisma.timeline.create({
+                prisma.timeline.update({
+                    where: { id },
                     data: {
                         title: data.title,
                         date: data.date,
@@ -50,11 +35,13 @@ export const POST = async (request: NextRequest) => {
                     },
                 }),
             terms: (data: Data) =>
-                prisma.terms.create({
+                prisma.terms.update({
+                    where: { id },
                     data: { title: data.title, body: data.body },
                 }),
             privacy: (data: Data) =>
-                prisma.privacy.create({
+                prisma.privacy.update({
+                    where: { id },
                     data: { title: data.title, body: data.body },
                 }),
         };
@@ -80,7 +67,8 @@ export const POST = async (request: NextRequest) => {
             profileSignature = signature;
             profileTimestamp = timestamp;
 
-            result = await prisma.employee.create({
+            result = await prisma.employee.update({
+                where: { id },
                 data: {
                     name: data.name,
                     email: data.email,
@@ -90,9 +78,9 @@ export const POST = async (request: NextRequest) => {
                     profile_image: profileUrl,
                 },
             });
-        } else if (Object.keys(createFunctions).includes(model)) {
-            result = await createFunctions[
-                model as keyof typeof createFunctions
+        } else if (Object.keys(updateFunctions).includes(model)) {
+            result = await updateFunctions[
+                model as keyof typeof updateFunctions
             ](data);
         } else {
             return NextResponse.json({ error: 'Invalid model' });
@@ -110,6 +98,32 @@ export const POST = async (request: NextRequest) => {
         }
     } catch (error: any) {
         console.error(error);
+        return errorResponse(500, error.message || 'Internal Server Error');
+    }
+};
+
+export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
+    try {
+        await validateUser();
+        const { model, id } = await request.json();
+
+        const deleteFunctions = {
+            employee: () => prisma.employee.delete({ where: { id } }),
+            timeline: () => prisma.timeline.delete({ where: { id } }),
+            terms: () => prisma.terms.delete({ where: { id } }),
+            privacy: () => prisma.privacy.delete({ where: { id } }),
+        };
+
+        if (Object.keys(deleteFunctions).includes(model)) {
+            const result = await deleteFunctions[
+                model as keyof typeof deleteFunctions
+            ]();
+            return NextResponse.json({ message: 'Deleted successfully' });
+        } else {
+            return NextResponse.json({ error: 'Invalid model' });
+        }
+    } catch (error: any) {
+        console.log(error);
         return errorResponse(500, error.message || 'Internal Server Error');
     }
 };

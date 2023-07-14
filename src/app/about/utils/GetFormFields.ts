@@ -1,4 +1,3 @@
-// Define the form fields for each model
 const employeeFormFields = [
     {
         name: 'name',
