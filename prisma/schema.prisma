@@ -175,7 +175,7 @@ model Exhibition {
 model PaymentProduct {
   id           String  @id @default(uuid())
   name         String? 
-  price        Decimal @default(0)
+  price        Int     @default(0)
   image        String? @default("/default.jpg")
 }
 
