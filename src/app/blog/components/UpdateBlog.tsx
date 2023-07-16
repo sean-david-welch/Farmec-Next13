@@ -64,7 +64,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                 model: modelName,
                 data: {
                     ...getFormDataFunction(formData),
-                    ['main_image']: BlogFile,
+                    ['main_image']: BlogFile ? BlogFile.name : null,
                 },
             };
             try {
@@ -110,7 +110,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
 
     return (
         <section id="form">
-            {/* <div className={utils.optionsBtn}>
+            <div className={utils.optionsBtn}>
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
@@ -119,7 +119,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                 {model && (
                     <DeleteButton modelId={model?.id} modelName={modelName} />
                 )}
-            </div> */}
+            </div>
             {showForm && (
                 <form
                     onSubmit={event => model && handleSubmit(event, model.id)}
@@ -132,7 +132,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                                 <select
                                     name={field.name}
                                     id={field.name}
-                                    placeholder={field.placeholder}>
+                                    defaultValue={field.defaultValue || ''}>
                                     {field.options?.map(option => (
                                         <option
                                             key={option.value}
@@ -146,7 +146,11 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                                     type={field.type}
                                     name={field.name}
                                     id={field.name}
-                                    placeholder={field.placeholder}
+                                    defaultValue={
+                                        field.type === 'file'
+                                            ? undefined
+                                            : field.defaultValue || ''
+                                    }
                                 />
                             )}
                         </div>

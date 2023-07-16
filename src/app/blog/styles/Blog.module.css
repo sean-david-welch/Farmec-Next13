@@ -1,0 +1,50 @@
+.blogGrid {
+    @apply grid grid-cols-1;
+}
+
+.blogCard {
+    @apply flex flex-row;
+    @apply mx-44 my-10;
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.blogCard:hover {
+    @apply border-red-600;
+    @apply scale-[1.025];
+}
+
+.blogCard img {
+    @apply rounded-r-lg object-cover border-4 border-r-zinc-600;
+}
+
+.blogLink {
+    @apply flex flex-col justify-center p-4;
+}
+
+.blogLink > * {
+    @apply my-2;
+}
+
+.blogDetail {
+    @apply flex flex-col mx-auto;
+    @apply mx-72 my-10;
+}
+
+.blogDetail > * {
+    @apply my-2;
+}
+
+.blogBody {
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600 py-8 px-24;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.blogBody:hover {
+    @apply border-red-600;
+    @apply scale-[1.005];
+}
+
+.blogBody img {
+    @apply mx-auto my-4 rounded-lg;
+}

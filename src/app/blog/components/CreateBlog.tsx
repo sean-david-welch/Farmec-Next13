@@ -55,7 +55,7 @@ export const BlogForm = ({ modelName }: Props) => {
                 model: modelName,
                 data: {
                     ...getFormDataFunction(formData),
-                    ['main_image']: BlogFile,
+                    ['main_image']: BlogFile ? BlogFile.name : null,
                 },
             };
             try {
