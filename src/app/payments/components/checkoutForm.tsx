@@ -1,5 +1,5 @@
 import axios from 'axios';
-import styles from '../styles/Products.module.css';
+import utils from '~/styles/Utils.module.css';
 
 import { PaymentProduct } from '@prisma/client';
 import { useRouter } from 'next/navigation';
@@ -39,7 +39,7 @@ const CheckoutForm = ({ product }: Props) => {
 
     return (
         <form onSubmit={event => handlePayment(event, product)}>
-            <button className={styles.btn} role="link" type="submit">
+            <button className={utils.btnForm} role="link" type="submit">
                 Buy Now
             </button>
         </form>

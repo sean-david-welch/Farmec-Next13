@@ -68,9 +68,9 @@ export const NavList = async ({ user, suppliers }: Props) => {
                 </NavItem>
 
                 {user && (user.role === 'ADMIN' || user.role === 'STAFF') ? (
-                    <NavItem link="/" title="Account" />
+                    <NavItem link="/account" title="Account" />
                 ) : (
-                    <NavItem link="/" title="Contact" />
+                    <NavItem link="/#contact" title="Contact" />
                 )}
 
                 <SignInButton />
