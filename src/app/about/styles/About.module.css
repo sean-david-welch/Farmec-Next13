@@ -21,3 +21,12 @@
 .employeeCard img {
     @apply mx-auto w-full rounded-t-xl;
 }
+
+.timelineCard {
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
+    @apply mx-32;
+}
+
+.timelineCard svg {
+    @apply h-10 w-10 whitespace-nowrap mx-auto;
+}
