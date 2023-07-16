@@ -36,21 +36,25 @@
     @apply my-4;
 }
 
-form label {
+.form label,
+.formSmall label {
     @apply my-2 block text-lg font-medium text-gray-900 dark:text-white;
 }
 
-form input {
+.form input,
+.formSmall input {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
-form select {
+.form select,
+.formSmall select {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
-form .btn {
+.form .btn,
+.formSmall .btn {
     @apply mt-4;
 }
 

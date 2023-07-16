@@ -37,7 +37,8 @@
     @apply h-8 w-8 mr-2;
 }
 
-.timelineCard > * {
+.timelineCard > h1,
+.timelineCard > p {
     @apply flex flex-row flex-nowrap;
     @apply my-2;
 }
