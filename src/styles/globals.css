@@ -9,7 +9,7 @@
 }
 
 html {
-    @apply scroll-smooth scroll-p-6 overflow-x-hidden max-w-full !important;
+    @apply scroll-smooth scroll-pt-20 overflow-x-hidden max-w-full !important;
 }
 
 html::-webkit-scrollbar {

@@ -23,8 +23,9 @@
 }
 
 .timelineCard {
+    @apply flex flex-col text-left;
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
-    @apply mx-32 my-10 p-4;
+    @apply mx-72 my-10 p-4;
     @apply transition-all duration-700 ease-in-out;
 }
 
@@ -41,4 +42,15 @@
 .timelineCard > p {
     @apply flex flex-row flex-nowrap;
     @apply my-2;
+}
+
+.infoCard {
+    @apply mx-44 my-10 p-4;
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.infoCard:hover {
+    @apply border-red-600;
+    @apply scale-[1.025];
 }

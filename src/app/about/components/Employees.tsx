@@ -29,8 +29,12 @@ export const Employees = async () => {
                             <p className={utils.paragraph}>{employee.role}</p>
                         </div>
                         <div className={styles.employeeContact}>
-                            <p className={utils.paragraph}>{employee.email}</p>
-                            <p className={utils.paragraph}>{employee.phone}</p>
+                            <p className={utils.paragraph}>
+                                Email: {employee.email}
+                            </p>
+                            <p className={utils.paragraph}>
+                                Mobile: {employee.phone}
+                            </p>
                         </div>
                         {user && user.role === 'ADMIN' && (
                             <UpdateAbout
