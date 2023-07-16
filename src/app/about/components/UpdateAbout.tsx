@@ -71,7 +71,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
             const body = getFormDataFunction
                 ? {
                       model: modelName,
-                      modelId: modelId,
+                      id: modelId,
                       data: {
                           ...getFormDataFunction(formData),
                           ['profile_image']: EmployeeFile
@@ -84,10 +84,10 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
             const response = await axios.put(`/api/about/${modelId}`, body);
 
             if (response.status === 200) {
-                const { profileSignature, profileTimestamp, folder } =
+                const { profileSignature, profileTimestamp, folder, model } =
                     response.data;
 
-                console.log('response', response);
+                console.log('response', response.data);
 
                 if (EmployeeFile) {
                     await uploadImage(
@@ -103,7 +103,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
             const body = getFormDataFunction
                 ? {
                       model: modelName,
-                      modelId: modelId,
+                      id: modelId,
                       data: getFormDataFunction(formData),
                   }
                 : {};
@@ -127,7 +127,9 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                     onClick={() => setShowForm(!showForm)}>
                     <FontAwesomeIcon icon={faPenToSquare} />
                 </button>
-                {model && <DeleteButton modelId={model?.id} />}
+                {model && (
+                    <DeleteButton modelId={model?.id} modelName={modelName} />
+                )}
             </div>
             {showForm && (
                 <form
@@ -164,10 +166,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                             )}
                         </div>
                     ))}
-                    <button
-                        className={utils.btnForm}
-                        type="submit"
-                        disabled={!model}>
+                    <button className={utils.btnForm} type="submit">
                         Submit
                     </button>
                 </form>

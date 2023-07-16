@@ -21,8 +21,6 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
         await validateUser();
         const { model, id, data } = await request.json();
 
-        console.log(model, id, data);
-
         if (!model || !data) {
             return NextResponse.json({ error: 'Invalid request' });
         }
@@ -121,7 +119,7 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
             const result = await deleteFunctions[
                 model as keyof typeof deleteFunctions
             ]();
-            return NextResponse.json({ message: 'Deleted successfully' });
+            return NextResponse.json(result);
         } else {
             return NextResponse.json({ error: 'Invalid model' });
         }

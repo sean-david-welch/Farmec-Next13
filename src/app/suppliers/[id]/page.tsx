@@ -54,7 +54,7 @@ const SupplierDetail = async ({ params }: Props) => {
 
             <div className={utils.index}>
                 <h1 className={utils.mainHeading}>Index:</h1>
-                <h1 className={utils.subHeading}>Machinery</h1>
+                <h1 className={utils.paragraph}>Machinery</h1>
             </div>
 
             <div className={styles.supplierDetail}>

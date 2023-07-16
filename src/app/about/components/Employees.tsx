@@ -19,18 +19,18 @@ export const Employees = async () => {
                         <Image
                             src={employee.profile_image || '/default.jpg'}
                             alt={'/default.jpg'}
-                            width={250}
-                            height={250}
+                            width={200}
+                            height={200}
                         />
                         <div className={styles.employeeInfo}>
                             <h1 className={utils.mainHeading}>
                                 {employee.name}
                             </h1>
-                            <p className={utils.subHeading}>{employee.role}</p>
+                            <p className={utils.paragraph}>{employee.role}</p>
                         </div>
                         <div className={styles.employeeContact}>
-                            <p className={utils.subHeading}>{employee.email}</p>
-                            <p className={utils.subHeading}>{employee.phone}</p>
+                            <p className={utils.paragraph}>{employee.email}</p>
+                            <p className={utils.paragraph}>{employee.phone}</p>
                         </div>
                         {user && user.role === 'ADMIN' && (
                             <UpdateAbout

@@ -11,6 +11,10 @@
 }
 
 .subHeading {
+    @apply text-xl mx-40 font-medium text-zinc-800 text-center;
+}
+
+.paragraph {
     @apply text-xl mx-auto font-medium;
 }
 

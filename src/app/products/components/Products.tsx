@@ -45,9 +45,7 @@ const Products = async ({ machine }: Props) => {
                                 height={500}
                             />
                         </Link>
-                        <p className={utils.subHeading}>
-                            {product.description}
-                        </p>
+                        <p className={utils.paragraph}>{product.description}</p>
                         {user && user.role === 'ADMIN' && (
                             <UpdateProduct product={product} />
                         )}

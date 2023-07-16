@@ -9,16 +9,19 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     modelId: string;
+    modelName: 'employee' | 'timeline' | 'terms' | 'privacy';
 }
 
-export const DeleteButton: React.FC<Props> = ({ modelId }) => {
+export const DeleteButton: React.FC<Props> = ({ modelId, modelName }) => {
     const router = useRouter();
 
     const onDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
-            const response = await axios.delete(`/api/about/${modelId}`);
+            const response = await axios.delete(`/api/about/${modelId}`, {
+                data: { model: modelName, id: modelId },
+            });
             if (response.status >= 200 && response.status < 300) {
                 router.push('/about');
                 router.refresh();

@@ -31,7 +31,7 @@ const MachineDetail = async ({ params }: Props) => {
 
             <div className={utils.index}>
                 <h1 className={utils.mainHeading}>Product Index:</h1>
-                <h1 className={utils.subHeading}>Products</h1>
+                <h1 className={utils.paragraph}>Products</h1>
                 <button className={utils.btnRound}>
                     <Link href={machine_link || '#'} target="_blank">
                         Supplier Website {'  '}

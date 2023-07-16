@@ -45,7 +45,7 @@ const Machines = async ({ supplier }: Props) => {
                             <h1 className={utils.mainHeading}>
                                 {machine.name}
                             </h1>
-                            <p className={utils.subHeading}>
+                            <p className={utils.paragraph}>
                                 {machine.description}
                             </p>
                             <button className={utils.btnRound}>

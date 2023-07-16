@@ -5,12 +5,12 @@
 
 .employeeCard {
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
-    @apply grid grid-cols-1 mx-14;
+    @apply grid grid-cols-1 mx-16;
     @apply transition-all duration-700 ease-in-out;
 }
 
 .employeeCard:hover {
-    @apply border-zinc-400;
+    @apply border-red-600;
     @apply scale-[1.025];
 }
 
@@ -19,14 +19,25 @@
 }
 
 .employeeCard img {
-    @apply mx-auto w-full rounded-t-xl;
+    @apply mx-auto w-full rounded-t-lg;
 }
 
 .timelineCard {
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
-    @apply mx-32;
+    @apply mx-32 my-10 p-4;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.timelineCard:hover {
+    @apply border-red-600;
+    @apply scale-[1.025];
 }
 
 .timelineCard svg {
-    @apply h-10 w-10 whitespace-nowrap mx-auto;
+    @apply h-8 w-8 mr-2;
+}
+
+.timelineCard > * {
+    @apply flex flex-row flex-nowrap;
+    @apply my-2;
 }
