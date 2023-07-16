@@ -6,13 +6,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
 
-import { getFormFields } from '../utils/GetFormFields';
-import {
-    getEmployeeFormData,
-    getTimelineFormData,
-    getTermFormData,
-    getPrivacyFormData,
-} from '../utils/getFormData';
+import { getFormFields } from '../utils/getFormFields';
+import { getBlogFormData, getExhibitionFormData } from '../utils/getFormData';
 
 interface FormField {
     name: string;
@@ -24,11 +19,12 @@ interface FormField {
 }
 
 interface Props {
-    modelName: 'employee' | 'timeline' | 'terms' | 'privacy';
+    modelName: 'blog' | 'exhibition';
 }
 
-export const AboutForm = ({ modelName }: Props) => {
+export const BlogForm = ({ modelName }: Props) => {
     const router = useRouter();
+    const [showForm, setShowForm] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -40,13 +36,9 @@ export const AboutForm = ({ modelName }: Props) => {
         fetchFields();
     }, [modelName]);
 
-    const [showForm, setShowForm] = useState(false);
-
     const getFormDataFunctions = {
-        employee: getEmployeeFormData,
-        timeline: getTimelineFormData,
-        terms: getTermFormData,
-        privacy: getPrivacyFormData,
+        blog: getBlogFormData,
+        exhibition: getExhibitionFormData,
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -56,48 +48,44 @@ export const AboutForm = ({ modelName }: Props) => {
 
         const getFormDataFunction = getFormDataFunctions[modelName];
 
-        if (modelName === 'employee') {
-            const EmployeeFile = formData.get(`profile_image`) as File;
+        if (modelName === 'blog') {
+            const BlogFile = formData.get(`main_image`) as File;
 
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      data: {
-                          ...getFormDataFunction(formData),
-                          ['profile_image']: EmployeeFile
-                              ? EmployeeFile.name
-                              : null,
-                      },
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                data: {
+                    ...getFormDataFunction(formData),
+                    ['main_image']: BlogFile,
+                },
+            };
+            try {
+                const response = await axios.post('/api/blog', body);
 
-            const response = await axios.post(`/api/about`, body);
+                if (response.status === 200) {
+                    const { blogSignature, blogTimestamp, folder } =
+                        response.data;
 
-            if (response.status === 200) {
-                const { profileSignature, profileTimestamp, folder } =
-                    response.data;
-
-                if (EmployeeFile) {
-                    await uploadImage(
-                        EmployeeFile,
-                        profileSignature,
-                        profileTimestamp,
-                        EmployeeFile.name,
-                        folder
-                    );
+                    if (BlogFile) {
+                        await uploadImage(
+                            BlogFile,
+                            blogSignature,
+                            blogTimestamp,
+                            BlogFile.name,
+                            folder
+                        );
+                    }
                 }
+            } catch (error) {
+                console.error('failed to create model', error);
             }
         } else {
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      data: getFormDataFunction(formData),
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                data: getFormDataFunction(formData),
+            };
 
             try {
-                const response = await axios.post(`/api/about`, body);
-                console.log('response', response);
+                await axios.post('/api/blog', body);
             } catch (error) {
                 console.error('failed to create model', error);
             }
@@ -107,10 +95,8 @@ export const AboutForm = ({ modelName }: Props) => {
     };
 
     const buttonTexts = {
-        employee: 'Add Employee',
-        timeline: 'Add Timeline',
-        terms: 'Add Terms',
-        privacy: 'Add Privacy',
+        blog: 'Add Blog',
+        exhibition: 'Add Exhibition',
     };
 
     return (

@@ -94,22 +94,14 @@ export const getFormFields = async (
     modelName: 'employee' | 'timeline' | 'terms' | 'privacy',
     modelInstance?: Employee | Timeline | Terms | Privacy | any
 ) => {
-    let fields;
+    const fieldMapping = {
+        employee: employeeFormFields,
+        timeline: timelineFormFields,
+        terms: termsFormFields,
+        privacy: privacyFormFields,
+    };
 
-    switch (modelName) {
-        case 'employee':
-            fields = employeeFormFields;
-            break;
-        case 'timeline':
-            fields = timelineFormFields;
-            break;
-        case 'terms':
-            fields = termsFormFields;
-            break;
-        case 'privacy':
-            fields = privacyFormFields;
-            break;
-    }
+    let fields = fieldMapping[modelName];
 
     if (modelInstance) {
         fields = fields.map(field => ({

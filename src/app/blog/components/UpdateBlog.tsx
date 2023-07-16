@@ -2,17 +2,17 @@
 import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
+import { useState, useEffect } from 'react';
 
-import { getFormFields } from '../utils/GetFormFields';
-import {
-    getEmployeeFormData,
-    getTimelineFormData,
-    getTermFormData,
-    getPrivacyFormData,
-} from '../utils/getFormData';
+import { getFormFields } from '../utils/getFormFields';
+import { Blog, Exhibition } from '@prisma/client';
+import { getBlogFormData, getExhibitionFormData } from '../utils/getFormData';
+
+import { DeleteButton } from './DeleteBlog';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 interface FormField {
     name: string;
@@ -24,80 +24,77 @@ interface FormField {
 }
 
 interface Props {
-    modelName: 'employee' | 'timeline' | 'terms' | 'privacy';
+    modelName: 'blog' | 'exhibition';
+    model: Blog | Exhibition;
 }
 
-export const AboutForm = ({ modelName }: Props) => {
+export const UpdateBlog = ({ modelName, model }: Props) => {
     const router = useRouter();
+    const [showForm, setShowForm] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
         const fetchFields = async () => {
-            const fields = await getFormFields(modelName);
+            const fields = await getFormFields(modelName, model);
             setFormFields(fields);
         };
 
         fetchFields();
     }, [modelName]);
 
-    const [showForm, setShowForm] = useState(false);
-
     const getFormDataFunctions = {
-        employee: getEmployeeFormData,
-        timeline: getTimelineFormData,
-        terms: getTermFormData,
-        privacy: getPrivacyFormData,
+        blog: getBlogFormData,
+        exhibition: getExhibitionFormData,
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>,
+        modelId: string
+    ) => {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
 
         const getFormDataFunction = getFormDataFunctions[modelName];
 
-        if (modelName === 'employee') {
-            const EmployeeFile = formData.get(`profile_image`) as File;
+        if (modelName === 'blog') {
+            const BlogFile = formData.get(`main_image`) as File;
 
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      data: {
-                          ...getFormDataFunction(formData),
-                          ['profile_image']: EmployeeFile
-                              ? EmployeeFile.name
-                              : null,
-                      },
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                data: {
+                    ...getFormDataFunction(formData),
+                    ['main_image']: BlogFile,
+                },
+            };
+            try {
+                const response = await axios.put(`/api/blog/${modelId}`, body);
 
-            const response = await axios.post(`/api/about`, body);
+                if (response.status === 200) {
+                    const { blogSignature, blogTimestamp, folder } =
+                        response.data;
 
-            if (response.status === 200) {
-                const { profileSignature, profileTimestamp, folder } =
-                    response.data;
-
-                if (EmployeeFile) {
-                    await uploadImage(
-                        EmployeeFile,
-                        profileSignature,
-                        profileTimestamp,
-                        EmployeeFile.name,
-                        folder
-                    );
+                    if (BlogFile) {
+                        await uploadImage(
+                            BlogFile,
+                            blogSignature,
+                            blogTimestamp,
+                            BlogFile.name,
+                            folder
+                        );
+                    }
                 }
+            } catch (error) {
+                console.error('failed to create model', error);
             }
         } else {
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      data: getFormDataFunction(formData),
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                data: getFormDataFunction(formData),
+            };
 
             try {
-                const response = await axios.post(`/api/about`, body);
-                console.log('response', response);
+                await axios.put(`/api/blog/${modelId}`, body);
             } catch (error) {
                 console.error('failed to create model', error);
             }
@@ -107,22 +104,25 @@ export const AboutForm = ({ modelName }: Props) => {
     };
 
     const buttonTexts = {
-        employee: 'Add Employee',
-        timeline: 'Add Timeline',
-        terms: 'Add Terms',
-        privacy: 'Add Privacy',
+        blog: 'Add Blog',
+        exhibition: 'Add Exhibition',
     };
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                {buttonTexts[modelName] || 'Add'}
-            </button>
+            {/* <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {model && (
+                    <DeleteButton modelId={model?.id} modelName={modelName} />
+                )}
+            </div> */}
             {showForm && (
                 <form
-                    onSubmit={handleSubmit}
+                    onSubmit={event => model && handleSubmit(event, model.id)}
                     className={utils.form}
                     encType="multipart/form-data">
                     {formFields.map(field => (
