@@ -1,11 +1,16 @@
 'use client';
-import styles from '../styles/About.module.css';
 import utils from '~/styles/Utils.module.css';
+import axios from 'axios';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { uploadImage } from '~/utils/uploadImage';
+import { DeleteButton } from './DeleteAbout';
+import { useState, useEffect } from 'react';
+import { Employee, Timeline, Terms, Privacy } from '@prisma/client';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
+import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/GetFormFields';
 import {
     getEmployeeFormData,
@@ -13,7 +18,6 @@ import {
     getTermFormData,
     getPrivacyFormData,
 } from '../utils/getFormData';
-import axios from 'axios';
 
 interface FormField {
     name: string;
@@ -26,16 +30,16 @@ interface FormField {
 
 interface Props {
     modelName: 'employee' | 'timeline' | 'terms' | 'privacy';
-    modelId: string;
+    model: Employee | Timeline | Terms | Privacy;
 }
 
-export const UpdateAbout = ({ modelName, modelId }: Props) => {
+export const UpdateAbout = ({ modelName, model }: Props) => {
     const router = useRouter();
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
         const fetchFields = async () => {
-            const fields = await getFormFields(modelName, modelId);
+            const fields = await getFormFields(modelName, model);
             setFormFields(fields);
         };
 
@@ -51,7 +55,10 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
         privacy: getPrivacyFormData,
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (
+        event: React.FormEvent<HTMLFormElement>,
+        modelId: string
+    ) => {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
@@ -64,6 +71,7 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
             const body = getFormDataFunction
                 ? {
                       model: modelName,
+                      modelId: modelId,
                       data: {
                           ...getFormDataFunction(formData),
                           ['profile_image']: EmployeeFile
@@ -79,6 +87,8 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
                 const { profileSignature, profileTimestamp, folder } =
                     response.data;
 
+                console.log('response', response);
+
                 if (EmployeeFile) {
                     await uploadImage(
                         EmployeeFile,
@@ -93,12 +103,13 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
             const body = getFormDataFunction
                 ? {
                       model: modelName,
+                      modelId: modelId,
                       data: getFormDataFunction(formData),
                   }
                 : {};
 
             try {
-                const response = await axios.post(`/api/about`, body);
+                const response = await axios.put(`/api/about/${modelId}`, body);
                 console.log('response', response);
             } catch (error) {
                 console.error('failed to create model', error);
@@ -108,24 +119,20 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
         router.refresh();
     };
 
-    const buttonTexts = {
-        employee: 'Add Employee',
-        timeline: 'Add Timeline',
-        terms: 'Add Terms',
-        privacy: 'Add Privacy',
-    };
-
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                {buttonTexts[modelName] || 'Add'}
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {model && <DeleteButton modelId={model?.id} />}
+            </div>
             {showForm && (
                 <form
-                    onSubmit={handleSubmit}
-                    className={utils.form}
+                    onSubmit={event => model && handleSubmit(event, model.id)}
+                    className={utils.formSmall}
                     encType="multipart/form-data">
                     {formFields.map(field => (
                         <div key={field.name}>
@@ -134,7 +141,7 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
                                 <select
                                     name={field.name}
                                     id={field.name}
-                                    placeholder={field.placeholder}>
+                                    defaultValue={field.defaultValue || ''}>
                                     {field.options?.map(option => (
                                         <option
                                             key={option.value}
@@ -148,12 +155,19 @@ export const UpdateAbout = ({ modelName, modelId }: Props) => {
                                     type={field.type}
                                     name={field.name}
                                     id={field.name}
-                                    placeholder={field.placeholder}
+                                    defaultValue={
+                                        field.type === 'file'
+                                            ? undefined
+                                            : field.defaultValue || ''
+                                    }
                                 />
                             )}
                         </div>
                     ))}
-                    <button className={utils.btnForm} type="submit">
+                    <button
+                        className={utils.btnForm}
+                        type="submit"
+                        disabled={!model}>
                         Submit
                     </button>
                 </form>

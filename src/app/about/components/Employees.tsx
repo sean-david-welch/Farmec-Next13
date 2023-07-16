@@ -4,9 +4,12 @@ import utils from '~/styles/Utils.module.css';
 import Image from 'next/image';
 
 import { prisma } from '~/lib/prisma';
+import { UpdateAbout } from './UpdateAbout';
+import { getSessionAndUser } from '~/utils/user';
 
 export const Employees = async () => {
     const employees = await prisma.employee.findMany();
+    const { user } = await getSessionAndUser();
 
     return (
         <section id="employees">
@@ -29,6 +32,12 @@ export const Employees = async () => {
                             <p className={utils.subHeading}>{employee.email}</p>
                             <p className={utils.subHeading}>{employee.phone}</p>
                         </div>
+                        {user && user.role === 'ADMIN' && (
+                            <UpdateAbout
+                                modelName="employee"
+                                model={employee}
+                            />
+                        )}
                     </div>
                 ))}
             </div>

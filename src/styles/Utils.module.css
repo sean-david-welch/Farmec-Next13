@@ -32,22 +32,27 @@
     @apply my-4;
 }
 
-.form label {
+form label {
     @apply my-2 block text-lg font-medium text-gray-900 dark:text-white;
 }
 
-.form input {
+form input {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
-.form select {
+form select {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
-.form .btn {
+form .btn {
     @apply mt-4;
+}
+
+.formSmall {
+    @apply flex flex-col bg-zinc-800 text-center mx-5 rounded-lg border-4 border-zinc-600;
+    @apply p-2 my-5;
 }
 
 /* Buttons */

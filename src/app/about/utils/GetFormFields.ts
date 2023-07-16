@@ -1,3 +1,5 @@
+import { Employee, Timeline, Terms, Privacy } from '@prisma/client';
+
 const employeeFormFields = [
     {
         name: 'name',
@@ -90,7 +92,7 @@ const privacyFormFields = [
 
 export const getFormFields = async (
     modelName: 'employee' | 'timeline' | 'terms' | 'privacy',
-    modelInstance?: any
+    modelInstance?: Employee | Timeline | Terms | Privacy | any
 ) => {
     let fields;
 

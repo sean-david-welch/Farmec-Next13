@@ -13,12 +13,15 @@ interface Data {
     phone?: string;
     role?: string;
     bio?: string;
+    id?: string;
 }
 
 export const PUT = async (request: NextRequest): Promise<NextResponse> => {
     try {
         await validateUser();
         const { model, id, data } = await request.json();
+
+        console.log(model, id, data);
 
         if (!model || !data) {
             return NextResponse.json({ error: 'Invalid request' });
