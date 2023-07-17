@@ -8,6 +8,9 @@ import { PaymentProduct } from '@prisma/client';
 
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/GetFormFields';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { DeleteButton } from './DeletePaymentProduct';
 
 export const UpdatePaymentProduct = ({
     paymentProduct,
@@ -35,13 +38,15 @@ export const UpdatePaymentProduct = ({
 
         try {
             const response = await axios.put(
-                `/api/payment/${paymentProductID}`,
+                `/api/payments/${paymentProductID}`,
                 body
             );
 
             if (response.status === 200) {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
+
+                const productFile = formData.get('image') as File;
 
                 if (productFile) {
                     await uploadImage(
@@ -62,11 +67,16 @@ export const UpdatePaymentProduct = ({
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                Create Supplier
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {paymentProduct && (
+                    <DeleteButton productId={paymentProduct.id} />
+                )}
+            </div>
             {showForm && (
                 <form
                     className={utils.form}

@@ -25,11 +25,13 @@ export const CreatePaymentProduct = () => {
         };
 
         try {
-            const response = await axios.post('/api/payment', body);
+            const response = await axios.post('/api/payments', body);
 
             if (response.status === 200) {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
+
+                const productFile = formData.get('image') as File;
 
                 if (productFile) {
                     await uploadImage(
@@ -53,7 +55,7 @@ export const CreatePaymentProduct = () => {
             <button
                 className={utils.btnForm}
                 onClick={() => setShowForm(!showForm)}>
-                Create Supplier
+                Create Product
             </button>
             {showForm && (
                 <form

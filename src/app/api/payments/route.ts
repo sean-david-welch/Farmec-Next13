@@ -23,7 +23,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             timestamp: imageTimestamp,
         } = await uploadToCloudinary(image, folder);
 
-        const payment = await prisma.paymentProduct.create({
+        const paymentProduct = await prisma.paymentProduct.create({
             data: {
                 name: name,
                 price: price,
@@ -32,7 +32,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         });
 
         return NextResponse.json({
-            payment,
+            paymentProduct,
             imageSignature,
             imageTimestamp,
             folder,
