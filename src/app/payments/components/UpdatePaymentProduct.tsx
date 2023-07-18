@@ -46,6 +46,8 @@ export const UpdatePaymentProduct = ({
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
+                console.log(response.data);
+
                 const productFile = formData.get('image') as File;
 
                 if (productFile) {

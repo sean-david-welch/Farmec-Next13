@@ -18,11 +18,15 @@ export const CreatePaymentProduct = () => {
 
         const productFile = formData.get('image') as File;
 
+        console.log(productFile);
+
         const body = {
             name: formData.get('name'),
             price: formData.get('price'),
             image: productFile ? productFile.name : null,
         };
+
+        console.log(body);
 
         try {
             const response = await axios.post('/api/payments', body);
@@ -44,7 +48,7 @@ export const CreatePaymentProduct = () => {
                 }
             }
         } catch (error) {
-            console.error(error);
+            console.error('Failed to create product', error);
         }
         setShowForm(false);
         router.refresh();

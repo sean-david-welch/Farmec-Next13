@@ -5,11 +5,12 @@ import { prisma } from '~/lib/prisma';
 
 import CheckoutForm from '~/app/payments/components/checkoutForm';
 import { CreatePaymentProduct } from '~/app/payments/components/CreatePaymentProduct';
+import { PaymentProduct } from '@prisma/client';
 
 export const Products = async () => {
-    const product = await prisma.paymentProduct.findFirst();
+    const products: PaymentProduct[] = await prisma.paymentProduct.findMany();
 
-    if (!product) {
+    if (!products) {
         return (
             <section id="payment-product">
                 <div>No products found.</div>
@@ -20,7 +21,7 @@ export const Products = async () => {
 
     return (
         <section id="payment-product">
-            <CheckoutForm product={product} />
+            {products.length > 0 && <CheckoutForm product={products[0]} />}
             <CreatePaymentProduct />
         </section>
     );

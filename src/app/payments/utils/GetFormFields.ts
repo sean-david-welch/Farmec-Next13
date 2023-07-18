@@ -16,9 +16,9 @@ export const getFormFields = (paymentProduct?: PaymentProduct) => [
         defaultValue: paymentProduct?.price,
     },
     {
-        name: 'marketing_image',
-        label: 'Marketing Image',
+        name: 'image',
+        label: 'Image',
         type: 'file',
-        placeholder: 'Upload marketing image',
+        placeholder: 'Upload image',
     },
 ];
