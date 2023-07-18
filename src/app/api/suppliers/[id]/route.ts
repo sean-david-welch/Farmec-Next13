@@ -103,7 +103,6 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
                 id: id,
             },
         });
-        console.log('Supplier deleted');
 
         if (logoId) {
             await deleteFromCloudinary(logoId);

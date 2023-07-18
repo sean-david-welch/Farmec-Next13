@@ -28,10 +28,14 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         const paymentProduct = await prisma.paymentProduct.create({
             data: {
                 name: name,
-                price: price,
+                price: Number(price),
                 image: imageUrl,
             },
         });
+
+        if (!paymentProduct) {
+            throw new Error('Payment product not found');
+        }
 
         return NextResponse.json({
             paymentProduct,

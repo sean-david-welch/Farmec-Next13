@@ -1,9 +1,9 @@
 import { prisma } from '~/lib/prisma';
 import { errorResponse } from '~/utils/user';
-import { baseUrl, stripeSecret, testSecret, webhookSecret } from '~/lib/config';
+import { baseUrl, stripeSecret, webhookSecret } from '~/lib/config';
 import { NextRequest, NextResponse } from 'next/server';
 
-const stripe = require('stripe')(String(testSecret));
+const stripe = require('stripe')(String(stripeSecret));
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {

@@ -97,7 +97,6 @@ export const AboutForm = ({ modelName }: Props) => {
 
             try {
                 const response = await axios.post(`/api/about`, body);
-                console.log('response', response);
             } catch (error) {
                 console.error('failed to create model', error);
             }

@@ -37,16 +37,10 @@ export async function generateUploadURL(bucketName: string, key: string) {
         Expires: 3600,
     });
 
-    console.log('presignedPostData:', presignedPostData);
-
     const url = presignedPostData.url;
-
-    console.log('url:', url);
 
     const s3UrlBase = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com`;
     const publicUrl = `${s3UrlBase}/${key}`;
-
-    console.log('publicUrl:', publicUrl);
 
     return { presignedUrl: url, publicUrl };
 }

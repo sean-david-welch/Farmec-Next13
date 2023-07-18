@@ -84,10 +84,8 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
             const response = await axios.put(`/api/about/${modelId}`, body);
 
             if (response.status === 200) {
-                const { profileSignature, profileTimestamp, folder, model } =
+                const { profileSignature, profileTimestamp, folder } =
                     response.data;
-
-                console.log('response', response.data);
 
                 if (EmployeeFile) {
                     await uploadImage(
@@ -109,8 +107,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                 : {};
 
             try {
-                const response = await axios.put(`/api/about/${modelId}`, body);
-                console.log('response', response);
+                await axios.put(`/api/about/${modelId}`, body);
             } catch (error) {
                 console.error('failed to create model', error);
             }
