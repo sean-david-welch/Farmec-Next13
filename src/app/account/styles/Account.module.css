@@ -1,0 +1,19 @@
+.productView {
+    @apply flex flex-col p-4 mx-56 my-10;
+    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
+    @apply transition-all duration-500 ease-in-out;
+}
+
+.productView > * {
+    @apply my-2;
+}
+
+.productView:hover {
+    @apply border-red-700;
+}
+
+.productView img {
+    @apply mx-auto;
+    @apply rounded-xl;
+    @apply transition-all duration-500 ease-in-out;
+}

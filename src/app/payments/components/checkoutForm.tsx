@@ -41,7 +41,7 @@ const CheckoutForm = ({ product }: Props) => {
     return (
         <form onSubmit={event => handlePayment(event, product)}>
             <button className={utils.btnForm} role="link" type="submit">
-                Buy Now
+                Buy Now - €{product.price}
             </button>
         </form>
     );

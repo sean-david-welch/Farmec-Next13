@@ -1,5 +1,6 @@
 import utils from '~/styles/Utils.module.css';
 import styles from '../styles/Account.module.css';
+import Image from 'next/image';
 
 import { prisma } from '~/lib/prisma';
 
@@ -8,9 +9,10 @@ import { CreatePaymentProduct } from '~/app/payments/components/CreatePaymentPro
 import { PaymentProduct } from '@prisma/client';
 
 export const Products = async () => {
-    const products: PaymentProduct[] = await prisma.paymentProduct.findMany();
+    const product: PaymentProduct | null =
+        await prisma.paymentProduct.findFirst();
 
-    if (!products) {
+    if (!product) {
         return (
             <section id="payment-product">
                 <div>No products found.</div>
@@ -19,9 +21,24 @@ export const Products = async () => {
         );
     }
 
+    const { name, price, image } = product;
+
     return (
         <section id="payment-product">
-            {products.length > 0 && <CheckoutForm product={products[0]} />}
+            <div className={styles.productView}>
+                <h1 className={utils.mainHeading}>
+                    {name} - €{price}
+                </h1>
+                <Image
+                    src={image ?? '/default.jpg'}
+                    alt={name ?? 'Default image'}
+                    width={300}
+                    height={300}
+                />
+
+                {product && <CheckoutForm product={product} />}
+            </div>
+
             <CreatePaymentProduct />
         </section>
     );
