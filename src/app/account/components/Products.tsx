@@ -1,12 +1,12 @@
 import utils from '~/styles/Utils.module.css';
 import styles from '../styles/Account.module.css';
+
 import Image from 'next/image';
+import CheckoutForm from '~/app/payments/components/checkoutForm';
 
 import { prisma } from '~/lib/prisma';
-
-import CheckoutForm from '~/app/payments/components/checkoutForm';
-import { CreatePaymentProduct } from '~/app/payments/components/CreatePaymentProduct';
 import { PaymentProduct } from '@prisma/client';
+import { CreatePaymentProduct } from '~/app/payments/components/CreatePaymentProduct';
 
 export const Products = async () => {
     const product: PaymentProduct | null =

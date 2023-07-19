@@ -11,6 +11,8 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
         const { warrantyClaim, partsRequired } = data;
 
+        console.log(warrantyClaim);
+
         const {
             dealer,
             dealer_contact,
