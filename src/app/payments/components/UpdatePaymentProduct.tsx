@@ -79,7 +79,7 @@ export const UpdatePaymentProduct = ({
             </div>
             {showForm && (
                 <form
-                    className={utils.form}
+                    className={utils.formSmall}
                     onSubmit={event =>
                         paymentProduct && handleSubmit(event, paymentProduct.id)
                     }

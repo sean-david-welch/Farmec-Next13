@@ -1,0 +1,74 @@
+'use client';
+import utils from '~/styles/Utils.module.css';
+
+import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getFormFields } from '../utils/getFormFields';
+
+export const CreateWarranty = () => {
+    const router = useRouter();
+    const formFields = getFormFields();
+    const [showForm, setShowForm] = useState(false);
+
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget as HTMLFormElement);
+
+        const body = {
+            dealer_name: formData.get('dealer_name') as string,
+            dealer_address: formData.get('dealer_address') as string,
+            owner_name: formData.get('owner_name') as string,
+            owner_address: formData.get('owner_address') as string,
+            machine_model: formData.get('machine_model') as string,
+            serial_number: formData.get('serial_number') as string,
+            install_date: formData.get('install_date') as string,
+            invoice_number: formData.get('invoice_number') as string,
+            complete_supply: formData.get('complete_supply') === 'on',
+            pdi_complete: formData.get('pdi_complete') === 'on',
+            pto_correct: formData.get('pto_correct') === 'on',
+            machine_test_run: formData.get('machine_test_run') === 'on',
+            safety_induction: formData.get('safety_induction') === 'on',
+            operator_handbook: formData.get('operator_handbook') === 'on',
+            date: formData.get('date') as string,
+            completed_by: formData.get('completed_by') as string,
+        };
+
+        try {
+            const response = await axios.post('/api/registration', body);
+        } catch (error) {
+            console.error('Failed to create wwarranty claim', error);
+        }
+        router.refresh();
+        setShowForm(false);
+    }
+
+    return (
+        <section id="form">
+            <button
+                className={utils.btnForm}
+                onClick={() => setShowForm(!showForm)}>
+                Create Registration
+            </button>
+            {showForm && (
+                <form className={utils.formSmall} onSubmit={handleSubmit}>
+                    {formFields.map(field => (
+                        <div key={field.name}>
+                            <label htmlFor={field.name}>{field.label}</label>
+                            <input
+                                type={field.type}
+                                name={field.name}
+                                id={field.name}
+                                placeholder={field.placeholder}
+                            />
+                        </div>
+                    ))}
+
+                    <button className={utils.btnForm} type="submit">
+                        Submit
+                    </button>
+                </form>
+            )}
+        </section>
+    );
+};

@@ -63,7 +63,7 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
             </button>
             {showForm && (
                 <form
-                    className={utils.form}
+                    className={utils.formSmall}
                     onSubmit={event =>
                         carousel && handleSubmit(event, carousel?.id)
                     }

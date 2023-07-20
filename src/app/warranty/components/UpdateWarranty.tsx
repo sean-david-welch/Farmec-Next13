@@ -4,7 +4,7 @@ import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getFormFields, getPartFields } from '../urils/getFormFields';
+import { getFormFields, getPartFields } from '../utils/getFormFields';
 
 import { WarrantyClaim } from '@prisma/client';
 
@@ -102,7 +102,7 @@ export const UpdateWarranty = ({
             </button>
             {showForm && (
                 <form
-                    className={utils.form}
+                    className={utils.formSmall}
                     onSubmit={event =>
                         warrantyClaim && handleSubmit(event, warrantyClaim.id)
                     }>

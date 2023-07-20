@@ -59,7 +59,7 @@ export const CreatePaymentProduct = () => {
             </button>
             {showForm && (
                 <form
-                    className={utils.form}
+                    className={utils.formSmall}
                     onSubmit={handleSubmit}
                     encType="multipart/form-data">
                     {formFields.map(field => (

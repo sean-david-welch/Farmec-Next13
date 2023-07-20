@@ -5,6 +5,7 @@ import { getSessionAndUser } from '~/utils/user';
 import { Products } from './components/Products';
 import { Warranty } from './components/Warranty';
 import { CarouselAdmin } from './components/Carousel';
+import { SignInButton } from '~/components/client/Buttons';
 
 const Account = async () => {
     const { user } = await getSessionAndUser();
@@ -14,6 +15,7 @@ const Account = async () => {
             <section id="account">
                 <h1 className={utils.sectionHeading}>Account</h1>
                 <p className={utils.subHeading}>Not logged in</p>
+                <SignInButton />
             </section>
         );
     }
@@ -43,8 +45,8 @@ const Account = async () => {
             {user.role === 'ADMIN' && (
                 <div className={styles.accountSection}>
                     <Products user={user} />
-                    <Warranty user={user} />
                     <CarouselAdmin user={user} />
+                    <Warranty user={user} />
                 </div>
             )}
         </section>

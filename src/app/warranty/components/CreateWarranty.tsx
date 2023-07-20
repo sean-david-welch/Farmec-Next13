@@ -4,7 +4,7 @@ import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getFormFields, getPartFields } from '../urils/getFormFields';
+import { getFormFields, getPartFields } from '../utils/getFormFields';
 
 export const CreateWarranty = () => {
     const router = useRouter();
@@ -89,7 +89,7 @@ export const CreateWarranty = () => {
                 Create Warranty Claim
             </button>
             {showForm && (
-                <form className={utils.form} onSubmit={handleSubmit}>
+                <form className={utils.formSmall} onSubmit={handleSubmit}>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
