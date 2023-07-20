@@ -5,8 +5,13 @@ import { prisma } from '~/lib/prisma';
 import { WarrantyClaim } from '@prisma/client';
 
 import { CreateWarranty } from '~/app/warranty/components/CreateWarranty';
+import { UpdateWarranty } from '~/app/warranty/components/UpdateWarranty';
 
-export const Warranty = async () => {
+interface Props {
+    user: { role: string };
+}
+
+export const Warranty = async ({ user }: Props) => {
     const warranties: WarrantyClaim[] | null =
         await prisma.warrantyClaim.findMany();
 
@@ -14,7 +19,7 @@ export const Warranty = async () => {
         return (
             <section id="warranty">
                 <div>No warranty claims found.</div>
-                <CreateWarranty />
+                {user && user.role === 'ADMIN' && <CreateWarranty />}
             </section>
         );
     }
@@ -25,10 +30,13 @@ export const Warranty = async () => {
                 {warranties.map(warranty => (
                     <div key={warranty.id}>
                         <h1>{warranty.dealer}</h1>
+                        {user && user.role === 'ADMIN' && (
+                            <UpdateWarranty warrantyClaim={warranty} />
+                        )}
                     </div>
                 ))}
             </div>
-            <CreateWarranty />
+            {user && user.role === 'ADMIN' && <CreateWarranty />}
         </section>
     );
 };

@@ -8,7 +8,7 @@ import { getFormFields, getPartFields } from '../urils/getFormFields';
 
 import { WarrantyClaim } from '@prisma/client';
 
-export const CreateWarranty = ({
+export const UpdateWarranty = ({
     warrantyClaim,
 }: {
     warrantyClaim: WarrantyClaim;

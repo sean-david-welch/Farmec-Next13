@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
     webhookSecret = process.env.WEBHOOK_SECRET || '';
 }
 if (process.env.NODE_ENV === 'development') {
+    baseUrl = 'http://localhost:3000';
     stripePublic = process.env.TEST_PUBLIC_KEY || '';
     stripeSecret = process.env.TEST_SECRET_KEY || '';
 }

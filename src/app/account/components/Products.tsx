@@ -8,7 +8,11 @@ import { prisma } from '~/lib/prisma';
 import { PaymentProduct } from '@prisma/client';
 import { CreatePaymentProduct } from '~/app/payments/components/CreatePaymentProduct';
 
-export const Products = async () => {
+interface Props {
+    user: { role: string };
+}
+
+export const Products = async ({ user }: Props) => {
     const product: PaymentProduct | null =
         await prisma.paymentProduct.findFirst();
 
@@ -16,7 +20,7 @@ export const Products = async () => {
         return (
             <section id="payment-product">
                 <div>No products found.</div>
-                <CreatePaymentProduct />
+                {user && user.role === 'ADMIN' && <CreatePaymentProduct />}
             </section>
         );
     }
@@ -39,7 +43,7 @@ export const Products = async () => {
                 {product && <CheckoutForm product={product} />}
             </div>
 
-            <CreatePaymentProduct />
+            {user && user.role === 'ADMIN' && <CreatePaymentProduct />}
         </section>
     );
 };

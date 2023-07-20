@@ -9,7 +9,7 @@ import { getFormFields } from '../utils/getFormFields';
 
 import { Carousel } from '@prisma/client';
 
-export const CreateCarousel = ({ carousel }: { carousel?: Carousel }) => {
+export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
     const router = useRouter();
     const formFields = getFormFields(carousel);
     const [showForm, setShowForm] = useState(false);

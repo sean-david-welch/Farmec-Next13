@@ -1,5 +1,11 @@
+.accountSection {
+    @apply grid grid-cols-2;
+    @apply bg-zinc-600 rounded-2xl border-4 border-zinc-800;
+    @apply mx-20 my-10;
+}
+
 .productView {
-    @apply flex flex-col p-4 mx-56 my-10;
+    @apply flex flex-col p-4 mx-12 my-10;
     @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
     @apply transition-all duration-500 ease-in-out;
 }
