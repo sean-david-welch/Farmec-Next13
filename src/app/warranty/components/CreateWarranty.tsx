@@ -34,11 +34,9 @@ export const CreateWarranty = () => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-        const partsRequired = parts.map(index => {
-            console.log(event.currentTarget);
+        const partsRequired = parts.map((part, index) => {
             return {
                 part_number: event.currentTarget[`part_number_${index}`].value,
-
                 quantity_needed:
                     event.currentTarget[`quantity_needed_${index}`].value,
                 invoice_number:
@@ -68,8 +66,6 @@ export const CreateWarranty = () => {
             },
             partsRequired: partsRequired,
         };
-
-        console.log(body);
 
         try {
             const response = await axios.post('/api/warranty', body);

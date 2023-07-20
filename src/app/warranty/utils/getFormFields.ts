@@ -220,7 +220,7 @@ export const getPartFields = (
     {
         name: `quantity_needed_${index}`,
         label: 'Quantity Needed',
-        type: 'number',
+        type: 'text',
         placeholder: 'Enter quantity needed',
         defaultValue: partsRequired?.quantity_needed,
     },

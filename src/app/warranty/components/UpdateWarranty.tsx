@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation';
 import { getFormFields, getPartFields } from '../utils/getFormFields';
 
 import { WarrantyClaim } from '@prisma/client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { DeleteButton } from './DeleteWarranty';
 
 export const UpdateWarranty = ({
     warrantyClaim,
@@ -43,11 +46,9 @@ export const UpdateWarranty = ({
         event.preventDefault();
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
-        const partsRequired = parts.map(index => {
-            console.log(event.currentTarget);
+        const partsRequired = parts.map((part, index) => {
             return {
                 part_number: event.currentTarget[`part_number_${index}`].value,
-
                 quantity_needed:
                     event.currentTarget[`quantity_needed_${index}`].value,
                 invoice_number:
@@ -56,9 +57,6 @@ export const UpdateWarranty = ({
                     event.currentTarget[`part_description_${index}`].value,
             };
         });
-
-        console.log(partsRequired);
-        console.log(formData);
 
         const body = {
             warrantyClaim: {
@@ -78,8 +76,6 @@ export const UpdateWarranty = ({
             partsRequired: partsRequired,
         };
 
-        console.log(body);
-
         try {
             const response = await axios.put(
                 `api/warranty/${warrantyId}`,
@@ -95,11 +91,16 @@ export const UpdateWarranty = ({
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                Create Warranty Claim
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {warrantyClaim && (
+                    <DeleteButton warrantyId={warrantyClaim?.id} />
+                )}
+            </div>
             {showForm && (
                 <form
                     className={utils.formSmall}

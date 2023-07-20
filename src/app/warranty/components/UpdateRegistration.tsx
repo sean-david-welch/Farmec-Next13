@@ -7,6 +7,10 @@ import { useRouter } from 'next/navigation';
 import { getRegFields } from '../utils/getFormFields';
 import { MachineRegistration } from '@prisma/client';
 
+import { DeleteButton } from './DeleteRegistration';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
 export const UpdateRegistration = ({
     registration,
 }: {
@@ -50,11 +54,16 @@ export const UpdateRegistration = ({
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                Create Registration
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {registration && (
+                    <DeleteButton registrationId={registration?.id} />
+                )}
+            </div>
             {showForm && (
                 <form className={utils.formSmall} onSubmit={handleSubmit}>
                     {formFields.map(field => (

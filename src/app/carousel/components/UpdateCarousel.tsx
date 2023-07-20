@@ -8,6 +8,9 @@ import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
 
 import { Carousel } from '@prisma/client';
+import { DeleteButton } from './DeleteCarousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
     const router = useRouter();
@@ -56,11 +59,14 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                Create Carousel
-            </button>
+            <div className={utils.optionsBtn}>
+                <button
+                    className={utils.btnForm}
+                    onClick={() => setShowForm(!showForm)}>
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+                {carousel && <DeleteButton modelId={carousel?.id} />}
+            </div>
             {showForm && (
                 <form
                     className={utils.formSmall}
