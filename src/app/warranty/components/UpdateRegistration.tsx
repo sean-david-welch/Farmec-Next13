@@ -5,10 +5,15 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getRegFields } from '../utils/getFormFields';
+import { MachineRegistration } from '@prisma/client';
 
-export const CreateRegistration = () => {
+export const UpdateRegistration = ({
+    registration,
+}: {
+    registration: MachineRegistration;
+}) => {
     const router = useRouter();
-    const formFields = getRegFields();
+    const formFields = getRegFields(registration);
     const [showForm, setShowForm] = useState(false);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -35,7 +40,7 @@ export const CreateRegistration = () => {
         };
 
         try {
-            await axios.post('/api/registration', body);
+            const response = await axios.post('/api/registration', body);
         } catch (error) {
             console.error('Failed to create wwarranty claim', error);
         }

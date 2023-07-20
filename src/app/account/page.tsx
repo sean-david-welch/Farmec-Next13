@@ -6,6 +6,7 @@ import { Products } from './components/Products';
 import { Warranty } from './components/Warranty';
 import { CarouselAdmin } from './components/Carousel';
 import { SignInButton } from '~/components/client/Buttons';
+import { Registrations } from './components/Registration';
 
 const Account = async () => {
     const { user } = await getSessionAndUser();
@@ -47,6 +48,7 @@ const Account = async () => {
                     <Products user={user} />
                     <CarouselAdmin user={user} />
                     <Warranty user={user} />
+                    <Registrations user={user} />
                 </div>
             )}
         </section>
