@@ -66,6 +66,14 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// Carousel models:
+model Carousel {
+  id               String    @id @default(uuid())
+  name             String?   @unique
+  image            String?   @default("/default.jpg")
+  created          DateTime  @default(now())
+}
+
 // Supplier Models: 
 model Supplier {
   id               String    @id @default(uuid())

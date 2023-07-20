@@ -7,10 +7,10 @@ import { WarrantyClaim } from '@prisma/client';
 import { CreateWarranty } from '~/app/warranty/components/CreateWarranty';
 
 export const Warranty = async () => {
-    const warranty: WarrantyClaim[] | null =
+    const warranties: WarrantyClaim[] | null =
         await prisma.warrantyClaim.findMany();
 
-    if (!warranty) {
+    if (!warranties) {
         return (
             <section id="warranty">
                 <div>No warranty claims found.</div>
@@ -21,7 +21,13 @@ export const Warranty = async () => {
 
     return (
         <section id="warranty">
-            <div className={styles.warrantyView}></div>
+            <div className={styles.warrantyView}>
+                {warranties.map(warranty => (
+                    <div key={warranty.id}>
+                        <h1>{warranty.dealer}</h1>
+                    </div>
+                ))}
+            </div>
             <CreateWarranty />
         </section>
     );
