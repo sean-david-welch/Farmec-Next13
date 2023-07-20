@@ -19,11 +19,11 @@ export const DeleteButton: React.FC<Props> = ({ modelId, modelName }) => {
         event.preventDefault();
 
         try {
-            const response = await axios.delete(`/api/about/${modelId}`, {
+            const response = await axios.delete(`/api/blog/${modelId}`, {
                 data: { model: modelName, id: modelId },
             });
             if (response.status >= 200 && response.status < 300) {
-                router.push('/about');
+                router.push('/blog');
                 router.refresh();
             }
         } catch (error) {

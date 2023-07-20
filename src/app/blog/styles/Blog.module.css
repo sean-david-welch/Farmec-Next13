@@ -48,3 +48,17 @@
 .blogBody img {
     @apply mx-auto my-4 rounded-lg;
 }
+
+.exhibitions {
+    @apply grid grid-cols-1 mx-32;
+}
+
+.exhibition {
+    @apply bg-zinc-800 border-4 rounded-xl border-zinc-600 p-4;
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.exhibition:hover {
+    @apply border-red-600;
+    @apply scale-[1.005];
+}

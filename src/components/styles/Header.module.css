@@ -30,12 +30,17 @@
 
 .navListItem {
     @apply relative z-20;
+    @apply transition-all duration-500 ease-in-out;
+}
+
+.navItem:hover {
+    @apply text-red-600;
+    @apply underline underline-offset-[10px] decoration-[3px] decoration-red-600 rounded-2xl;
 }
 
 .navDrop {
     @apply bg-zinc-900;
     @apply my-10 mx-auto w-[10rem];
-    @apply -left-[45px] top-2;
     @apply absolute flex flex-col text-center justify-center;
     @apply opacity-0;
     @apply rounded-lg;

@@ -87,7 +87,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
             } catch (error) {
                 console.error('failed to create model', error);
             }
-        } else {
+        } else if (modelName === 'exhibition') {
             const body = {
                 model: modelName,
                 data: getFormDataFunction(formData),
