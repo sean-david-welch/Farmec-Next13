@@ -69,12 +69,27 @@ export const UpdateRegistration = ({
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                            />
+                            {field.type === 'select' ? (
+                                <select
+                                    name={field.name}
+                                    id={field.name}
+                                    defaultValue={field.defaultValue || ''}>
+                                    {field.options &&
+                                        field.options.map(option => (
+                                            <option key={option} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type={field.type}
+                                    name={field.name}
+                                    id={field.name}
+                                    placeholder={field.placeholder}
+                                    defaultValue={field.defaultValue || ''}
+                                />
+                            )}
                         </div>
                     ))}
 

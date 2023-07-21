@@ -24,9 +24,11 @@ export const CarouselAdmin = async ({ user }: Props) => {
 
     return (
         <section id="carousel">
+            <h1 className={utils.sectionHeading}>Carousel:</h1>
+
             {carousels.map(carousel => (
-                <div key={carousel.id}>
-                    <h1 className={utils.mainHeading}>{carousel.name}</h1>
+                <div key={carousel.id} className={styles.carouselAdmin}>
+                    <h1 className={utils.paragraph}>{carousel.name}</h1>
                     {user && user.role === 'ADMIN' && (
                         <UpdateCarousel carousel={carousel} />
                     )}

@@ -26,16 +26,18 @@ export const Registrations = async ({ user }: Props) => {
 
     return (
         <section id="registration">
-            <div className={styles.warrantyView}>
-                {registrations.map(registration => (
-                    <div key={registration.id}>
-                        <h1>{registration.dealer_name}</h1>
-                        {user && user.role === 'ADMIN' && (
-                            <UpdateRegistration registration={registration} />
-                        )}
-                    </div>
-                ))}
-            </div>
+            <h1 className={utils.sectionHeading}>Machine Registrations:</h1>
+
+            {registrations.map(registration => (
+                <div className={styles.warrantyView} key={registration.id}>
+                    <h1 className={utils.mainHeading}>
+                        {registration.dealer_name}
+                    </h1>
+                    {user && user.role === 'ADMIN' && (
+                        <UpdateRegistration registration={registration} />
+                    )}
+                </div>
+            ))}
             {user && user.role === 'ADMIN' && <CreateRegistration />}
         </section>
     );

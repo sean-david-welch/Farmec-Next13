@@ -115,6 +115,7 @@ export const UpdateWarranty = ({
                                 name={field.name}
                                 id={field.name}
                                 placeholder={field.placeholder}
+                                defaultValue={field.defaultValue || ''}
                             />
                         </div>
                     ))}
@@ -132,6 +133,9 @@ export const UpdateWarranty = ({
                                             name={field.name}
                                             id={field.name}
                                             placeholder={field.placeholder}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }
                                         />
                                     </div>
                                 ))}

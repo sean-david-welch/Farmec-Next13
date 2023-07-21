@@ -82,6 +82,7 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                                 name={field.name}
                                 id={field.name}
                                 placeholder={field.placeholder}
+                                defaultValue={field.defaultValue || ''}
                             />
                         </div>
                     ))}

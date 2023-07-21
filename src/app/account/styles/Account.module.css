@@ -4,6 +4,11 @@
     @apply mx-20 my-8 p-10;
 }
 
+.accountSection > * {
+    @apply flex flex-col;
+    @apply my-10;
+}
+
 .productView {
     @apply flex flex-col p-4 mx-12;
     @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
@@ -22,4 +27,14 @@
     @apply mx-auto;
     @apply rounded-xl;
     @apply transition-all duration-500 ease-in-out;
+}
+
+.carouselAdmin {
+    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
+    @apply mx-16 p-2;
+}
+
+.warrantyView {
+    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
+    @apply mx-16 p-2;
 }

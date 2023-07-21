@@ -92,6 +92,7 @@ export const UpdatePaymentProduct = ({
                                 name={field.name}
                                 id={field.name}
                                 placeholder={field.placeholder}
+                                defaultValue={field.defaultValue || ''}
                             />
                         </div>
                     ))}

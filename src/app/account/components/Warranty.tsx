@@ -26,16 +26,15 @@ export const Warranty = async ({ user }: Props) => {
 
     return (
         <section id="warranty">
-            <div className={styles.warrantyView}>
-                {warranties.map(warranty => (
-                    <div key={warranty.id}>
-                        <h1>{warranty.dealer}</h1>
-                        {user && user.role === 'ADMIN' && (
-                            <UpdateWarranty warrantyClaim={warranty} />
-                        )}
-                    </div>
-                ))}
-            </div>
+            <h1 className={utils.sectionHeading}>Warranty Claims:</h1>
+            {warranties.map(warranty => (
+                <div className={styles.warrantyView} key={warranty.id}>
+                    <h1 className={utils.mainHeading}>{warranty.dealer}</h1>
+                    {user && user.role === 'ADMIN' && (
+                        <UpdateWarranty warrantyClaim={warranty} />
+                    )}
+                </div>
+            ))}
             {user && user.role === 'ADMIN' && <CreateWarranty />}
         </section>
     );
