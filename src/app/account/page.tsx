@@ -39,8 +39,8 @@ const Account = async () => {
             </p>
             {user.role === 'STAFF' && (
                 <div className={styles.accountSection}>
-                    <Products user={user} />
                     <Warranty user={user} />
+                    <Registrations user={user} />
                 </div>
             )}
             {user.role === 'ADMIN' && (

@@ -4,6 +4,17 @@ import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
 import { uploadToCloudinary } from '~/lib/cloudinary';
 
+export const GET = async () => {
+    try {
+        const carousel = await prisma.carousel.findMany();
+
+        return NextResponse.json(carousel);
+    } catch (error: any) {
+        console.log(error);
+        return errorResponse(500, error.message || 'Internal Server Error');
+    }
+};
+
 export const POST = async (request: NextRequest) => {
     try {
         await validateUser();

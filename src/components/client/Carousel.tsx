@@ -1,6 +1,7 @@
 'use client';
 import styles from '../styles/Carousel.module.css';
 import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,15 +11,12 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-export const Carousel = () => {
-    const images = [
-        '/sulkydx30.jpeg',
-        '/sip1250.jpeg',
-        '/mx.jpeg',
-        '/sulkydx20.jpeg',
-        '/mxloader.jpeg',
-        '/sipout.jpeg',
-    ];
+interface Props {
+    images: string[];
+}
+
+export const Carousel = ({ images }: Props) => {
+    console.log(images);
 
     const [carouselState, setCarouselState] = useState({
         index: 0,
