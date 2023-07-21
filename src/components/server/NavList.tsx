@@ -56,7 +56,7 @@ export const NavList = async ({ user, suppliers }: Props) => {
                     ))}
                 </NavItem>
 
-                <NavItem link="/" title="Blog">
+                <NavItem link="/blog" title="Blog">
                     <li className={styles.navDropItem}>
                         <Link href={'/blog'}>Latest Posts</Link>
                     </li>

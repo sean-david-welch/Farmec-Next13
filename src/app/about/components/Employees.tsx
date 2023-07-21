@@ -19,8 +19,8 @@ export const Employees = async () => {
                         <Image
                             src={employee.profile_image || '/default.jpg'}
                             alt={'/default.jpg'}
-                            width={200}
-                            height={200}
+                            width={100}
+                            height={100}
                         />
                         <div className={styles.employeeInfo}>
                             <h1 className={utils.mainHeading}>

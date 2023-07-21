@@ -1,11 +1,11 @@
 .employees {
     @apply grid grid-cols-3;
-    @apply my-5;
+    @apply mt-10 mb-24 mx-36;
 }
 
 .employeeCard {
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
-    @apply grid grid-cols-1 mx-16;
+    @apply grid grid-cols-1 mx-10;
     @apply transition-all duration-700 ease-in-out;
 }
 
