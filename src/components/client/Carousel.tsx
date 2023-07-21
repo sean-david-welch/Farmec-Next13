@@ -1,6 +1,5 @@
 'use client';
 import styles from '../styles/Carousel.module.css';
-import Image from 'next/image';
 import { CldImage } from 'next-cloudinary';
 
 import { useState } from 'react';
@@ -59,6 +58,7 @@ export const Carousel = ({ images }: Props) => {
         });
     }
 
+    console.log(images[carouselState.index]);
     return (
         <div className={styles.slideshow}>
             <AnimatePresence initial={false} custom={carouselState.direction}>
