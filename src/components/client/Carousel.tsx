@@ -1,6 +1,6 @@
 'use client';
 import styles from '../styles/Carousel.module.css';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,8 +15,6 @@ interface Props {
 }
 
 export const Carousel = ({ images }: Props) => {
-    console.log(images);
-
     const [carouselState, setCarouselState] = useState({
         index: 0,
         direction: 0,
@@ -58,7 +56,6 @@ export const Carousel = ({ images }: Props) => {
         });
     }
 
-    console.log(images[carouselState.index]);
     return (
         <div className={styles.slideshow}>
             <AnimatePresence initial={false} custom={carouselState.direction}>
@@ -69,7 +66,7 @@ export const Carousel = ({ images }: Props) => {
                     exit="exit"
                     key={images[carouselState.index]}
                     custom={carouselState.direction}>
-                    <CldImage
+                    <Image
                         src={images[carouselState.index]}
                         alt="slides"
                         className={styles.slides}

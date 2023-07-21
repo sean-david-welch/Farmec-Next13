@@ -9,7 +9,7 @@ const Typewriter = dynamic(() => import('../client/TypeWriter'));
 export const Hero = async () => {
     const data = await prisma.carousel.findMany();
     const images = data
-        .map(item => item.image?.split('/v1/')[1])
+        .map(item => item.image)
         .filter(image => image !== null) as string[];
 
     return (
