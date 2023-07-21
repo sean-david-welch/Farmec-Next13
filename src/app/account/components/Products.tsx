@@ -2,7 +2,7 @@ import utils from '~/styles/Utils.module.css';
 import styles from '../styles/Account.module.css';
 
 import Image from 'next/image';
-import CheckoutForm from '~/app/payments/components/CheckoutForm';
+import CheckoutForm from '~/app/payments/components/StripeCheckout';
 
 import { prisma } from '~/lib/prisma';
 import { PaymentProduct } from '@prisma/client';
