@@ -69,7 +69,7 @@ export const Carousel = ({ images }: Props) => {
                     exit="exit"
                     key={images[carouselState.index]}
                     custom={carouselState.direction}>
-                    <Image
+                    <CldImage
                         src={images[carouselState.index]}
                         alt="slides"
                         className={styles.slides}
