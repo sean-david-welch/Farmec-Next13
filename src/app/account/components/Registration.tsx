@@ -4,8 +4,8 @@ import styles from '../styles/Account.module.css';
 import { prisma } from '~/lib/prisma';
 import { MachineRegistration } from '@prisma/client';
 
-import { CreateRegistration } from '~/app/warranty/components/CreateRegistration';
-import { UpdateRegistration } from '~/app/warranty/components/UpdateRegistration';
+import { CreateRegistration } from '~/app/services/components/CreateRegistration';
+import { UpdateRegistration } from '~/app/services/components/UpdateRegistration';
 
 interface Props {
     user: { role: string };

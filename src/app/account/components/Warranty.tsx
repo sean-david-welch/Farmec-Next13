@@ -4,8 +4,8 @@ import styles from '../styles/Account.module.css';
 import { prisma } from '~/lib/prisma';
 import { WarrantyClaim } from '@prisma/client';
 
-import { CreateWarranty } from '~/app/warranty/components/CreateWarranty';
-import { UpdateWarranty } from '~/app/warranty/components/UpdateWarranty';
+import { CreateWarranty } from '~/app/services/components/CreateWarranty';
+import { UpdateWarranty } from '~/app/services/components/UpdateWarranty';
 
 interface Props {
     user: { role: string };
