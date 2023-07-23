@@ -3,8 +3,8 @@ import styles from '../styles/Account.module.css';
 
 import { prisma } from '~/lib/prisma';
 import { Carousel } from '@prisma/client';
-import { CreateCarousel } from '~/app/carousel/components/CreateCarousel';
-import { UpdateCarousel } from '~/app/carousel/components/UpdateCarousel';
+import { CreateCarousel } from './CreateCarousel';
+import { UpdateCarousel } from './UpdateCarousel';
 
 interface Props {
     user: { role: string };
