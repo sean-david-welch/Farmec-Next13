@@ -4,7 +4,7 @@ import utils from '~/styles/Utils.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import Index from '~/components/server/Index';
-import SparepartsForm from './components/CreateSparepart';
+import SparePartsForm from './components/CreateSparepart';
 
 import { prisma } from '~/lib/prisma';
 import { SpareParts, Supplier } from '@prisma/client';
@@ -52,7 +52,7 @@ const SpareParts = async () => {
                     </button>
                 </div>
             ))}
-            {user && user.role === 'ADMIN' && <SparepartsForm />}
+            {user && user.role === 'ADMIN' && <SparePartsForm />}
         </section>
     );
 };
