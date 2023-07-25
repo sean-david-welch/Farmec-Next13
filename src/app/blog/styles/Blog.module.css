@@ -50,7 +50,7 @@
 }
 
 .exhibitions {
-    @apply grid grid-cols-1 mx-32;
+    @apply grid grid-cols-1 mx-52;
 }
 
 .exhibition {

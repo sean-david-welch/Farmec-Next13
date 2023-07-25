@@ -1,5 +1,5 @@
 .supplierCard {
-    @apply bg-zinc-800 mx-32 border-4 rounded-2xl border-zinc-600;
+    @apply bg-zinc-800 mx-52 border-4 rounded-2xl border-zinc-600;
     @apply flex flex-col justify-center items-center;
     @apply p-4 my-10;
     @apply transition-all duration-700 ease-in-out;
@@ -15,7 +15,7 @@
 }
 
 .sparepartsCard {
-    @apply bg-zinc-800 mx-32 border-4 rounded-2xl border-zinc-600;
+    @apply bg-zinc-800 mx-52 border-4 rounded-2xl border-zinc-600;
     @apply flex flex-col justify-center items-center;
     @apply my-10;
     @apply transition-all duration-700 ease-in-out;

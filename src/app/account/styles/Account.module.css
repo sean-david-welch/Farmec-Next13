@@ -1,7 +1,13 @@
+.accountMap {
+    @apply grid grid-cols-1;
+    @apply bg-zinc-600 rounded-2xl border-4 border-zinc-800;
+    @apply mx-52 my-8 p-10;
+}
+
 .accountSection {
     @apply grid grid-cols-2;
-    @apply bg-zinc-600 rounded-2xl border-4 border-zinc-800;
-    @apply mx-20 my-8 p-10;
+    @apply bg-zinc-800 rounded-2xl border-4 border-zinc-600;
+    @apply mx-28 my-8 p-10;
 }
 
 .accountSection > * {
@@ -11,7 +17,7 @@
 
 .productView {
     @apply flex flex-col p-4 mx-12;
-    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
+    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl justify-center;
     @apply transition-all duration-500 ease-in-out;
 }
 
@@ -31,10 +37,20 @@
 
 .carouselAdmin {
     @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
-    @apply mx-16 p-2;
+    @apply mx-12 p-2 my-3;
 }
 
 .warrantyView {
+    @apply bg-zinc-600 border-4 border-zinc-800 rounded-2xl;
+    @apply mx-4 my-4 p-2;
+}
+
+.userCard {
+    @apply flex flex-row;
     @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
     @apply mx-16 p-2;
+}
+
+.userCard > * {
+    @apply my-4;
 }

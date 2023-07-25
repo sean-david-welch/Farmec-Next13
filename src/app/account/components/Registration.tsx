@@ -1,11 +1,11 @@
 import utils from '~/styles/Utils.module.css';
 import styles from '../styles/Account.module.css';
+import Link from 'next/link';
 
 import { prisma } from '~/lib/prisma';
 import { MachineRegistration } from '@prisma/client';
 
 import { CreateRegistration } from '~/app/services/components/CreateRegistration';
-import { UpdateRegistration } from '~/app/services/components/UpdateRegistration';
 
 interface Props {
     user: { role: string };
@@ -26,16 +26,19 @@ export const Registrations = async ({ user }: Props) => {
 
     return (
         <section id="registration">
-            <h1 className={utils.sectionHeading}>Machine Registrations:</h1>
+            <h1 className={utils.mainHeading}>Machine Registrations:</h1>
 
             {registrations.map(registration => (
                 <div className={styles.warrantyView} key={registration.id}>
-                    <h1 className={utils.mainHeading}>
+                    <h1 className={utils.paragraph}>
                         {registration.dealer_name}
                     </h1>
-                    {user && user.role === 'ADMIN' && (
-                        <UpdateRegistration registration={registration} />
-                    )}
+                    <button className={utils.btnForm}>
+                        <Link
+                            href={`/services/registration/${registration.id}`}>
+                            View Registration
+                        </Link>
+                    </button>
                 </div>
             ))}
             {user && user.role === 'ADMIN' && <CreateRegistration />}

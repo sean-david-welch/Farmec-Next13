@@ -25,10 +25,10 @@ export const Warranty = async ({ user }: Props) => {
 
     return (
         <section id="warranty">
-            <h1 className={utils.sectionHeading}>Warranty Claims:</h1>
+            <h1 className={utils.mainHeading}>Warranty Claims:</h1>
             {warranties.map(warranty => (
                 <div className={styles.warrantyView} key={warranty.id}>
-                    <h1 className={utils.mainHeading}>{warranty.dealer}</h1>
+                    <h1 className={utils.paragraph}>{warranty.dealer}</h1>
                     <button className={utils.btnForm}>
                         <Link href={`/services/warranty/${warranty.id}`}>
                             View Claim

@@ -1,5 +1,5 @@
 .machineCard {
-    @apply grid grid-cols-1 my-2 mx-32;
+    @apply grid grid-cols-1 my-2 mx-52;
 }
 
 .machineGrid {

@@ -121,7 +121,22 @@
 
 /* Mics */
 .index {
-    @apply flex flex-col items-center justify-center;
+    @apply flex flex-col items-start;
+    @apply p-5;
     @apply bg-zinc-800 text-gray-200;
-    @apply mx-32 rounded-2xl border-4 border-zinc-600 my-5;
+    @apply mx-52 rounded-xl border-4 border-zinc-600 my-5;
+}
+
+.index > * {
+    @apply my-2;
+}
+
+.indexHeading {
+    @apply my-5;
+    @apply text-2xl font-semibold;
+    @apply text-gray-200 underline decoration-red-600 decoration-4 underline-offset-8;
+}
+
+.indexItem {
+    @apply text-xl font-semibold underline;
 }
