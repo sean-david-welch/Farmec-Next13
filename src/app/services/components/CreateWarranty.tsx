@@ -46,9 +46,6 @@ export const CreateWarranty = () => {
             };
         });
 
-        console.log(partsRequired);
-        console.log(formData);
-
         const body = {
             warrantyClaim: {
                 dealer: formData.get('dealer'),

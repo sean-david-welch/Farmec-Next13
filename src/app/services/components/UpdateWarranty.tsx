@@ -6,27 +6,27 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getFormFields, getPartFields } from '../utils/getFormFields';
 
-import { WarrantyClaim } from '@prisma/client';
+import { WarrantyClaim, PartsRequired } from '@prisma/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { DeleteButton } from './DeleteWarranty';
 
-export const UpdateWarranty = ({
-    warrantyClaim,
-}: {
+interface Props {
     warrantyClaim: WarrantyClaim;
-}) => {
+    partsRequired: {
+        part_number: string | null;
+        quantity_needed: string | null;
+        invoice_number: string | null;
+        description: string | null;
+    }[];
+}
+
+export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
     const router = useRouter();
     const formFields = getFormFields(warrantyClaim);
     const [showForm, setShowForm] = useState(false);
-    const [parts, setParts] = useState([
-        {
-            part_number: '',
-            quantity_needed: '',
-            invoice_number: '',
-            description: '',
-        },
-    ]);
+    const [parts, setParts] = useState(partsRequired || []);
+
     const addPart = () => {
         setParts([
             ...parts,

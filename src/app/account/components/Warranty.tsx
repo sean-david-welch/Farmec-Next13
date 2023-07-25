@@ -1,11 +1,10 @@
 import utils from '~/styles/Utils.module.css';
 import styles from '../styles/Account.module.css';
+import Link from 'next/link';
 
 import { prisma } from '~/lib/prisma';
 import { WarrantyClaim } from '@prisma/client';
-
 import { CreateWarranty } from '~/app/services/components/CreateWarranty';
-import { UpdateWarranty } from '~/app/services/components/UpdateWarranty';
 
 interface Props {
     user: { role: string };
@@ -30,9 +29,11 @@ export const Warranty = async ({ user }: Props) => {
             {warranties.map(warranty => (
                 <div className={styles.warrantyView} key={warranty.id}>
                     <h1 className={utils.mainHeading}>{warranty.dealer}</h1>
-                    {user && user.role === 'ADMIN' && (
-                        <UpdateWarranty warrantyClaim={warranty} />
-                    )}
+                    <button className={utils.btnForm}>
+                        <Link href={`/services/warranty/${warranty.id}`}>
+                            View Claim
+                        </Link>
+                    </button>
                 </div>
             ))}
             {user && user.role === 'ADMIN' && <CreateWarranty />}

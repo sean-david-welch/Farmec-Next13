@@ -214,7 +214,6 @@ model PartsRequired {
   quantity_needed String?        @default("1")
   invoice_number  String? 
   description     String? 
-  created         DateTime       @default(now())
 }
 
 model MachineRegistration {
