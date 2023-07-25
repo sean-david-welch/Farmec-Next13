@@ -11,6 +11,8 @@ import { getSessionAndUser } from '~/utils/user';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { CreateWarranty } from '../services/components/CreateWarranty';
+import { CreateRegistration } from '../services/components/CreateRegistration';
 
 const SpareParts = async () => {
     const { user } = await getSessionAndUser();
@@ -35,6 +37,7 @@ const SpareParts = async () => {
             <div className={utils.index}>
                 <h1 className={utils.mainHeading}>Suppliers</h1>
             </div>
+
             {suppliers.map(supplier => (
                 <div className={styles.supplierCard} key={supplier.id}>
                     <h1 className={utils.mainHeading}>{supplier.name}</h1>

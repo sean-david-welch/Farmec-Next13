@@ -84,7 +84,7 @@
 }
 
 .btnRound {
-    @apply btn rounded-3xl px-12 flex flex-row mx-auto my-2;
+    @apply btn rounded-3xl px-12 flex flex-row mx-auto my-2 whitespace-nowrap;
 }
 
 .btnRound svg {

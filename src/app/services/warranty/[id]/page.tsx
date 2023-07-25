@@ -14,7 +14,6 @@ const WarrantyDetail = async ({ params }: Props) => {
 
     const warranty = await prisma.warrantyClaim.findUnique({
         where: { id: params.id },
-        include: { parts: true },
     });
 
     const parts = await prisma.partsRequired.findMany({

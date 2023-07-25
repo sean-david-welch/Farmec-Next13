@@ -24,6 +24,7 @@ interface Props {
 export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
     const router = useRouter();
     const formFields = getFormFields(warrantyClaim);
+
     const [showForm, setShowForm] = useState(false);
     const [parts, setParts] = useState(partsRequired || []);
 

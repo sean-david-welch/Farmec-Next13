@@ -1,10 +1,13 @@
 import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
-import { errorResponse } from '~/utils/user';
+import { validateUser, errorResponse } from '~/utils/user';
 
-export const POST = async (request: NextRequest): Promise<NextResponse> => {
+export const PUT = async (request: NextRequest): Promise<NextResponse> => {
+    const id = request.nextUrl.pathname.split('/')[3];
+
     try {
+        await validateUser();
         const data = await request.json();
 
         const { warrantyClaim, partsRequired } = data;
@@ -24,7 +27,10 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             completed_by,
         } = warrantyClaim;
 
-        const warranty = await prisma.warrantyClaim.create({
+        const warranty = await prisma.warrantyClaim.update({
+            where: {
+                id: id,
+            },
             data: {
                 dealer: dealer,
                 dealer_contact: dealer_contact,
@@ -61,6 +67,28 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
         }
 
         return NextResponse.json({ warranty });
+    } catch (error: any) {
+        console.log(error);
+        return errorResponse(500, error.message || 'Internal Server Error');
+    }
+};
+
+export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
+    const id = request.nextUrl.pathname.split('/')[3];
+    try {
+        await validateUser();
+
+        const machineReg = await prisma.machineRegistration.delete({
+            where: {
+                id: id,
+            },
+        });
+
+        if (!machineReg) {
+            throw new Error('Machine Registration not found');
+        }
+
+        return NextResponse.json({ machineReg });
     } catch (error: any) {
         console.log(error);
         return errorResponse(500, error.message || 'Internal Server Error');

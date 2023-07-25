@@ -5,7 +5,6 @@ import { validateUser, errorResponse } from '~/utils/user';
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {
-        await validateUser();
         const data = await request.json();
 
         const {
