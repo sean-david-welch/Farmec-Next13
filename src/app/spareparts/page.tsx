@@ -7,7 +7,7 @@ import Index from '~/components/server/Index';
 import SparePartsForm from './components/CreateSparepart';
 
 import { prisma } from '~/lib/prisma';
-import { SpareParts, Supplier } from '@prisma/client';
+import { Supplier } from '@prisma/client';
 import { getSessionAndUser } from '~/utils/user';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
