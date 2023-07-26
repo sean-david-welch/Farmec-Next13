@@ -2,12 +2,14 @@ import styles from '../styles/Suppliers.module.css';
 import utils from '~/styles/Utils.module.css';
 
 import Image from 'next/image';
+import Index from '~/components/server/Index';
 import Machines from '../components/Machines';
 
 import { prisma } from '~/lib/prisma';
 import { SupplierForm } from '../components/UpdateSupplier';
 import { SocialLinks } from '../components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
+import { machine } from 'os';
 
 interface Props {
     params: { id: string };
@@ -17,6 +19,9 @@ const SupplierDetail = async ({ params }: Props) => {
     const supplier = await prisma.supplier.findUnique({
         where: {
             id: params.id,
+        },
+        include: {
+            machines: true,
         },
     });
 
@@ -35,6 +40,7 @@ const SupplierDetail = async ({ params }: Props) => {
         social_twitter,
         social_website,
         social_youtube,
+        machines,
     } = supplier;
 
     return (
@@ -52,10 +58,15 @@ const SupplierDetail = async ({ params }: Props) => {
                 />
             </div>
 
-            <div className={utils.index}>
-                <h1 className={utils.mainHeading}>Index:</h1>
-                <h1 className={utils.paragraph}>Machinery</h1>
-            </div>
+            <Index
+                title="Machinery List:"
+                links={machines
+                    .filter(machine => machine.name !== null)
+                    .map(machine => ({
+                        text: machine.name!,
+                        href: `#${machine.name}`,
+                    }))}
+            />
 
             <div className={styles.supplierDetail}>
                 <Image

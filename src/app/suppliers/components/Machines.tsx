@@ -32,7 +32,10 @@ const Machines = async ({ supplier }: Props) => {
     return (
         <section id="machines">
             {machines.map(machine => (
-                <div className={styles.machineCard} key={machine.id}>
+                <div
+                    className={styles.machineCard}
+                    key={machine.id}
+                    id={machine.name || ''}>
                     <div className={styles.machineGrid}>
                         <Image
                             src={machine.machine_image || '/default.jpg'}

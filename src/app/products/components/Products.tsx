@@ -32,7 +32,10 @@ const Products = async ({ machine }: Props) => {
         <section id="products">
             <div className={styles.productGrid}>
                 {products.map(product => (
-                    <div className={styles.productCard} key={product.id}>
+                    <div
+                        className={styles.productCard}
+                        key={product.id}
+                        id={product.name || ''}>
                         <h1 className={utils.mainHeading}>{product.name}</h1>
                         <Link
                             href={product.product_link || '#'}

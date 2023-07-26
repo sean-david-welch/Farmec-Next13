@@ -3,6 +3,7 @@ import utils from '~/styles/Utils.module.css';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import Index from '~/components/server/Index';
 import SupplierForm from './components/CreateSupplier';
 
 import { prisma } from '~/lib/prisma';
@@ -22,9 +23,15 @@ const Suppliers = async () => {
         <section id="suppliers">
             <h1 className={utils.sectionHeading}>Suppliers</h1>
 
-            <div className={utils.index}>
-                <h1 className={utils.mainHeading}>Suppliers</h1>
-            </div>
+            <Index
+                title="Supplier Navigation"
+                links={suppliers
+                    .filter(supplier => supplier.name !== null)
+                    .map(supplier => ({
+                        text: supplier.name!,
+                        href: `#${supplier.name}`,
+                    }))}
+            />
             {suppliers.map(
                 ({
                     id,
@@ -39,7 +46,10 @@ const Suppliers = async () => {
                     social_website,
                     social_youtube,
                 }) => (
-                    <div className={styles.supplierCard} key={id}>
+                    <div
+                        className={styles.supplierCard}
+                        key={id}
+                        id={name || ''}>
                         <div className={styles.supplierGrid}>
                             <div className={styles.supplierHead}>
                                 <h1 className={utils.mainHeading}>{name}</h1>

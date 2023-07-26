@@ -8,6 +8,7 @@ import { prisma } from '~/lib/prisma';
 import { getSessionAndUser } from '~/utils/user';
 import { BlogForm } from './components/CreateBlog';
 import { UpdateBlog } from './components/UpdateBlog';
+import Index from '~/components/server/Index';
 
 const Blogs = async () => {
     const { user } = await getSessionAndUser();
@@ -19,8 +20,20 @@ const Blogs = async () => {
                 Check out our Latest Blog Posts
             </h1>
             <p className={utils.subHeading}> Read our latest news</p>
+            <Index
+                title="Product Index"
+                links={blogs
+                    .filter(blog => blog.title !== null)
+                    .map(blog => ({
+                        text: blog.title!,
+                        href: `#${blog.title}`,
+                    }))}
+            />
             {blogs.map(blog => (
-                <div className={styles.blogGrid} key={blog.id}>
+                <div
+                    className={styles.blogGrid}
+                    key={blog.id}
+                    id={blog.title || ''}>
                     <div className={styles.blogCard}>
                         <Image
                             src={blog.main_image || '/default.jpg'}

@@ -4,7 +4,7 @@
 
 .blogCard {
     @apply flex flex-row;
-    @apply mx-44 my-10;
+    @apply mx-52 my-10;
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
     @apply transition-all duration-700 ease-in-out;
 }
@@ -15,7 +15,7 @@
 }
 
 .blogCard img {
-    @apply rounded-r-lg object-cover border-4 border-r-zinc-600;
+    @apply rounded-l-lg object-cover border-r-4 border-r-zinc-600 w-full;
 }
 
 .blogLink {

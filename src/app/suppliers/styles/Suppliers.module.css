@@ -70,11 +70,11 @@
 }
 
 .icon {
-    @apply h-10 w-10;
+    @apply h-8 w-8;
 }
 
 .socialLinks path {
-    @apply fill-gray-300;
+    @apply fill-gray-100;
     @apply transition-all ease-in-out duration-700;
 }
 

@@ -127,16 +127,21 @@
     @apply mx-52 rounded-xl border-4 border-zinc-600 my-5;
 }
 
+.accountIndex {
+    @apply index;
+    @apply mx-12;
+}
+
 .index > * {
     @apply my-2;
 }
 
 .indexHeading {
     @apply my-5;
-    @apply text-2xl font-semibold;
+    @apply text-xl font-medium;
     @apply text-gray-200 underline decoration-red-600 decoration-4 underline-offset-8;
 }
 
 .indexItem {
-    @apply text-xl font-semibold underline;
+    @apply text-lg font-medium underline;
 }

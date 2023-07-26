@@ -9,17 +9,20 @@ interface LinkProps {
 interface Props {
     links: LinkProps[];
     title: string;
+    page?: string;
+    children?: React.ReactNode;
 }
 
-const Index = ({ links, title }: Props) => {
+const Index = ({ links, title, page, children }: Props) => {
     return (
-        <div className={utils.index}>
+        <div className={page === 'account' ? utils.accountIndex : utils.index}>
             <h1 className={utils.indexHeading}>{title}</h1>
             {links.map((link, index) => (
                 <Link key={index} href={link.href}>
                     <h1 className={utils.indexItem}>{link.text}</h1>
                 </Link>
             ))}
+            {children}
         </div>
     );
 };

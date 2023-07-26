@@ -1,14 +1,14 @@
 import styles from './styles/Account.module.css';
 import utils from '~/styles/Utils.module.css';
-import Users from './components/Users';
+import Users from './components/UsersAdmin';
 import Index from '~/components/server/Index';
 
 import { getSessionAndUser } from '~/utils/user';
-import { Products } from './components/Products';
+import { Products } from './components/ProductsAdmin';
 import { Warranty } from './components/Warranty';
-import { CarouselAdmin } from './components/Carousel';
+import { CarouselAdmin } from './components/CarouselAdmin';
 import { SignInButton } from '~/components/client/Buttons';
-import { Registrations } from './components/Registration';
+import { Registrations } from './components/MachineRegistration';
 import { CreateWarranty } from '../services/components/CreateWarranty';
 import { CreateRegistration } from '../services/components/CreateRegistration';
 
@@ -36,11 +36,14 @@ const Account = async () => {
                 <div className={styles.accountMap}>
                     <Index
                         title="Account Navigation"
+                        page="account"
                         links={[
                             { text: 'Warrany Claim', href: '#form' },
                             { text: 'Machine Registration', href: '#form' },
                         ]}
                     />
+                    <h1 className={utils.sectionHeading}>User Services:</h1>
+
                     <div className={styles.accountSection}>
                         <CreateWarranty />
                         <CreateRegistration />
@@ -52,6 +55,7 @@ const Account = async () => {
                 <div className={styles.accountMap}>
                     <Index
                         title="Account Navigation"
+                        page="account"
                         links={[
                             { text: 'Warranty Claims', href: '#warranty' },
                             {
@@ -60,6 +64,8 @@ const Account = async () => {
                             },
                         ]}
                     />
+                    <h1 className={utils.sectionHeading}>Carousel:</h1>
+
                     <div className={styles.accountSection}>
                         <Warranty user={user} />
                         <Registrations user={user} />
@@ -71,6 +77,7 @@ const Account = async () => {
                 <div className={styles.accountMap}>
                     <Index
                         title="Account Navigation"
+                        page="account"
                         links={[
                             { text: 'Products', href: '#payment-products' },
                             { text: 'Carousel', href: '#carousel' },
@@ -84,6 +91,8 @@ const Account = async () => {
                     <Products user={user} />
                     <CarouselAdmin user={user} />
                     <Users />
+                    <h1 className={utils.sectionHeading}>Carousel:</h1>
+
                     <div className={styles.accountSection}>
                         <Warranty user={user} />
                         <Registrations user={user} />
