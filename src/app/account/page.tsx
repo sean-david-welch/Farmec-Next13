@@ -1,14 +1,15 @@
-import styles from './styles/Account.module.css';
 import utils from '~/styles/Utils.module.css';
 import Users from './components/UsersAdmin';
-import Index from '~/components/server/Index';
+import AccountSection from './components/AccountSection';
 
+import { SignInButton } from '~/components/client/Buttons';
 import { getSessionAndUser } from '~/utils/user';
+
 import { Products } from './components/ProductsAdmin';
 import { Warranty } from './components/Warranty';
 import { CarouselAdmin } from './components/CarouselAdmin';
-import { SignInButton } from '~/components/client/Buttons';
 import { Registrations } from './components/MachineRegistration';
+
 import { CreateWarranty } from '../services/components/CreateWarranty';
 import { CreateRegistration } from '../services/components/CreateRegistration';
 
@@ -31,73 +32,62 @@ const Account = async () => {
             <p className={utils.subHeading}>
                 Logged in as {user?.name} - {user?.role}
             </p>
-
             {user.role === 'USER' && (
-                <div className={styles.accountMap}>
-                    <Index
-                        title="Account Navigation"
-                        page="account"
-                        links={[
-                            { text: 'Warrany Claim', href: '#form' },
-                            { text: 'Machine Registration', href: '#form' },
-                        ]}
-                    />
-                    <h1 className={utils.sectionHeading}>User Services:</h1>
-
-                    <div className={styles.accountSection}>
-                        <CreateWarranty />
-                        <CreateRegistration />
-                    </div>
-                </div>
+                <AccountSection
+                    links={[
+                        { text: 'Warrany Claim', href: '#form' },
+                        { text: 'Machine Registration', href: '#form' },
+                    ]}
+                    userServices={
+                        <>
+                            <CreateWarranty />
+                            <CreateRegistration />
+                        </>
+                    }
+                />
             )}
-
             {user.role === 'STAFF' && (
-                <div className={styles.accountMap}>
-                    <Index
-                        title="Account Navigation"
-                        page="account"
-                        links={[
-                            { text: 'Warranty Claims', href: '#warranty' },
-                            {
-                                text: 'Machine Registrations',
-                                href: '#registration',
-                            },
-                        ]}
-                    />
-                    <h1 className={utils.sectionHeading}>Carousel:</h1>
-
-                    <div className={styles.accountSection}>
-                        <Warranty user={user} />
-                        <Registrations user={user} />
-                    </div>
-                </div>
+                <AccountSection
+                    links={[
+                        { text: 'Warranty Claims', href: '#services' },
+                        {
+                            text: 'Machine Registrations',
+                            href: '#services',
+                        },
+                    ]}
+                    userServices={
+                        <>
+                            <Warranty user={user} />
+                            <Registrations user={user} />
+                        </>
+                    }
+                />
             )}
-
             {user.role === 'ADMIN' && (
-                <div className={styles.accountMap}>
-                    <Index
-                        title="Account Navigation"
-                        page="account"
-                        links={[
-                            { text: 'Products', href: '#payment-products' },
-                            { text: 'Carousel', href: '#carousel' },
-                            { text: 'Warranty Claims', href: '#warranty' },
-                            {
-                                text: 'Machine Registrations',
-                                href: '#registration',
-                            },
-                        ]}
-                    />
-                    <Products user={user} />
-                    <CarouselAdmin user={user} />
-                    <Users />
-                    <h1 className={utils.sectionHeading}>Carousel:</h1>
-
-                    <div className={styles.accountSection}>
-                        <Warranty user={user} />
-                        <Registrations user={user} />
-                    </div>
-                </div>
+                <AccountSection
+                    links={[
+                        { text: 'Warranty Claims', href: '#services' },
+                        {
+                            text: 'Machine Registrations',
+                            href: '#services',
+                        },
+                        { text: 'Products', href: '#payment-product' },
+                        { text: 'Carousel', href: '#carousel' },
+                    ]}
+                    userServices={
+                        <>
+                            <Warranty user={user} />
+                            <Registrations user={user} />
+                        </>
+                    }
+                    children={
+                        <>
+                            <Users />
+                            <Products user={user} />
+                            <CarouselAdmin user={user} />
+                        </>
+                    }
+                />
             )}
         </section>
     );
