@@ -61,7 +61,7 @@
 }
 
 .socialLinks > a {
-    @apply rounded-full h-14 w-14 flex items-center justify-center mx-4;
+    @apply rounded-full h-10 w-10 flex items-center justify-center mx-4;
     @apply transition-all ease-in-out duration-700;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .icon {
-    @apply h-8 w-8;
+    @apply h-6 w-6;
 }
 
 .socialLinks path {

@@ -46,7 +46,7 @@ const SpareParts = async () => {
                     />
                     <button className={utils.btnRound}>
                         <Link href={`/spareparts/${supplier.id}`}>
-                            Spare-Parts{' '}
+                            Spare-Parts
                             <FontAwesomeIcon icon={faRightFromBracket} />
                         </Link>
                     </button>

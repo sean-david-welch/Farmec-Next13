@@ -42,7 +42,7 @@ const MachineDetail = async ({ params }: Props) => {
                     }))}>
                 <button className={utils.btnRound}>
                     <Link href={machine_link || '#'} target="_blank">
-                        Supplier Website {'  '}
+                        Supplier Website
                         <FontAwesomeIcon icon={faRightFromBracket} />
                     </Link>
                 </button>

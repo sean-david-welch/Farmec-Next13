@@ -54,7 +54,6 @@ const Machines = async ({ supplier }: Props) => {
                             <button className={utils.btnRound}>
                                 <Link href={`/machines/${machine.id}`}>
                                     View Products
-                                    {'  '}
                                     <FontAwesomeIcon
                                         icon={faRightFromBracket}
                                     />

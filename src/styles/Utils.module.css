@@ -84,11 +84,13 @@
 }
 
 .btnRound {
-    @apply btn rounded-3xl px-12 flex flex-row mx-auto my-2 whitespace-nowrap;
+    @apply btn rounded-3xl px-12;
+    @apply grid grid-cols-1;
+    @apply mx-auto my-2 whitespace-nowrap;
 }
 
 .btnRound svg {
-    @apply w-4 h-4 ml-2 whitespace-nowrap;
+    @apply w-4 h-4 mx-1 whitespace-nowrap;
 }
 
 .btnForm {
@@ -129,7 +131,7 @@
 
 .accountIndex {
     @apply index;
-    @apply mx-12;
+    @apply mx-16;
 }
 
 .index > * {

@@ -78,10 +78,10 @@ export const Carousel = ({ images }: Props) => {
                 </motion.div>
             </AnimatePresence>
             <button className={styles.prevButton} onClick={prevStep}>
-                <FontAwesomeIcon icon={faChevronLeft} size={'2x'} />
+                <FontAwesomeIcon icon={faChevronLeft} />
             </button>
             <button className={styles.nextButton} onClick={nextStep}>
-                <FontAwesomeIcon icon={faChevronRight} size={'2x'} />
+                <FontAwesomeIcon icon={faChevronRight} />
             </button>
         </div>
     );

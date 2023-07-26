@@ -30,7 +30,7 @@ const Typewriter = () => {
 
             <Link href={'#Info'}>
                 <button className={utils.btnRound}>
-                    Find Out More:{' '}
+                    Find Out More:
                     <FontAwesomeIcon icon={faChevronCircleDown} />
                 </button>
             </Link>

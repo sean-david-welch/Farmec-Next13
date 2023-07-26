@@ -3,12 +3,15 @@ import utils from '~/styles/Utils.module.css';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Index from '~/components/server/Index';
 
 import { prisma } from '~/lib/prisma';
-import { getSessionAndUser } from '~/utils/user';
 import { BlogForm } from './components/CreateBlog';
 import { UpdateBlog } from './components/UpdateBlog';
-import Index from '~/components/server/Index';
+import { getSessionAndUser } from '~/utils/user';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Blogs = async () => {
     const { user } = await getSessionAndUser();
@@ -46,7 +49,12 @@ const Blogs = async () => {
                             <p className={utils.paragraph}>{blog.subheading}</p>
                             <p className={utils.paragraph}>{blog.body}</p>
                             <button className={utils.btnForm}>
-                                <Link href={`/blog/${blog.id}`}>Read More</Link>
+                                <Link href={`/blog/${blog.id}`}>
+                                    Read More
+                                    <FontAwesomeIcon
+                                        icon={faRightFromBracket}
+                                    />
+                                </Link>
                             </button>
                         </div>
                     </div>

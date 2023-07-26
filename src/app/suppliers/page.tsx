@@ -11,6 +11,9 @@ import { Supplier } from '@prisma/client';
 import { SocialLinks } from './components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+
 const Suppliers = async () => {
     const { user } = await getSessionAndUser();
     const suppliers: Supplier[] = await prisma.supplier.findMany();
@@ -83,11 +86,14 @@ const Suppliers = async () => {
                             <p className={styles.supplierDescription}>
                                 {description}
                             </p>
-                            <Link href={`/suppliers/${id}`}>
-                                <button className={utils.btn}>
+                            <button className={utils.btnRound}>
+                                <Link href={`/suppliers/${id}`}>
                                     Learn More
-                                </button>
-                            </Link>
+                                    <FontAwesomeIcon
+                                        icon={faRightFromBracket}
+                                    />
+                                </Link>
+                            </button>
                         </div>
                     </div>
                 )
