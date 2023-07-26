@@ -6,12 +6,7 @@ import { SignInButton } from '~/components/client/Buttons';
 import { getSessionAndUser } from '~/utils/user';
 
 import { Products } from './components/ProductsAdmin';
-import { Warranty } from './components/Warranty';
 import { CarouselAdmin } from './components/CarouselAdmin';
-import { Registrations } from './components/MachineRegistration';
-
-import { CreateWarranty } from '../services/components/CreateWarranty';
-import { CreateRegistration } from '../services/components/CreateRegistration';
 
 const Account = async () => {
     const { user } = await getSessionAndUser();
@@ -34,20 +29,16 @@ const Account = async () => {
             </p>
             {user.role === 'USER' && (
                 <AccountSection
+                    user={user}
                     links={[
-                        { text: 'Warrany Claim', href: '#form' },
-                        { text: 'Machine Registration', href: '#form' },
+                        { text: 'Warrany Claim', href: '#warranty' },
+                        { text: 'Machine Registration', href: '#registration' },
                     ]}
-                    userServices={
-                        <>
-                            <CreateWarranty />
-                            <CreateRegistration />
-                        </>
-                    }
                 />
             )}
             {user.role === 'STAFF' && (
                 <AccountSection
+                    user={user}
                     links={[
                         { text: 'Warranty Claims', href: '#services' },
                         {
@@ -55,16 +46,11 @@ const Account = async () => {
                             href: '#services',
                         },
                     ]}
-                    userServices={
-                        <>
-                            <Warranty user={user} />
-                            <Registrations user={user} />
-                        </>
-                    }
                 />
             )}
             {user.role === 'ADMIN' && (
                 <AccountSection
+                    user={user}
                     links={[
                         { text: 'Warranty Claims', href: '#services' },
                         {
@@ -73,21 +59,11 @@ const Account = async () => {
                         },
                         { text: 'Products', href: '#payment-product' },
                         { text: 'Carousel', href: '#carousel' },
-                    ]}
-                    userServices={
-                        <>
-                            <Warranty user={user} />
-                            <Registrations user={user} />
-                        </>
-                    }
-                    children={
-                        <>
-                            <Users />
-                            <Products user={user} />
-                            <CarouselAdmin user={user} />
-                        </>
-                    }
-                />
+                    ]}>
+                    <Users />
+                    <Products user={user} />
+                    <CarouselAdmin user={user} />
+                </AccountSection>
             )}
         </section>
     );

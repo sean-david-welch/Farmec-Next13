@@ -10,6 +10,11 @@
     @apply mx-16 my-8 p-10;
 }
 
+.userServices {
+    @apply grid grid-cols-1;
+    @apply bg-zinc-800 rounded-2xl border-4 border-zinc-600;
+    @apply mx-16 my-8 p-10;
+}
 .accountSection > * {
     @apply flex flex-col;
     @apply my-10;
