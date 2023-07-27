@@ -1,33 +1,44 @@
 'use client';
-
 import utils from '~/styles/Utils.module.css';
-import { useState, useRef } from 'react';
+
+import { useRef, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     children: React.ReactNode;
+    visible: boolean;
+    onClose: () => void;
 }
 
-export const FormDialog = ({ children }: Props) => {
-    const [showForm, setShowForm] = useState(false);
+const FormDialog = ({ children, visible, onClose }: Props) => {
     const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-    function openDialog() {
-        setShowForm(true);
-        if (dialogRef.current) {
-            dialogRef.current.showModal();
+    useEffect(() => {
+        if (visible) {
+            dialogRef.current?.showModal();
+            dialogRef.current?.classList.add(utils.dialogVisible);
+        } else {
+            dialogRef.current?.close();
+            dialogRef.current?.classList.remove(utils.dialogVisible);
         }
-    }
+    }, [visible]);
 
-    function closeDialog() {
-        setShowForm(false);
-        if (dialogRef.current) {
-            dialogRef.current.close();
-        }
-    }
+    const closeDialog = () => {
+        onClose();
+    };
 
     return (
         <dialog ref={dialogRef} className={utils.dialog}>
             {children}
+            <button
+                className={utils.dialogBtn}
+                formMethod="dialog"
+                onClick={closeDialog}>
+                <FontAwesomeIcon icon={faX} />
+            </button>
         </dialog>
     );
 };
+
+export default FormDialog;

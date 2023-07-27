@@ -3,6 +3,7 @@ import utils from '~/styles/Utils.module.css';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import ToTopButton from '../client/ToTop';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -88,6 +89,7 @@ const Footer = () => {
                     </button>
                 </ul>
             </div>
+            <ToTopButton />
         </footer>
     );
 };

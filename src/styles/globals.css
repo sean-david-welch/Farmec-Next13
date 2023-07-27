@@ -24,6 +24,18 @@ html::-webkit-scrollbar-track {
     @apply bg-zinc-900;
 }
 
+dialog::-webkit-scrollbar {
+    width: 0.01vw;
+}
+
+dialog::-webkit-scrollbar-thumb {
+    @apply bg-gray-900 rounded-lg;
+}
+
+dialog::-webkit-scrollbar-track {
+    @apply bg-zinc-900;
+}
+
 body {
     background-image: linear-gradient(
         to bottom,
@@ -32,10 +44,6 @@ body {
         rgb(201, 201, 201) 100%
     );
     color: rgb(233, 233, 233);
-}
-
-dialog {
-    @apply top-1/2 left-1/2 fixed z-50 bg-zinc-900 rounded-lg shadow-lg transform -translate-x-1/2 -translate-y-1/2;
 }
 
 .container {

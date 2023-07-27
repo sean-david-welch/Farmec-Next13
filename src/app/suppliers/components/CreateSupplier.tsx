@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
@@ -69,7 +71,6 @@ const SupplierForm = () => {
         } catch (error) {
             console.error('Failed to create supplier', error);
         }
-        setShowForm(false);
         router.refresh();
     }
 
@@ -80,11 +81,12 @@ const SupplierForm = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Supplier
             </button>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     className={utils.form}
                     onSubmit={handleSubmit}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Supplier Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -100,7 +102,7 @@ const SupplierForm = () => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

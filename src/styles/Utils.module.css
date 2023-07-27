@@ -32,8 +32,7 @@
 
 /* Forms */
 .form {
-    @apply flex flex-col bg-zinc-800 text-center mx-40 rounded-lg border-4 border-zinc-600;
-    @apply p-2 my-5;
+    @apply flex flex-col bg-zinc-800 text-center p-10;
 }
 
 .form > * {
@@ -122,6 +121,34 @@
 }
 
 /* Mics */
+.dialog {
+    @apply w-[85vw] h-[90vh];
+    @apply top-1/2 left-1/2 fixed z-50;
+    @apply bg-zinc-900 text-gray-200 rounded-2xl shadow-lg;
+    @apply border-4 border-zinc-600;
+    @apply transform -translate-x-1/2 -translate-y-1/2;
+    @apply transition-all duration-700 ease-in-out;
+    @apply opacity-0;
+}
+
+.dialogVisible {
+    @apply opacity-100;
+}
+
+.dialogBtn {
+    @apply fixed top-5 left-5 cursor-pointer px-3 py-2;
+    @apply rounded-full bg-zinc-800 border-2 border-zinc-800;
+    @apply transition-all duration-300 ease-in-out z-30;
+}
+
+.dialogBtn:hover {
+    @apply border-2 border-red-700;
+}
+
+.dialogBtn svg {
+    @apply w-4 h-4;
+}
+
 .index {
     @apply flex flex-col items-start;
     @apply p-5;
@@ -146,4 +173,24 @@
 
 .indexItem {
     @apply text-lg font-medium underline;
+}
+
+.toTopButton {
+    @apply fixed bottom-5 right-5 cursor-pointer;
+    @apply px-3 py-2 rounded-full bg-zinc-800 border-2 border-zinc-800;
+    @apply transition-all duration-300 ease-in-out z-30;
+}
+
+.toTopButton svg {
+    @apply w-6 h-6;
+}
+
+.toTopButton:hover,
+.toTopButton:hover svg path {
+    @apply bg-zinc-800 fill-red-700 border-2 border-red-700;
+}
+
+.toTopButton svg path {
+    @apply fill-gray-100;
+    @apply transition-all duration-150 ease-in-out;
 }
