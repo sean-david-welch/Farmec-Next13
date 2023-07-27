@@ -8,27 +8,27 @@
 .slideButton {
     @apply flex items-center justify-center;
     @apply mx-auto text-white transition-all duration-700 ease-in-out;
-    @apply aspect-square w-[48px] text-center;
+    @apply aspect-square w-[42px] text-center;
 }
 
 .slideButton svg path {
-    @apply fill-gray-200;
+    @apply fill-gray-100 z-20;
 }
 
 .prevButton {
     @apply absolute left-1 top-[50%] -translate-y-2/4;
-    @apply slideButton;
+    @apply slideButton whitespace-nowrap;
 }
 
 .nextButton {
     @apply absolute right-1 top-[50%] -translate-y-2/4;
-    @apply slideButton;
+    @apply slideButton whitespace-nowrap;
 }
 
 .nextButton svg,
 .prevButton svg {
-    @apply h-10 w-10;
-    @apply bg-zinc-800 bg-opacity-70;
+    @apply h-8 w-8;
+    @apply bg-zinc-900 bg-opacity-80 z-10;
     @apply py-2 px-1 rounded-md;
 }
 

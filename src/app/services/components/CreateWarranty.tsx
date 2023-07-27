@@ -82,7 +82,7 @@ export const CreateWarranty = () => {
                 Create Warranty Claim
             </button>
             {showForm && (
-                <form className={utils.formSmall} onSubmit={handleSubmit}>
+                <form className={utils.form} onSubmit={handleSubmit}>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>

@@ -82,7 +82,6 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
                 `api/warranty/${warrantyId}`,
                 body
             );
-            console.log(response);
         } catch (error) {
             console.error('Failed to create wwarranty claim', error);
         }
@@ -104,7 +103,7 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
             </div>
             {showForm && (
                 <form
-                    className={utils.formSmall}
+                    className={utils.form}
                     onSubmit={event =>
                         warrantyClaim && handleSubmit(event, warrantyClaim.id)
                     }>

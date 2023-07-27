@@ -85,7 +85,7 @@
 
 .btnRound {
     @apply btn rounded-3xl px-12;
-    @apply grid grid-cols-1;
+    @apply flex flex-row;
     @apply mx-auto my-2 whitespace-nowrap;
 }
 

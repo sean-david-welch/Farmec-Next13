@@ -34,6 +34,10 @@ body {
     color: rgb(233, 233, 233);
 }
 
+dialog {
+    @apply top-1/2 left-1/2 fixed z-50 bg-zinc-900 rounded-lg shadow-lg transform -translate-x-1/2 -translate-y-1/2;
+}
+
 .container {
     @apply mx-auto min-h-screen text-center max-w-full overflow-x-hidden my-28;
 }
