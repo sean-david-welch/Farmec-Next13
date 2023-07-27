@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
@@ -67,6 +69,7 @@ const ProductForm = () => {
             console.error('Failed to create product', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -77,11 +80,12 @@ const ProductForm = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Product
             </button>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={handleSubmit}
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Product Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -113,7 +117,7 @@ const ProductForm = () => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

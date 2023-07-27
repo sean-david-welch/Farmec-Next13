@@ -1,6 +1,7 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
 
 import { useRouter } from 'next/navigation';
 import { DeleteButton } from './DeleteAbout';
@@ -128,11 +129,12 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                     <DeleteButton modelId={model?.id} modelName={modelName} />
                 )}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={event => model && handleSubmit(event, model.id)}
-                    className={utils.formSmall}
+                    className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Update {modelName}</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -167,7 +169,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
@@ -67,13 +69,14 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                 </button>
                 {carousel && <DeleteButton modelId={carousel?.id} />}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
-                    className={utils.formSmall}
+                    className={utils.form}
                     onSubmit={event =>
                         carousel && handleSubmit(event, carousel?.id)
                     }
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Carousel Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -90,7 +93,7 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

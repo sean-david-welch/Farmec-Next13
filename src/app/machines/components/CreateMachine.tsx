@@ -2,10 +2,12 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import FormDialog from '~/components/client/Dialog';
+
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
+import { useState, useEffect } from 'react';
 
 interface FormField {
     name: string;
@@ -67,6 +69,7 @@ const MachineForm = () => {
             console.error('Failed to create machine', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -77,11 +80,13 @@ const MachineForm = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Machine
             </button>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={handleSubmit}
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Machine Form</h1>
+
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -113,7 +118,7 @@ const MachineForm = () => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

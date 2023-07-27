@@ -2,11 +2,13 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import FormDialog from '~/components/client/Dialog';
+
 import { useRouter } from 'next/navigation';
+import { SpareParts } from '@prisma/client';
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
-import { SpareParts } from '@prisma/client';
+import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
@@ -78,6 +80,7 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
             console.error('Failed to create machine', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -91,13 +94,15 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                     {sparepart && <DeleteButton sparepartID={sparepart?.id} />}
                 </button>
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={event =>
                         sparepart && handleSubmit(event, sparepart.id)
                     }
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Spare Parts Form</h1>
+
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -129,7 +134,7 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { PaymentProduct } from '@prisma/client';
@@ -62,6 +64,7 @@ export const UpdatePaymentProduct = ({
             console.error(error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -77,13 +80,14 @@ export const UpdatePaymentProduct = ({
                     <DeleteButton productId={paymentProduct.id} />
                 )}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
-                    className={utils.formSmall}
+                    className={utils.form}
                     onSubmit={event =>
                         paymentProduct && handleSubmit(event, paymentProduct.id)
                     }
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Payment Product Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -100,7 +104,7 @@ export const UpdatePaymentProduct = ({
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

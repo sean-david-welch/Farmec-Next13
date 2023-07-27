@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getFormFields, getPartFields } from '../utils/getFormFields';
@@ -86,6 +88,7 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
             console.error('Failed to create wwarranty claim', error);
         }
         router.refresh();
+
         setShowForm(false);
     }
 
@@ -101,12 +104,13 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
                     <DeleteButton warrantyId={warrantyClaim?.id} />
                 )}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     className={utils.form}
                     onSubmit={event =>
                         warrantyClaim && handleSubmit(event, warrantyClaim.id)
                     }>
+                    <h1 className={utils.mainHeading}>Warranty Claim Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -154,7 +158,7 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

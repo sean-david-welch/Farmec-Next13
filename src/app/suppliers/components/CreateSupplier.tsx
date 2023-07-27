@@ -71,6 +71,8 @@ const SupplierForm = () => {
         } catch (error) {
             console.error('Failed to create supplier', error);
         }
+        setShowForm(false);
+
         router.refresh();
     }
 

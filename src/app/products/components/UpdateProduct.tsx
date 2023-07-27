@@ -2,6 +2,8 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
+
 import { Product } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -79,6 +81,7 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
             console.error('Failed to create product', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -92,13 +95,14 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                 </button>
                 {product && <DeleteButton productId={product.id} />}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={event =>
                         product && handleSubmit(event, product.id)
                     }
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Update Product</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -130,7 +134,7 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

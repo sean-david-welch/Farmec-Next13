@@ -2,10 +2,12 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import FormDialog from '~/components/client/Dialog';
+
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
+import { useState, useEffect } from 'react';
 
 interface FormField {
     name: string;
@@ -67,6 +69,7 @@ const SparepartsForm = () => {
             console.error('Failed to create machine', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -77,11 +80,13 @@ const SparepartsForm = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Spare Part
             </button>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={handleSubmit}
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Spare Parts Form</h1>
+
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -108,12 +113,11 @@ const SparepartsForm = () => {
                             )}
                         </div>
                     ))}
-
                     <button className={utils.btnForm} type="submit">
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

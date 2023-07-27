@@ -2,11 +2,13 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import FormDialog from '~/components/client/Dialog';
+
+import { Machine } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
-import { Machine } from '@prisma/client';
+import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
@@ -78,6 +80,7 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
             console.error('Failed to create machine', error);
         }
         setShowForm(false);
+
         router.refresh();
     }
 
@@ -91,13 +94,14 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                 </button>
                 {machine && <DeleteButton machineID={machine?.id} />}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     onSubmit={event =>
                         machine && handleSubmit(event, machine.id)
                     }
                     className={utils.form}
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Machine Form</h1>
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -130,7 +134,7 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };

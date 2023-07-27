@@ -1,6 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
+
 import axios from 'axios';
+import FormDialog from '~/components/client/Dialog';
 
 import { Supplier } from '@prisma/client';
 import { useState } from 'react';
@@ -82,6 +84,7 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
             console.error('Failed to create supplier', error);
         }
         setShowForm(false);
+
         router.refresh();
     };
 
@@ -95,13 +98,15 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                 </button>
                 {supplier && <DeleteButton SupplierId={supplier?.id} />}
             </div>
-            {showForm && (
+            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
                     className={utils.form}
                     onSubmit={event =>
                         supplier && handleSubmit(event, supplier.id)
                     }
                     encType="multipart/form-data">
+                    <h1 className={utils.mainHeading}>Supplier Form</h1>
+
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
@@ -117,7 +122,7 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                         Submit
                     </button>
                 </form>
-            )}
+            </FormDialog>
         </section>
     );
 };
