@@ -1,14 +1,15 @@
 import styles from '~/styles/Home.module.css';
 
-import InfoSection from '~/components/server/Info';
-import { Hero } from '~/components/server/Hero';
 import Contact from '~/components/server/Contact';
+import Displays from '~/components/server/Displays';
+
+import { Hero } from '~/components/server/Hero';
 
 const Home = () => {
     return (
         <section id={styles.home}>
             <Hero />
-            <InfoSection />
+            <Displays />
             <Contact />
         </section>
     );

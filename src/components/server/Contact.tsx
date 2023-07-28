@@ -1,6 +1,7 @@
 import utils from '~/styles/Utils.module.css';
 
 import ContactForm from '../client/ContactForm';
+import InfoSection from './Info';
 
 const Contact = () => {
     return (
@@ -9,13 +10,14 @@ const Contact = () => {
             <div className={utils.contactSection}>
                 <ContactForm />
                 <iframe
-                    width="600"
+                    width="650"
                     height="600"
                     style={{ border: 0 }}
                     loading="lazy"
                     allowFullScreen
                     src="https://www.google.com/maps/embed/v1/place?q=Farmec%20Ireland%20ltd&key=AIzaSyCO9rDrotWTKGKGxxv1uL6hgzklLYJHGOk"
                 />
+                <InfoSection />
             </div>
         </section>
     );
