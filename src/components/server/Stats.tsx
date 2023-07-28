@@ -1,4 +1,3 @@
-'use client';
 import styles from '../styles/Info.module.css';
 import utils from '~/styles/Utils.module.css';
 

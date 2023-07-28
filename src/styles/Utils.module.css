@@ -39,31 +39,37 @@
     @apply my-4;
 }
 
-.form label,
-.formSmall label {
+.form label {
     @apply my-2 block text-lg font-medium text-gray-900 dark:text-white;
 }
 
+.form textarea,
 .form input,
-.formSmall input {
+.form select {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
 }
 
-.form select,
-.formSmall select {
-    @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
-    @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
+.contactForm label {
+    @apply block text-2xl font-medium text-gray-900 dark:text-white;
+}
+.contactForm input,
+.contactForm select,
+.contactForm textarea {
+    @apply block rounded-xl border border-gray-300 p-2.5 text-sm text-zinc-800 my-4;
+    @apply border-zinc-600 bg-zinc-100 placeholder-zinc-800 focus:border-red-700 focus:ring-red-700;
 }
 
-.form .btn,
-.formSmall .btn {
+.form .btn {
     @apply mt-4;
 }
 
-.formSmall {
-    @apply flex flex-col bg-zinc-800 text-center mx-5 rounded-lg border-4 border-zinc-600;
-    @apply p-2 my-5;
+.contactForm {
+    @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2;
+}
+
+iframe {
+    @apply rounded-xl my-4 mx-2;
 }
 
 /* Buttons */
@@ -93,7 +99,7 @@
 }
 
 .btnForm {
-    @apply btnRound mx-auto pb-4;
+    @apply btnRound mx-auto pb-4 text-zinc-100;
 }
 
 .optionsBtn {
@@ -193,4 +199,13 @@
 .toTopButton svg path {
     @apply fill-gray-100;
     @apply transition-all duration-150 ease-in-out;
+}
+
+.contactSection {
+    @apply grid grid-cols-3 p-4 mx-8 mb-10;
+    @apply bg-zinc-800 rounded-lg;
+}
+
+.mainIcon {
+    @apply w-20 h-20 mx-auto;
 }

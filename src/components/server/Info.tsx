@@ -1,13 +1,11 @@
-import dynamic from 'next/dynamic';
-
-const Stats = dynamic(() => import('../client/Stats'));
-const Specials = dynamic(() => import('../client/Specials'));
+import StatsSection from './Stats';
+import SpecialsSection from './Specials';
 
 const InfoSection = async () => {
     return (
         <section id="Info">
-            <Stats />
-            <Specials />
+            <StatsSection />
+            <SpecialsSection />
         </section>
     );
 };

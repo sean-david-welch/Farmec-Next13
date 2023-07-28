@@ -1,4 +1,3 @@
-'use client';
 import styles from '../styles/Info.module.css';
 import utils from '~/styles/Utils.module.css';
 
@@ -32,7 +31,10 @@ const SpecialsSection = () => {
             <ul className={styles.specialList}>
                 <Link href={link}>
                     <li className={styles.specialListItem}>
-                        <FontAwesomeIcon icon={icon} size={'3x'} />
+                        <FontAwesomeIcon
+                            icon={icon}
+                            className={utils.mainIcon}
+                        />
                     </li>
                     <li className={styles.specialListItem}>{title}</li>
                     <li className={styles.specialListItem}>{description}</li>

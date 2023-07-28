@@ -1,5 +1,5 @@
 .infoSection {
-    @apply my-10;
+    @apply mt-10 mb-5;
 }
 
 .infoSection .mainHeading {
