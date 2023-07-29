@@ -18,14 +18,8 @@ const ContactForm = () => {
             message: formData.get('message'),
         };
 
-        const response = await axios.post('/api/contact', body);
-        console.log(response);
-
-        if (response.status >= 200 && response.status <= 300) {
-            router.refresh();
-        } else {
-            alert('Something went wrong. Please try again.');
-        }
+        await axios.post('/api/contact', body);
+        router.refresh();
     }
     return (
         <form onSubmit={handleSubmit} className={utils.contactForm}>
