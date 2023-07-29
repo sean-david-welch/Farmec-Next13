@@ -96,6 +96,7 @@ export const getVideoFields = async (video?: Video) => {
             label: 'YouTube URL',
             type: 'text',
             placeholder: 'Enter YouTube URL',
+            defaultValue: video?.web_url,
         },
     ];
 };

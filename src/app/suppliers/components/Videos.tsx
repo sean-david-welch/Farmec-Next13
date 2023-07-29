@@ -1,4 +1,4 @@
-import styles from '~/styles/Suppliers.module.css';
+import styles from '../styles/Suppliers.module.css';
 import utils from '~/styles/Utils.module.css';
 
 import { CreateVideo } from './CreateVideo';
@@ -14,6 +14,7 @@ interface Props {
 
 const Videos = async ({ supplier }: Props) => {
     const { id } = supplier;
+
     const { user } = await getSessionAndUser();
     const videos: Video[] = await prisma.video.findMany({
         where: {
@@ -27,15 +28,19 @@ const Videos = async ({ supplier }: Props) => {
 
     return (
         <section id="videos">
+            <h1 className={utils.sectionHeading}>Videos</h1>
+            {user && user.role === 'ADMIN' && <CreateVideo />}
+
             {videos.map(video => (
                 <div
                     className={styles.videoCard}
                     key={video.id}
                     id={video.title || ''}>
+                    <h1 className={utils.mainHeading}>{video.title}</h1>
                     <iframe
                         width="500"
                         height="315"
-                        src="https://www.youtube.com/embed/{{ video.video_id }}"
+                        src={`https://www.youtube.com/embed/${video.video_id}`}
                         allowFullScreen
                     />
                     {user && user.role === 'ADMIN' && (
@@ -43,7 +48,6 @@ const Videos = async ({ supplier }: Props) => {
                     )}
                 </div>
             ))}
-            {user && user.role === 'ADMIN' && <CreateVideo />}
         </section>
     );
 };

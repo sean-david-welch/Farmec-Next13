@@ -29,9 +29,9 @@ export const POST = async (request: NextRequest) => {
 
         const data = await request.json();
 
-        const { web_url, supplierId } = data;
+        const { web_url } = data;
 
-        const videoId = web_url.split('v=')[1];
+        const videoId = web_url.split('v=')[1].split('&')[0];
 
         const youtube = google.youtube({
             version: 'v3',
@@ -56,7 +56,7 @@ export const POST = async (request: NextRequest) => {
 
         const supplier = await prisma.supplier.findUnique({
             where: {
-                id: supplierId,
+                id: data.supplier,
             },
         });
 

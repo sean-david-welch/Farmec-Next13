@@ -5,6 +5,9 @@ import axios from 'axios';
 import FormDialog from '~/components/client/Dialog';
 import { DeleteButton } from './DeleteVideo';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getVideoFields } from '../utils/getFormFields';
@@ -45,9 +48,7 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
         };
 
         try {
-            const response = await axios.put(`/api/videos/${videoID}`, body);
-
-            console.log(response.data);
+            await axios.put(`/api/videos/${videoID}`, body);
         } catch (error) {
             console.error('Failed to create machine', error);
         }
@@ -62,7 +63,7 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    Update Video
+                    <FontAwesomeIcon icon={faPenToSquare} />
                 </button>
                 {video && <DeleteButton videoID={video?.id} />}
             </div>

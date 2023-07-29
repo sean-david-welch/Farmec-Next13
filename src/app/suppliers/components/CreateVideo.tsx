@@ -40,9 +40,7 @@ export const CreateVideo = () => {
         };
 
         try {
-            const response = await axios.post('/api/videos', body);
-
-            console.log(response.data);
+            await axios.post('/api/videos', body);
         } catch (error) {
             console.error('Failed to create machine', error);
         }
@@ -59,10 +57,7 @@ export const CreateVideo = () => {
                 Create Video
             </button>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={handleSubmit}
-                    className={utils.form}
-                    encType="multipart/form-data">
+                <form onSubmit={handleSubmit} className={utils.form}>
                     <h1 className={utils.mainHeading}>Video Form</h1>
 
                     {formFields.map(field => (

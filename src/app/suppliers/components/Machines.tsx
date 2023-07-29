@@ -31,6 +31,9 @@ const Machines = async ({ supplier }: Props) => {
 
     return (
         <section id="machines">
+            <h1 className={utils.sectionHeading}>Machinery</h1>
+            {user && user.role === 'ADMIN' && <MachineForm />}
+
             {machines.map(machine => (
                 <div
                     className={styles.machineCard}
@@ -66,7 +69,6 @@ const Machines = async ({ supplier }: Props) => {
                     )}
                 </div>
             ))}
-            {user && user.role === 'ADMIN' && <MachineForm />}
         </section>
     );
 };

@@ -15,8 +15,6 @@ export const POST = async (request: NextRequest) => {
         await validateUser();
         const data = await request.json();
 
-        console.log(data);
-
         const folder = 'Spareparts';
 
         const { name, description, spare_parts_link, parts_image } = data;

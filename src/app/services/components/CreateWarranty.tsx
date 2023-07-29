@@ -67,8 +67,7 @@ export const CreateWarranty = () => {
         };
 
         try {
-            const response = await axios.post('/api/services/warranty', body);
-            console.log(response);
+            await axios.post('/api/services/warranty', body);
         } catch (error) {
             console.error('Failed to create wwarranty claim', error);
         }
