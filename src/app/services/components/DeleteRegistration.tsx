@@ -19,7 +19,7 @@ export const DeleteButton: React.FC<Props> = ({ registrationId }) => {
 
         try {
             const response = await axios.delete(
-                `/api/registration/${registrationId}`
+                `/api/services/registration/${registrationId}`
             );
             if (response.status >= 200 && response.status < 300) {
                 router.push('/account');

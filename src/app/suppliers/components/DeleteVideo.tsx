@@ -8,25 +8,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    warrantyId: string;
+    videoID: string;
 }
 
-export const DeleteButton: React.FC<Props> = ({ warrantyId }) => {
+export const DeleteButton: React.FC<Props> = ({ videoID }) => {
     const router = useRouter();
 
     const onDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
-            const response = await axios.delete(
-                `/api/services/warranty/${warrantyId}`
-            );
+            const response = await axios.delete(`/api/suppliers/${videoID}`);
             if (response.status >= 200 && response.status < 300) {
-                router.push('/account');
+                router.push('/suppliers');
                 router.refresh();
             }
         } catch (error) {
-            console.error('Failed to delete warranty', error);
+            console.error('Failed to delete supplier', error);
         }
     };
 

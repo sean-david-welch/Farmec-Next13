@@ -80,10 +80,7 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
         };
 
         try {
-            const response = await axios.put(
-                `api/warranty/${warrantyId}`,
-                body
-            );
+            await axios.put(`api/services/warranty/${warrantyId}`, body);
         } catch (error) {
             console.error('Failed to create wwarranty claim', error);
         }

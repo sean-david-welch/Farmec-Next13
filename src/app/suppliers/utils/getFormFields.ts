@@ -1,4 +1,6 @@
-import { Supplier } from '@prisma/client';
+import axios from 'axios';
+
+import { Supplier, Video } from '@prisma/client';
 
 export const getFormFields = (supplier?: Supplier) => [
     {
@@ -70,3 +72,30 @@ export const getFormFields = (supplier?: Supplier) => [
         defaultValue: supplier?.social_website,
     },
 ];
+
+export const getVideoFields = async (video?: Video) => {
+    const suppliers = await axios
+        .get<Supplier[]>('/api/suppliers')
+        .then(res => res.data);
+
+    const supplierOptions = suppliers.map(supplier => ({
+        label: supplier.name,
+        value: supplier.id,
+    }));
+    return [
+        {
+            name: 'supplier',
+            label: 'Supplier',
+            type: 'select',
+            options: supplierOptions,
+            placeholder: 'Select supplier',
+            defaultValue: video?.supplierId,
+        },
+        {
+            name: 'web_url',
+            label: 'YouTube URL',
+            type: 'text',
+            placeholder: 'Enter YouTube URL',
+        },
+    ];
+};

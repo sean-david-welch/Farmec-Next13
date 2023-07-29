@@ -46,7 +46,10 @@ export const UpdateRegistration = ({
         };
 
         try {
-            const response = await axios.post('/api/registration', body);
+            const response = await axios.post(
+                '/api/services/registration',
+                body
+            );
         } catch (error) {
             console.error('Failed to create wwarranty claim', error);
         }
