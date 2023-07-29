@@ -1,4 +1,4 @@
-import { emailHost, emailPass, emailUser, emailPort } from '~/lib/config';
+import { emailUser } from '~/lib/config';
 import { transporter } from '~/lib/mail';
 import { errorResponse } from '~/utils/user';
 import { NextRequest, NextResponse } from 'next/server';
