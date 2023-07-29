@@ -231,7 +231,7 @@
     @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2 w-[300px];
 }
 
-iframe {
+.map {
     @apply flex justify-center items-center;
     @apply rounded-xl mx-auto;
 }
