@@ -1,5 +1,3 @@
-import bcrypt from 'bcrypt';
-
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -7,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '~/lib/prisma';
 import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { getSessionAndUser } from '~/utils/user';
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -31,27 +28,21 @@ export const authOptions: NextAuthOptions = {
                     throw new Error('No email or password provided');
                 }
 
-                const { username, password } = credentials;
+                const { username } = credentials;
 
-                if (!credentials) {
-                    return null;
-                }
-
-                const user = await prisma.user.findFirst({
+                const user = await prisma.user.findUnique({
                     where: { username: username },
                 });
 
-                if (user && user.passwordHash) {
-                    // const isValidPassword = await bcrypt.compare(
-                    //     password,
-                    //     user.passwordHash
-                    // );
-                    // if (isValidPassword) {
-                    //     return user;
-                    // }
+                if (!user) {
+                    throw new Error('Invalid username or password');
                 }
 
-                return null;
+                return {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role,
+                };
             },
         }),
         GithubProvider({

@@ -1,5 +1,3 @@
-import Stripe from 'stripe';
-
 import { prisma } from '~/lib/prisma';
 import { errorResponse } from '~/utils/user';
 
