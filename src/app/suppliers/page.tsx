@@ -16,7 +16,7 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const Suppliers = async () => {
     const { user } = await getSessionAndUser();
-    const suppliers: Supplier[] = await prisma.supplier.findMany();
+    const suppliers: Supplier[] = await prisma.supplier.findMany({});
 
     if (!suppliers) {
         return <div>loading...</div>;

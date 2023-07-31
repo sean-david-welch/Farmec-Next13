@@ -31,23 +31,26 @@ const Videos = async ({ supplier }: Props) => {
             <h1 className={utils.sectionHeading}>Videos</h1>
             {user && user.role === 'ADMIN' && <CreateVideo />}
 
-            {videos.map(video => (
-                <div
-                    className={styles.videoCard}
-                    key={video.id}
-                    id={video.title || ''}>
-                    <h1 className={utils.mainHeading}>{video.title}</h1>
-                    <iframe
-                        width="500"
-                        height="315"
-                        src={`https://www.youtube.com/embed/${video.video_id}`}
-                        allowFullScreen
-                    />
-                    {user && user.role === 'ADMIN' && (
-                        <UpdateVideo video={video} />
-                    )}
-                </div>
-            ))}
+            <div className={styles.videoGrid}>
+                {videos.map(video => (
+                    <div
+                        className={styles.videoCard}
+                        key={video.id}
+                        id={video.title || ''}>
+                        <h1 className={utils.mainHeading}>{video.title}</h1>
+                        <iframe
+                            width="425"
+                            height="315"
+                            className={styles.video}
+                            src={`https://www.youtube.com/embed/${video.video_id}`}
+                            allowFullScreen
+                        />
+                        {user && user.role === 'ADMIN' && (
+                            <UpdateVideo video={video} />
+                        )}
+                    </div>
+                ))}
+            </div>
         </section>
     );
 };
