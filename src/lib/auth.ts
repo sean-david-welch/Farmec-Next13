@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -28,21 +30,33 @@ export const authOptions: NextAuthOptions = {
                     throw new Error('No email or password provided');
                 }
 
-                const { username } = credentials;
+                const { username, password } = credentials;
 
-                const user = await prisma.user.findUnique({
-                    where: { username: username },
-                });
+                try {
+                    const response = await axios.post('/api/login', {
+                        username,
+                        password,
+                    });
 
-                if (!user) {
+                    if (response.data.success) {
+                        const user = await prisma.user.findUnique({
+                            where: { username: username },
+                        });
+
+                        if (!user) {
+                            throw new Error('Invalid username or password');
+                        }
+
+                        return {
+                            id: user.id,
+                            username: user.username,
+                            role: user.role,
+                        };
+                    }
+                    throw new Error('Invalid username or password');
+                } catch (error) {
                     throw new Error('Invalid username or password');
                 }
-
-                return {
-                    id: user.id,
-                    username: user.username,
-                    role: user.role,
-                };
             },
         }),
         GithubProvider({

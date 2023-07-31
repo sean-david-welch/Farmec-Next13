@@ -33,7 +33,13 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             return errorResponse(401, 'Invalid username or password');
         }
 
-        return NextResponse.json({ success: true });
+        if (isValidPassword) {
+            return NextResponse.json({
+                success: true,
+            });
+        }
+
+        return errorResponse(401, 'Invalid username or password');
     } catch (error: any) {
         console.error(error);
         return errorResponse(500, error.message || 'Internal Server Error');

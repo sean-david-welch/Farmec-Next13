@@ -50,10 +50,13 @@
     @apply mx-4 my-4 p-2;
 }
 
+.userSection {
+    @apply mx-16 my-4 p-2;
+    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
+}
+
 .userCard {
     @apply flex flex-row;
-    @apply bg-zinc-800 border-4 border-zinc-600 rounded-2xl;
-    @apply mx-16 p-2;
 }
 
 .userCard > * {
