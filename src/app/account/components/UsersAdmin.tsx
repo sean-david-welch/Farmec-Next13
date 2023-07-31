@@ -13,8 +13,8 @@ const Users = async () => {
             <h1 className={utils.sectionHeading}>Users</h1>
 
             {users.map(user => (
-                <div className={styles.userSection}>
-                    <div className={styles.userCard} key={user.id}>
+                <div className={styles.userSection} key={user.id}>
+                    <div className={styles.userCard}>
                         <h1 className={utils.paragraph}> {user.name}</h1>
                         <h1 className={utils.paragraph}> {user.email}</h1>
                         <h1 className={utils.paragraph}>Role: {user.role}</h1>

@@ -4,9 +4,18 @@ import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
 import FormDialog from '~/components/client/Dialog';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUserFields } from '../utils/getUserFields';
+
+interface FormField {
+    name: string;
+    label: string;
+    type: string;
+    placeholder: string;
+    defaultValue?: string | null;
+    options?: { label: string | null; value: string }[];
+}
 
 export const CreateUser = () => {
     const router = useRouter();
@@ -45,12 +54,27 @@ export const CreateUser = () => {
                     {formFields.map(field => (
                         <div key={field.name}>
                             <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                            />
+                            {field.type === 'select' ? (
+                                <select
+                                    name={field.name}
+                                    id={field.name}
+                                    defaultValue={field.defaultValue || ''}>
+                                    {field.options &&
+                                        field.options.map(option => (
+                                            <option key={option} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type={field.type}
+                                    name={field.name}
+                                    id={field.name}
+                                    placeholder={field.placeholder}
+                                    defaultValue={field.defaultValue || ''}
+                                />
+                            )}
                         </div>
                     ))}
                     <button className={utils.btnForm} type="submit">

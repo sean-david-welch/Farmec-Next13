@@ -19,8 +19,8 @@ export const getUserFields = (user?: User) => {
             name: 'role',
             label: 'Role',
             type: 'select',
-            options: ['ADMIN', 'USER', 'STAFF'],
             placeholder: 'Role',
+            options: ['ADMIN', 'USER', 'STAFF'],
             defaultValue: user?.role,
         },
     ];
