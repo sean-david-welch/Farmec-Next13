@@ -46,10 +46,9 @@ export const authOptions: NextAuthOptions = {
                     //     password,
                     //     user.passwordHash
                     // );
-
-                    if (isValidPassword) {
-                        return user;
-                    }
+                    // if (isValidPassword) {
+                    //     return user;
+                    // }
                 }
 
                 return null;
