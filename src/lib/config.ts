@@ -3,10 +3,13 @@ let baseUrl: string,
     stripeSecret: string,
     webhookSecret: string;
 
-let emailHost = process.env.EMAIL_HOST || '';
-let emailPass = process.env.EMAIL_HOST_PASSWORD || '';
-let emailUser = process.env.EMAIL_HOST_USER || '';
-let emailPort = process.env.EMAIL_PORT || '';
+const emailHost = process.env.EMAIL_HOST || '';
+const emailPass = process.env.EMAIL_HOST_PASSWORD || '';
+const emailUser = process.env.EMAIL_HOST_USER || '';
+const emailPort = process.env.EMAIL_PORT || '';
+
+const cloudflareKey = process.env.CLOUDFLARE_SITE_KEY || '';
+const cloudflarePrivate = process.env.CLOUDFLARE_SECRET || '';
 
 if (process.env.NODE_ENV !== 'production') {
     baseUrl = process.env.BASE_URL || '';
@@ -22,3 +25,4 @@ if (process.env.NODE_ENV === 'development') {
 
 export { baseUrl, stripePublic, stripeSecret, webhookSecret };
 export { emailHost, emailPass, emailUser, emailPort };
+export { cloudflareKey, cloudflarePrivate };
