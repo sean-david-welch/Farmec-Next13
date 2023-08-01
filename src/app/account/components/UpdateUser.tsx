@@ -46,7 +46,10 @@ export const UpdateUser = ({ user }: { user?: User }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {user && <DeleteButton userId={user?.id} />}
             </div>

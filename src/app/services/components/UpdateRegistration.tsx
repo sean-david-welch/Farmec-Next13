@@ -64,7 +64,10 @@ export const UpdateRegistration = ({
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {registration && (
                     <DeleteButton registrationId={registration?.id} />

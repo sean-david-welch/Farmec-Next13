@@ -65,7 +65,10 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {carousel && <DeleteButton modelId={carousel?.id} />}
             </div>

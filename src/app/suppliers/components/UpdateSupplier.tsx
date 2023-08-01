@@ -94,7 +94,10 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {supplier && <DeleteButton SupplierId={supplier?.id} />}
             </div>

@@ -90,7 +90,10 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {machine && <DeleteButton machineID={machine?.id} />}
             </div>

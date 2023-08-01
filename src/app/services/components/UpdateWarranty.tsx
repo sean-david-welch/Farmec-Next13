@@ -95,7 +95,10 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {warrantyClaim && (
                     <DeleteButton warrantyId={warrantyClaim?.id} />

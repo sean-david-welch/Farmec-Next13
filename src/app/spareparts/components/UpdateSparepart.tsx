@@ -90,7 +90,10 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                     {sparepart && <DeleteButton sparepartID={sparepart?.id} />}
                 </button>
             </div>

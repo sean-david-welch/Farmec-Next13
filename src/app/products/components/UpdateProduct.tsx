@@ -91,7 +91,10 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {product && <DeleteButton productId={product.id} />}
             </div>

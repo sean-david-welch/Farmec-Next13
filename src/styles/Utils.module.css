@@ -94,6 +94,10 @@
     @apply btnRound mx-auto pb-4 text-zinc-100;
 }
 
+.updateIcon {
+    @apply w-4 h-4 mx-2;
+}
+
 .optionsBtn {
     @apply mx-auto flex flex-row justify-center;
 }

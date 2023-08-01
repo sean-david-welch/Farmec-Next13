@@ -63,7 +63,10 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {video && <DeleteButton videoID={video?.id} />}
             </div>

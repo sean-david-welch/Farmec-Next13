@@ -123,7 +123,10 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                 <button
                     className={utils.btnForm}
                     onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        className={utils.updateIcon}
+                    />
                 </button>
                 {model && (
                     <DeleteButton modelId={model?.id} modelName={modelName} />

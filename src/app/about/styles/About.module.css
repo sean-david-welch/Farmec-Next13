@@ -22,11 +22,28 @@
     @apply mx-auto w-full rounded-t-lg;
 }
 
+.timeline {
+    @apply flex flex-col items-center;
+}
+
 .timelineCard {
-    @apply flex flex-col text-left;
+    @apply flex flex-col text-center;
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
-    @apply mx-72 my-10 p-4;
+    @apply my-10 p-4 w-[800px];
     @apply transition-all duration-700 ease-in-out;
+}
+
+.timelineCard:nth-child(odd) {
+    @apply left-10;
+}
+
+.timelineCard:nth-child(even) {
+    @apply right-10;
+}
+
+.timelineCard > * {
+    @apply mx-auto my-2;
+    @apply flex flex-row;
 }
 
 .timelineCard:hover {
@@ -34,14 +51,8 @@
     @apply scale-[1.025];
 }
 
-.timelineCard svg {
+.clockIcon {
     @apply h-8 w-8 mr-2;
-}
-
-.timelineCard > h1,
-.timelineCard > p {
-    @apply flex flex-row flex-nowrap;
-    @apply my-2;
 }
 
 .infoCard {
