@@ -4,7 +4,7 @@ import axios from 'axios';
 import FormDialog from '~/components/client/Dialog';
 
 import { useRouter } from 'next/navigation';
-import { DeleteButton } from './DeleteAbout';
+import { DeleteButton } from '~/components/client/DeleteButton';
 import { useState, useEffect } from 'react';
 import { Employee, Timeline, Terms, Privacy } from '@prisma/client';
 
@@ -129,7 +129,12 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                     />
                 </button>
                 {model && (
-                    <DeleteButton modelId={model?.id} modelName={modelName} />
+                    <DeleteButton
+                        modelId={model?.id}
+                        modelName={modelName}
+                        route="about"
+                        endpoint="about"
+                    />
                 )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

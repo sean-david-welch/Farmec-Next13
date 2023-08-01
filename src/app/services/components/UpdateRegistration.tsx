@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getRegFields } from '../utils/getFormFields';
 import { MachineRegistration } from '@prisma/client';
 
-import { DeleteButton } from './DeleteRegistration';
+import { DeleteButton } from '~/components/client/DeleteButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -70,7 +70,11 @@ export const UpdateRegistration = ({
                     />
                 </button>
                 {registration && (
-                    <DeleteButton registrationId={registration?.id} />
+                    <DeleteButton
+                        modelId={registration?.id}
+                        endpoint="account"
+                        route="services/registration"
+                    />
                 )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

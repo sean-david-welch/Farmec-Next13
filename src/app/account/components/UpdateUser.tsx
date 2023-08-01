@@ -11,7 +11,7 @@ import { getUserFields } from '../utils/getUserFields';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteUser';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 export const UpdateUser = ({ user }: { user?: User }) => {
     const router = useRouter();
@@ -51,7 +51,13 @@ export const UpdateUser = ({ user }: { user?: User }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {user && <DeleteButton userId={user?.id} />}
+                {user && (
+                    <DeleteButton
+                        modelId={user.id}
+                        route="register"
+                        endpoint="account"
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form

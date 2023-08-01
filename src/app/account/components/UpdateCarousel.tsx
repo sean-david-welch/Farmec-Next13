@@ -10,7 +10,7 @@ import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
 
 import { Carousel } from '@prisma/client';
-import { DeleteButton } from './DeleteCarousel';
+import { DeleteButton } from '~/components/client/DeleteButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -70,7 +70,13 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {carousel && <DeleteButton modelId={carousel?.id} />}
+                {carousel && (
+                    <DeleteButton
+                        modelId={carousel?.id}
+                        route="carousel"
+                        endpoint="account"
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form

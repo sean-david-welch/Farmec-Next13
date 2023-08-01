@@ -11,7 +11,7 @@ import { getFormFields } from '../utils/getFormFields';
 import { Blog, Exhibition } from '@prisma/client';
 import { getBlogFormData, getExhibitionFormData } from '../utils/getFormData';
 
-import { DeleteButton } from './DeleteBlog';
+import { DeleteButton } from '~/components/client/DeleteButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -121,7 +121,12 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                     />
                 </button>
                 {model && (
-                    <DeleteButton modelId={model?.id} modelName={modelName} />
+                    <DeleteButton
+                        modelId={model?.id}
+                        modelName={modelName}
+                        route="blog"
+                        endpoint="blog"
+                    />
                 )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteSparepart';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 interface FormField {
     name: string;
@@ -94,7 +94,13 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                         icon={faPenToSquare}
                         className={utils.updateIcon}
                     />
-                    {sparepart && <DeleteButton sparepartID={sparepart?.id} />}
+                    {sparepart && (
+                        <DeleteButton
+                            modelId={sparepart?.id}
+                            route="spareparts"
+                            endpoint="spareparts"
+                        />
+                    )}
                 </button>
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

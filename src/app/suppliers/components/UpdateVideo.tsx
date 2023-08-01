@@ -3,15 +3,15 @@ import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
 import FormDialog from '~/components/client/Dialog';
-import { DeleteButton } from './DeleteVideo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
-import { useState, useEffect } from 'react';
+import { Video } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { getVideoFields } from '../utils/getFormFields';
-import { Video } from '@prisma/client';
+import { useState, useEffect } from 'react';
 
 interface FormField {
     name: string;
@@ -68,7 +68,13 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {video && <DeleteButton videoID={video?.id} />}
+                {video && (
+                    <DeleteButton
+                        modelId={video?.id}
+                        endpoint="suppliers"
+                        route="suppliers"
+                    />
+                )}
             </div>
 
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

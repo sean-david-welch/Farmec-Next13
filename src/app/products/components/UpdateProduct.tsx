@@ -13,7 +13,7 @@ import { getFormFields } from '../utils/getFormFields';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteProduct';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 interface FormField {
     name: string;
@@ -96,7 +96,13 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {product && <DeleteButton productId={product.id} />}
+                {product && (
+                    <DeleteButton
+                        modelId={product.id}
+                        route="products"
+                        endpoint={`machines/${product.machineId}`}
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form

@@ -9,25 +9,44 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
     modelId: string;
-    modelName: 'blog' | 'exhibition';
+    route: string;
+    endpoint: string;
+    modelName?:
+        | 'employee'
+        | 'timeline'
+        | 'terms'
+        | 'privacy'
+        | 'blog'
+        | 'exhibition';
 }
 
-export const DeleteButton: React.FC<Props> = ({ modelId, modelName }) => {
+export const DeleteButton: React.FC<Props> = ({
+    modelId,
+    route,
+    endpoint,
+    modelName,
+}) => {
     const router = useRouter();
 
     const onDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
+        let response;
         try {
-            const response = await axios.delete(`/api/blog/${modelId}`, {
-                data: { model: modelName, id: modelId },
-            });
+            if (modelName) {
+                response = await axios.delete(`/api/${route}/${modelId}`, {
+                    data: { model: modelName, id: modelId },
+                });
+            } else {
+                response = await axios.delete(`/api/${route}/${modelId}`);
+            }
+
             if (response.status >= 200 && response.status < 300) {
-                router.push('/blog');
+                router.push(`/${endpoint}`);
                 router.refresh();
             }
         } catch (error) {
-            console.error('Failed to delete machine', error);
+            console.error(`Failed to delete model`, error);
         }
     };
 

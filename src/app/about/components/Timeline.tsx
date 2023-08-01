@@ -6,7 +6,7 @@ import { getSessionAndUser } from '~/utils/user';
 
 export const Timeline = async () => {
     const timeline = await prisma.timeline.findMany({});
-    const { user } = await getSessionAndUser();
+    const { user = null } = await getSessionAndUser();
 
     return (
         <section id="timeline">

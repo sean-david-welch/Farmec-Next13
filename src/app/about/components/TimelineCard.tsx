@@ -3,7 +3,7 @@
 import styles from '../styles/About.module.css';
 import utils from '~/styles/Utils.module.css';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 
@@ -11,8 +11,15 @@ import { UpdateAbout } from './UpdateAbout';
 
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { User } from '@prisma/client';
 
-const TimelineCard: React.FC<any> = ({ event, user, direction }) => {
+interface Props {
+    event: any;
+    user: User | null | undefined;
+    direction: string;
+}
+
+const TimelineCard: React.FC<Props> = ({ event, user, direction }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView();
     const timelineVariant = {

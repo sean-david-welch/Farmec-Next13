@@ -13,7 +13,7 @@ import { getFormFields } from '../utils/getFormFields';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteSupplier';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
     const router = useRouter();
@@ -99,7 +99,13 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {supplier && <DeleteButton SupplierId={supplier?.id} />}
+                {supplier && (
+                    <DeleteButton
+                        modelId={supplier?.id}
+                        route="suppliers"
+                        endpoint="suppliers"
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form

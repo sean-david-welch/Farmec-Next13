@@ -12,7 +12,7 @@ import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/GetFormFields';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeletePaymentProduct';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 export const UpdatePaymentProduct = ({
     paymentProduct,
@@ -80,7 +80,11 @@ export const UpdatePaymentProduct = ({
                     />
                 </button>
                 {paymentProduct && (
-                    <DeleteButton productId={paymentProduct.id} />
+                    <DeleteButton
+                        modelId={paymentProduct.id}
+                        endpoint="account"
+                        route="payments"
+                    />
                 )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

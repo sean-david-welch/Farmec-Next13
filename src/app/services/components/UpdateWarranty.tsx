@@ -11,7 +11,7 @@ import { getFormFields, getPartFields } from '../utils/getFormFields';
 import { WarrantyClaim, PartsRequired } from '@prisma/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteWarranty';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 interface Props {
     warrantyClaim: WarrantyClaim;
@@ -101,7 +101,11 @@ export const UpdateWarranty = ({ warrantyClaim, partsRequired }: Props) => {
                     />
                 </button>
                 {warrantyClaim && (
-                    <DeleteButton warrantyId={warrantyClaim?.id} />
+                    <DeleteButton
+                        modelId={warrantyClaim?.id}
+                        route="services/warranty"
+                        endpoint="account"
+                    />
                 )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>

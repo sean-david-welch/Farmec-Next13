@@ -6,13 +6,14 @@ import FormDialog from '~/components/client/Dialog';
 
 import { Machine } from '@prisma/client';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
 import { uploadImage } from '~/utils/uploadImage';
 import { getFormFields } from '../utils/getFormFields';
-import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { DeleteButton } from './DeleteMachine';
+import { DeleteButton } from '~/components/client/DeleteButton';
 
 interface FormField {
     name: string;
@@ -95,7 +96,13 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                         className={utils.updateIcon}
                     />
                 </button>
-                {machine && <DeleteButton machineID={machine?.id} />}
+                {machine && (
+                    <DeleteButton
+                        modelId={machine?.id}
+                        route="machines"
+                        endpoint={`suppliers/${machine.supplierId}`}
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form
