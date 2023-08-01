@@ -4,6 +4,7 @@ import utils from '~/styles/Utils.module.css';
 import { prisma } from '~/lib/prisma';
 import { getSessionAndUser } from '~/utils/user';
 import { UpdateRegistration } from '../../components/UpdateRegistration';
+import { DownloadLink } from '../../components/RegistrationPdf';
 
 interface Props {
     params: { id: string };
@@ -49,6 +50,8 @@ const WarrantyDetail = async ({ params }: Props) => {
                     <UpdateRegistration registration={registration} />
                 )}
             </div>
+
+            <DownloadLink registration={registration} />
         </section>
     );
 };

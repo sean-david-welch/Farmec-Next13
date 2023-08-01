@@ -2,10 +2,15 @@
 
 import utils from '~/styles/Utils.module.css';
 
-import { PartsRequired, WarrantyClaim } from '@prisma/client';
-import { Page, Text, Document, StyleSheet } from '@react-pdf/renderer';
+import { MachineRegistration } from '@prisma/client';
+import {
+    Page,
+    Text,
+    Document,
+    StyleSheet,
+    PDFDownloadLink,
+} from '@react-pdf/renderer';
 
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,14 +30,13 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
-    warranty: WarrantyClaim;
-    parts: PartsRequired[];
+    registration: MachineRegistration;
 }
 
-export const DownloadLink = ({ warranty, parts }: Props) => (
+export const DownloadLink = ({ registration }: Props) => (
     <PDFDownloadLink
-        document={<MyDocument warranty={warranty} parts={parts} />}
-        fileName={`${warranty.owner_name}.warranty.pdf`}>
+        document={<MyDocument registration={registration} />}
+        fileName={`${registration.owner_name}.registration.pdf`}>
         {() => (
             <button className={utils.btnRound}>
                 Download Form
@@ -42,13 +46,14 @@ export const DownloadLink = ({ warranty, parts }: Props) => (
     </PDFDownloadLink>
 );
 
-export const MyDocument = ({ warranty, parts }: Props) => (
+export const MyDocument = ({ registration }: Props) => (
     <Document>
         <Page size="A4">
             <Text style={styles.title}>
-                Warranty Claim: {warranty.dealer} - {warranty.owner_name}
+                Machine Registration: {registration.dealer_name} -{' '}
+                {registration.owner_name}
             </Text>
-            {Object.entries(warranty).map(([key, value]) => {
+            {Object.entries(registration).map(([key, value]) => {
                 if (key !== 'id' && key !== 'created' && key !== 'parts') {
                     return (
                         <Text style={styles.content} key={key}>
@@ -57,17 +62,6 @@ export const MyDocument = ({ warranty, parts }: Props) => (
                     );
                 }
             })}
-            {parts.map((part, index) =>
-                Object.entries(part).map(([key, value]) => {
-                    if (key !== 'id' && key !== 'warrantyId') {
-                        return (
-                            <Text style={styles.content} key={key + index}>
-                                {key}: {String(value)}
-                            </Text>
-                        );
-                    }
-                })
-            )}
         </Page>
     </Document>
 );
