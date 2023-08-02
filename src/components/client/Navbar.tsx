@@ -8,15 +8,12 @@ interface Props {
 
 const Navbar = ({ children }: Props) => {
     const isTransparent = useTransparentHeader();
-    const getClassName = () => {
-        let className = styles.navbar;
-        if (isTransparent) {
-            className += ` ${styles.transparent}`;
-        }
-        return className;
-    };
 
-    return <nav className={getClassName()}>{children}</nav>;
+    return (
+        <nav className={isTransparent ? styles.transparentNav : styles.navbar}>
+            {children}
+        </nav>
+    );
 };
 
 export default Navbar;

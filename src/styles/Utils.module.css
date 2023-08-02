@@ -108,6 +108,7 @@
 
 .signIn {
     @apply flex flex-row;
+    @apply md:mx-auto text-xl;
 }
 
 .profileImage {
@@ -116,10 +117,12 @@
 
 .signInButton {
     @apply btn text-gray-200;
+    @apply md:mx-auto text-xl;
 }
 
 .signOutButton {
     @apply btn text-gray-200;
+    @apply md:mx-auto text-xl;
 }
 
 /* Mics */

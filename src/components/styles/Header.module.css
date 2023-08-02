@@ -2,10 +2,13 @@
     @apply flex flex-row justify-center my-auto w-screen;
     @apply py-5 bg-zinc-900;
     @apply fixed top-0 z-50;
+    @apply md:hidden;
 }
 
-.navbar.transparent {
+.transparentNav {
+    @apply navbar;
     @apply bg-transparent text-zinc-950;
+    @apply md:hidden;
 }
 
 .navbar > * {

@@ -40,10 +40,10 @@ const ContactForm = () => {
     }
     return (
         <>
-            <Script
+            {/* <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback"
                 strategy="lazyOnload"
-            />
+            /> */}
             <form onSubmit={handleSubmit} className={utils.contactForm}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" required={true} placeholder="name" />

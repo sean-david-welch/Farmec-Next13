@@ -1,6 +1,8 @@
 .sideNav {
-    @apply absolute left-0 top-0 z-20 min-h-screen w-64 border-r-2;
+    @apply absolute left-0 top-0 z-20 min-h-screen w-full border-r-2;
     @apply bg-zinc-900 text-gray-200 border-red-700;
+    @apply transform transition-all duration-700 ease-in-out;
+    @apply lg:hidden;
 }
 
 .sideNavOpen {
@@ -16,18 +18,31 @@
 
 /* Navigtion */
 .navList {
-    @apply mx-auto mb-2 mt-20 flex flex-col justify-evenly;
+    @apply my-20 flex flex-col;
+    @apply w-full items-start;
 }
 
 .navItem {
-    @apply mx-auto my-6 w-56 text-xl transition-all duration-500 ease-in-out;
+    @apply grid grid-cols-2 gap-10;
+    @apply w-full;
+    @apply my-10 text-3xl;
+    @apply transition-all duration-500 ease-in-out;
+}
+
+.navItem svg {
+    @apply h-8 w-8 mx-24;
 }
 
 /* buttons */
-.navigation {
-    @apply h-8 cursor-pointer hover:pointer-events-auto z-50;
+.navIcon {
+    @apply grid grid-cols-2 gap-2;
+    @apply justify-center items-center;
+    @apply fixed left-5 top-5;
+    @apply cursor-pointer hover:pointer-events-auto z-50;
+    @apply lg:hidden;
 }
 
-.navIcon {
-    @apply fixed left-5 top-8 cursor-pointer hover:pointer-events-auto z-50;
+.navigation {
+    @apply h-10 w-10 fixed right-5;
+    @apply cursor-pointer hover:pointer-events-auto z-50;
 }
