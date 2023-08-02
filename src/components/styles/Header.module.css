@@ -22,6 +22,7 @@
 
 .navList > * {
     @apply mx-12 my-auto;
+    @apply md:hidden;
 }
 
 .navItem {

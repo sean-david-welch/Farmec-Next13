@@ -1,9 +1,9 @@
 /* Misc */
-
 .sectionHeading {
     @apply my-5;
     @apply text-3xl font-semibold mx-auto;
     @apply text-zinc-900 underline decoration-red-600 decoration-4 underline-offset-8;
+    @apply md:text-4xl font-medium;
 }
 
 .mainHeading {
