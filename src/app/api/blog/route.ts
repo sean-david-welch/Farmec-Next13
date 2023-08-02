@@ -1,5 +1,5 @@
 import { prisma } from '~/lib/prisma';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 import { NextRequest, NextResponse } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
 
@@ -70,7 +70,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
                 throw new Error('Main image not found');
             }
 
-            const { url, signature, timestamp } = await uploadToCloudinary(
+            const { url, signature, timestamp } = await getCloudinaryUrl(
                 main_image,
                 folder
             );

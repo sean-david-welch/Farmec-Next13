@@ -108,10 +108,12 @@
 
 .signInButton {
     @apply btn text-gray-200;
+    @apply md:my-5 md:mx-auto md:text-xl;
 }
 
 .signOutButton {
     @apply btn text-gray-200;
+    @apply md:my-5 md:mx-auto md:text-xl;
 }
 
 /* Mics */

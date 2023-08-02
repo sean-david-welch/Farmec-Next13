@@ -62,10 +62,23 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
             );
 
             if (response.status >= 200 && response.status <= 300) {
-                const { sparepartSignature, sparepartTimestamp, folder } =
-                    response.data;
+                const {
+                    sparepartSignature,
+                    sparepartTimestamp,
+                    pdfSignature,
+                    pdfTimestamp,
+                    folder,
+                } = response.data;
 
-                const sparepartFile = formData.get('parts_image') as File;
+                if (pdfLink !== null && pdfLink !== undefined) {
+                    await uploadImage(
+                        pdfLink,
+                        pdfSignature,
+                        pdfTimestamp,
+                        pdfLink.name,
+                        folder
+                    );
+                }
 
                 if (sparepartFile) {
                     await uploadImage(

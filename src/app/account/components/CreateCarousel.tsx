@@ -32,8 +32,6 @@ export const CreateCarousel = () => {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
-                const imageFile = formData.get('image') as File;
-
                 if (imageFile) {
                     await uploadImage(
                         imageFile,

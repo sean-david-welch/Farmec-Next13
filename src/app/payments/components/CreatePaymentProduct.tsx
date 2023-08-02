@@ -33,8 +33,6 @@ export const CreatePaymentProduct = () => {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
-                const productFile = formData.get('image') as File;
-
                 if (productFile) {
                     await uploadImage(
                         productFile,

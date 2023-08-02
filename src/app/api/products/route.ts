@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 
 export const POST = async (request: NextRequest) => {
     try {
@@ -21,7 +21,7 @@ export const POST = async (request: NextRequest) => {
             url: productUrl,
             signature: productSignature,
             timestamp: productTimestamp,
-        } = await uploadToCloudinary(data.product_image, folder);
+        } = await getCloudinaryUrl(data.product_image, folder);
 
         const machine = await prisma.machine.findUnique({
             where: {

@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 
 export const GET = async () => {
     const suppliers = await prisma.supplier.findMany({});
@@ -42,12 +42,12 @@ export const POST = async (request: NextRequest) => {
             url: logoUrl,
             signature: logoSignature,
             timestamp: logoTimestamp,
-        } = await uploadToCloudinary(data.logo_image, folder);
+        } = await getCloudinaryUrl(data.logo_image, folder);
         const {
             url: marketingUrl,
             signature: marketingSignature,
             timestamp: marketingTimestamp,
-        } = await uploadToCloudinary(data.marketing_image, folder);
+        } = await getCloudinaryUrl(data.marketing_image, folder);
 
         const supplier = await prisma.supplier.create({
             data: {

@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {
@@ -23,7 +23,7 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
             url: imageUrl,
             signature: imageSignature,
             timestamp: imageTimestamp,
-        } = await uploadToCloudinary(data.image, folder);
+        } = await getCloudinaryUrl(data.image, folder);
 
         const paymentProduct = await prisma.paymentProduct.create({
             data: {

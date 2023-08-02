@@ -7,7 +7,7 @@ export const cloudinaryConfig = cloudinary.config({
     secure: true,
 });
 
-export const uploadToCloudinary = async (
+export const getCloudinaryUrl = async (
     file: string,
     folder: string
 ): Promise<{ url: string; signature: string; timestamp: number }> => {

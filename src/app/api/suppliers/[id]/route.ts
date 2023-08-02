@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary, deleteFromCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl, deleteFromCloudinary } from '~/lib/cloudinary';
 
 export const PUT = async (request: NextRequest) => {
     const id = request.nextUrl.pathname.split('/')[3];
@@ -38,12 +38,12 @@ export const PUT = async (request: NextRequest) => {
             url: logoUrl,
             signature: logoSignature,
             timestamp: logoTimestamp,
-        } = await uploadToCloudinary(data.logo_image, folder);
+        } = await getCloudinaryUrl(data.logo_image, folder);
         const {
             url: marketingUrl,
             signature: marketingSignature,
             timestamp: marketingTimestamp,
-        } = await uploadToCloudinary(data.marketing_image, folder);
+        } = await getCloudinaryUrl(data.marketing_image, folder);
 
         const supplier = await prisma.supplier.update({
             where: {

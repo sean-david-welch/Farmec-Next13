@@ -1,5 +1,5 @@
 import { prisma } from '~/lib/prisma';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 import { NextRequest, NextResponse } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
 
@@ -63,7 +63,7 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
                 url: profileUrl,
                 signature,
                 timestamp,
-            } = await uploadToCloudinary(data.profile_image, folder);
+            } = await getCloudinaryUrl(data.profile_image, folder);
 
             profileSignature = signature;
             profileTimestamp = timestamp;

@@ -24,12 +24,12 @@
 
 .navItem {
     @apply flex flex-row items-start;
-    @apply my-6 mx-5 text-3xl;
+    @apply my-6 mx-5 text-2xl;
     @apply transition-all duration-500 ease-in-out;
 }
 
 .navItem svg {
-    @apply h-8 w-8 mx-5;
+    @apply h-7 w-7 mx-5;
 }
 
 /* buttons */

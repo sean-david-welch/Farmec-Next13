@@ -59,9 +59,6 @@ const SparepartsForm = () => {
                     folder,
                 } = response.data;
 
-                const sparepartFile = formData.get('parts_image') as File;
-                const pdfLink = formData.get('pdf_link') as File;
-
                 if (pdfLink !== null && pdfLink !== undefined) {
                     await uploadImage(
                         pdfLink,

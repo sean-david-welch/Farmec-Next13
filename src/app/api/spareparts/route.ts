@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 
 export const GET = async () => {
     const spareparts = await prisma.spareParts.findMany({});
@@ -27,7 +27,7 @@ export const POST = async (request: NextRequest) => {
             pdfSignature = null,
             pdfTimestamp = null;
         if (pdf_link !== null && pdf_link !== undefined && pdf_link !== '') {
-            const pdfResponse = await uploadToCloudinary(pdf_link, folder);
+            const pdfResponse = await getCloudinaryUrl(pdf_link, folder);
             pdfUrl = pdfResponse.url;
             pdfSignature = pdfResponse.signature;
             pdfTimestamp = pdfResponse.timestamp;
@@ -37,7 +37,7 @@ export const POST = async (request: NextRequest) => {
             url: sparepartUrl,
             signature: sparepartSignature,
             timestamp: sparepartTimestamp,
-        } = await uploadToCloudinary(parts_image, folder);
+        } = await getCloudinaryUrl(parts_image, folder);
 
         const supplier = await prisma.supplier.findUnique({
             where: {

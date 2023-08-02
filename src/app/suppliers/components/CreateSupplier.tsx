@@ -46,9 +46,6 @@ const SupplierForm = () => {
                     folder,
                 } = response.data;
 
-                const logoFile = formData.get('logo_image') as File;
-                const marketingFile = formData.get('marketing_image') as File;
-
                 if (logoFile) {
                     await uploadImage(
                         logoFile,

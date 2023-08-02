@@ -65,8 +65,6 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                 const { productSignature, productTimestamp, folder } =
                     response.data;
 
-                const productFile = formData.get('product_image') as File;
-
                 if (productFile) {
                     await uploadImage(
                         productFile,

@@ -53,8 +53,6 @@ const MachineForm = () => {
                 const { machineSignature, machineTimestamp, folder } =
                     response.data;
 
-                const machineFile = formData.get('machine_image') as File;
-
                 if (machineFile) {
                     await uploadImage(
                         machineFile,

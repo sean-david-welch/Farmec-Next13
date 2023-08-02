@@ -2,7 +2,7 @@ import { prisma } from '~/lib/prisma';
 
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
-import { uploadToCloudinary } from '~/lib/cloudinary';
+import { getCloudinaryUrl } from '~/lib/cloudinary';
 
 export const PUT = async (request: NextRequest) => {
     const id = request.nextUrl.pathname.split('/')[3];
@@ -24,7 +24,7 @@ export const PUT = async (request: NextRequest) => {
             url: imageUrl,
             signature: imageSignature,
             timestamp: imageTimestamp,
-        } = await uploadToCloudinary(image, folder);
+        } = await getCloudinaryUrl(image, folder);
 
         const carousel = await prisma.carousel.update({
             where: {
