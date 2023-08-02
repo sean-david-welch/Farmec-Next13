@@ -94,26 +94,22 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
 
         const { logo_image, marketing_image } = supplier;
 
-        const logoId = logo_image?.split('/').pop()?.split('.')[0] ?? '';
-        const marketingId =
-            marketing_image?.split('/').pop()?.split('.')[0] ?? '';
-
         await prisma.supplier.delete({
             where: {
                 id: id,
             },
         });
 
-        if (logoId) {
-            await deleteFromCloudinary(logoId);
+        if (logo_image) {
+            await deleteFromCloudinary(logo_image);
         } else {
-            console.log('Logo image not found');
+            throw new Error('Logo image not found');
         }
 
-        if (marketingId) {
-            await deleteFromCloudinary(marketingId);
+        if (marketing_image) {
+            await deleteFromCloudinary(marketing_image);
         } else {
-            console.log('Marketing image not found');
+            throw new Error('Marketing image not found');
         }
 
         return NextResponse.json({

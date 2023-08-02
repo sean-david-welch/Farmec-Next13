@@ -88,7 +88,6 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
         }
 
         const { parts_image } = sparepart;
-        const partsId = parts_image?.split('/').pop()?.split('.')[0] ?? '';
 
         await prisma.spareParts.delete({
             where: {
@@ -96,8 +95,8 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
             },
         });
 
-        if (partsId) {
-            await deleteFromCloudinary(partsId);
+        if (parts_image) {
+            await deleteFromCloudinary(parts_image);
         } else {
             throw new Error('Parts image not found');
         }

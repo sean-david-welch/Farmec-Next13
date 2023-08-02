@@ -41,8 +41,10 @@ export const getCloudinaryUrl = async (
 };
 
 export const deleteFromCloudinary = async (
-    public_id: string
+    file_name: string
 ): Promise<{ result: string }> => {
+    const public_id = file_name.split('/').pop()?.split('.')[0] ?? '';
+
     const result = await cloudinary.uploader.destroy(public_id);
 
     if (result.result !== 'ok') {

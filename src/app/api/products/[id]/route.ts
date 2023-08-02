@@ -76,7 +76,6 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
         }
 
         const { product_image } = product;
-        const productId = product_image?.split('/').pop()?.split('.')[0] ?? '';
 
         await prisma.product.delete({
             where: {
@@ -84,8 +83,8 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
             },
         });
 
-        if (productId) {
-            await deleteFromCloudinary(productId);
+        if (product_image) {
+            await deleteFromCloudinary(product_image);
         } else {
             throw new Error('Product image not found');
         }

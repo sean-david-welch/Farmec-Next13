@@ -76,7 +76,6 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
         }
 
         const { machine_image } = machine;
-        const machineId = machine_image?.split('/').pop()?.split('.')[0] ?? '';
 
         await prisma.machine.delete({
             where: {
@@ -84,8 +83,8 @@ export const DELETE = async (request: NextRequest): Promise<NextResponse> => {
             },
         });
 
-        if (machineId) {
-            await deleteFromCloudinary(machineId);
+        if (machine_image) {
+            await deleteFromCloudinary(machine_image);
         } else {
             throw new Error('Machine image not found');
         }
