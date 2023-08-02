@@ -57,8 +57,8 @@ const Sidebar = ({ user }: Props) => {
                         <Image
                             src="/farmeclogo.png"
                             alt="logo"
-                            width={225}
-                            height={225}
+                            width={200}
+                            height={200}
                         />
                         <FontAwesomeIcon
                             icon={faX}

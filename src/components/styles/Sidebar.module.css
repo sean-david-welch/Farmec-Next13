@@ -42,6 +42,6 @@
 }
 
 .navigation {
-    @apply h-10 w-10 fixed right-5;
+    @apply h-8 w-8 fixed right-5;
     @apply cursor-pointer hover:pointer-events-auto z-50;
 }
