@@ -1,20 +1,20 @@
 .sideNav {
     @apply absolute left-0 top-0 z-20 min-h-screen w-64 border-r-2;
-    @apply transform transition-all duration-700 ease-in-out;
     @apply bg-zinc-900 text-gray-200 border-red-700;
 }
 
 .sideNavOpen {
     @apply sideNav;
-    @apply pointer-events-auto fixed translate-x-0 opacity-100 min-h-screen;
+    @apply translate-x-0 opacity-100 min-h-screen;
+    @apply transform transition-all duration-700 ease-in-out;
 }
 
 .sideNavClosed {
     @apply -translate-x-full opacity-0;
+    @apply transform transition-all duration-700 ease-in-out;
 }
 
 /* Navigtion */
-
 .navList {
     @apply mx-auto mb-2 mt-20 flex flex-col justify-evenly;
 }

@@ -1,9 +1,11 @@
+import styles from '../styles/Header.module.css';
+
 import Navbar from '../client/Navbar';
+import Sidebar from '../client/Sidebar';
 
 import { prisma } from '~/lib/prisma';
 import { NavList } from '../server/NavList';
 import { getSessionAndUser } from '~/utils/user';
-import Sidebar from '../client/Sidebar';
 
 const Header = async () => {
     const { user, session } = await getSessionAndUser();
@@ -11,20 +13,20 @@ const Header = async () => {
 
     if (!session) {
         return (
-            <header>
+            <header className={styles.header}>
                 <Navbar>
                     <NavList suppliers={suppliers} />
-                    <Sidebar suppliers={suppliers} />
                 </Navbar>
+                <Sidebar suppliers={suppliers} />
             </header>
         );
     }
     return (
-        <header>
+        <header className={styles.header}>
             <Navbar>
                 <NavList user={user} suppliers={suppliers} />
-                <Sidebar user={user} suppliers={suppliers} />
             </Navbar>
+            <Sidebar user={user} suppliers={suppliers} />
         </header>
     );
 };
