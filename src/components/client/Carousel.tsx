@@ -71,7 +71,6 @@ export const Carousel = ({ images }: Props) => {
                         alt="slides"
                         className={styles.slides}
                         fill={true}
-                        style={{ objectFit: 'cover' }}
                         quality={100}
                         priority={carouselState.index === 0}
                     />

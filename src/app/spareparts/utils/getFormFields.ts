@@ -33,11 +33,10 @@ export const getFormFields = async (sparepart?: SpareParts) => {
             placeholder: 'Upload parts image',
         },
         {
-            name: 'description',
-            label: 'Description',
-            type: 'text',
-            placeholder: 'Enter description',
-            defaultValue: sparepart?.description,
+            name: 'pdf_link',
+            label: 'PDF Link',
+            type: 'file',
+            placeholder: 'Enter pdf_link',
         },
         {
             name: 'spare_parts_link',

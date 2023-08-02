@@ -7,7 +7,7 @@
 
 .sideNavOpen {
     @apply sideNav;
-    @apply translate-x-0 opacity-100 min-h-screen;
+    @apply translate-x-0 opacity-100 overflow-y-hidden;
     @apply transform transition-all duration-700 ease-in-out;
 }
 
@@ -23,14 +23,13 @@
 }
 
 .navItem {
-    @apply grid grid-cols-2 gap-10;
-    @apply w-full;
-    @apply my-10 text-3xl;
+    @apply flex flex-row items-start;
+    @apply my-6 mx-5 text-3xl;
     @apply transition-all duration-500 ease-in-out;
 }
 
 .navItem svg {
-    @apply h-8 w-8 mx-24;
+    @apply h-8 w-8 mx-5;
 }
 
 /* buttons */

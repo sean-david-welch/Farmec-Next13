@@ -134,7 +134,7 @@ model SpareParts {
   supplier   Supplier @relation(fields: [supplierId], references: [id] , onDelete: Cascade)
   name       String?
   parts_image String?  @default("/default.jpg")
-  description String?
+  pdf_link String?
   spare_parts_link String?
 }
 

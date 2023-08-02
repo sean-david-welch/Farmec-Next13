@@ -8,6 +8,7 @@
 
 .stats {
     @apply grid grid-cols-4 mt-5;
+    @apply md:grid-cols-1;
 }
 
 .statList {
@@ -52,6 +53,7 @@
 
 .specials {
     @apply grid grid-cols-4 mb-2;
+    @apply md:grid-cols-1;
 }
 
 .specialList {

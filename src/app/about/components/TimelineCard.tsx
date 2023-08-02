@@ -2,16 +2,17 @@
 
 import styles from '../styles/About.module.css';
 import utils from '~/styles/Utils.module.css';
+import useWindowWidth from '~/hooks/useWindowWidth';
 
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation, motion } from 'framer-motion';
 
+import { User } from '@prisma/client';
 import { UpdateAbout } from './UpdateAbout';
 
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { User } from '@prisma/client';
 
 interface Props {
     event: any;
@@ -22,17 +23,43 @@ interface Props {
 const TimelineCard: React.FC<Props> = ({ event, user, direction }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView();
-    const timelineVariant = {
-        visible: {
-            x: direction === 'left' ? -200 : 200,
-            transition: { duration: 0.4 },
-        },
-        hidden: { x: direction === 'left' ? -1100 : 1100 },
-    };
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         if (inView) controls.start('visible');
     }, [controls, inView]);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const timelineVariant = {
+        visible: {
+            x:
+                direction === 'left'
+                    ? windowWidth > 768
+                        ? -300
+                        : 0
+                    : windowWidth > 768
+                    ? 300
+                    : 0,
+            transition: { duration: 0.4 },
+        },
+        hidden: {
+            x:
+                direction === 'left'
+                    ? windowWidth > 768
+                        ? -1100
+                        : -300
+                    : windowWidth > 768
+                    ? 1100
+                    : 300,
+        },
+    };
 
     return (
         <motion.div

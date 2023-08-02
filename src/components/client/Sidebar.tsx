@@ -16,6 +16,7 @@ import {
     faCog,
     faBlog,
     faUserCircle,
+    faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { SignInButton } from './Buttons';
 
@@ -81,6 +82,13 @@ const Sidebar = ({ user }: Props) => {
                             <FontAwesomeIcon icon={faCircleInfo} />
                             About
                         </Link>
+                        <Link
+                            className={styles.navItem}
+                            href={'/about/policies'}
+                            onClick={() => setIsOpen(false)}>
+                            <FontAwesomeIcon icon={faQuestionCircle} />
+                            Terms of use
+                        </Link>
 
                         <Link
                             className={styles.navItem}
@@ -104,6 +112,14 @@ const Sidebar = ({ user }: Props) => {
                             onClick={() => setIsOpen(false)}>
                             <FontAwesomeIcon icon={faBlog} />
                             Blog
+                        </Link>
+
+                        <Link
+                            href={'/blog/exhibitions'}
+                            className={styles.navItem}
+                            onClick={() => setIsOpen(false)}>
+                            <FontAwesomeIcon icon={faQuestionCircle} />
+                            Exhibitions
                         </Link>
                         {user ? (
                             <Link

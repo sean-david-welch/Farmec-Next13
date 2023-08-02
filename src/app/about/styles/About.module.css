@@ -1,6 +1,7 @@
 .employees {
     @apply grid grid-cols-3;
     @apply mt-10 mb-24 mx-36;
+    @apply md:grid-cols-1 md:mx-auto md:gap-5;
 }
 
 .employeeCard {
@@ -31,14 +32,7 @@
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
     @apply my-10 p-4 w-[800px];
     @apply transition-all duration-700 ease-in-out;
-}
-
-.timelineCard:nth-child(odd) {
-    @apply left-10;
-}
-
-.timelineCard:nth-child(even) {
-    @apply right-10;
+    @apply md:w-[250px];
 }
 
 .timelineCard > * {
@@ -59,6 +53,7 @@
     @apply mx-44 my-10 p-4;
     @apply bg-zinc-800 border-4 rounded-xl border-zinc-600;
     @apply transition-all duration-700 ease-in-out;
+    @apply md:mx-10;
 }
 
 .infoCard:hover {

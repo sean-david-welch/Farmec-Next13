@@ -3,6 +3,7 @@
     @apply flex flex-col justify-center items-center;
     @apply p-4 my-10;
     @apply transition-all duration-700 ease-in-out;
+    @apply md:mx-5;
 }
 
 .supplierCard:hover {
@@ -19,6 +20,7 @@
     @apply flex flex-col justify-center items-center;
     @apply my-10;
     @apply transition-all duration-700 ease-in-out;
+    @apply md:mx-5;
 }
 
 .sparepartsCard:hover {
@@ -28,6 +30,7 @@
 
 .sparepartsGrid {
     @apply grid grid-cols-2;
+    @apply md:flex md:flex-col-reverse;
 }
 
 .sparepartsInfo {
@@ -37,4 +40,5 @@
 
 .sparepartsGrid img {
     @apply rounded-r-2xl border-l-4 border-zinc-600;
+    @apply md:rounded-t-xl md:border-b-4 md:rounded-br-none md:border-l-0;
 }

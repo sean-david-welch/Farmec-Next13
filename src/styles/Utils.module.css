@@ -3,7 +3,6 @@
     @apply my-5;
     @apply text-3xl font-semibold mx-auto;
     @apply text-zinc-900 underline decoration-red-600 decoration-4 underline-offset-8;
-    @apply md:text-4xl font-medium;
 }
 
 .mainHeading {
@@ -12,6 +11,7 @@
 
 .subHeading {
     @apply text-xl mx-40 font-medium text-zinc-800 text-center my-2;
+    @apply md:mx-5;
 }
 
 .paragraph {
@@ -20,6 +20,7 @@
 
 .aboutHeading {
     @apply mx-44;
+    @apply md:mx-2;
 }
 
 .typewriter {
@@ -48,16 +49,6 @@
 .form select {
     @apply block w-2/3 rounded-lg border border-gray-300 bg-zinc-600 p-2.5 text-sm text-gray-900 mx-auto;
     @apply border-zinc-600 bg-zinc-700 text-white placeholder-gray-400 focus:border-red-700 focus:ring-red-700;
-}
-
-.contactForm label {
-    @apply block text-2xl font-medium text-gray-900 dark:text-white;
-}
-.contactForm input,
-.contactForm select,
-.contactForm textarea {
-    @apply rounded-xl border border-gray-300 p-2.5 text-sm text-zinc-800 my-4;
-    @apply border-zinc-600 bg-zinc-100 placeholder-zinc-800 focus:border-red-700 focus:ring-red-700;
 }
 
 .form .btn {
@@ -107,8 +98,8 @@
 }
 
 .signIn {
-    @apply flex flex-row;
-    @apply md:mx-auto text-xl;
+    @apply flex flex-row text-base;
+    @apply md:my-5 md:mx-auto md:text-xl;
 }
 
 .profileImage {
@@ -117,12 +108,10 @@
 
 .signInButton {
     @apply btn text-gray-200;
-    @apply md:mx-auto text-xl;
 }
 
 .signOutButton {
     @apply btn text-gray-200;
-    @apply md:mx-auto text-xl;
 }
 
 /* Mics */
@@ -154,16 +143,19 @@
     @apply w-4 h-4;
 }
 
+/* index */
 .index {
     @apply flex flex-col items-start;
     @apply p-5;
     @apply bg-zinc-800 text-gray-200;
     @apply mx-52 rounded-xl border-4 border-zinc-600 my-5;
+    @apply md:mx-5;
 }
 
 .accountIndex {
     @apply index;
     @apply mx-16;
+    @apply md:mx-5;
 }
 
 .index > * {
@@ -204,14 +196,36 @@
     @apply w-20 h-20 mx-auto;
 }
 
+/* Contact form */
 .contactSection {
     @apply grid gap-0 p-4 mb-10 mx-10;
     @apply bg-zinc-800 rounded-lg;
     grid-template-columns: 1fr 2fr 2fr;
+    @apply md:grid-cols-1;
 }
 
 .contactSection > * {
     @apply my-2 mx-8;
+}
+
+.contactForm label {
+    @apply block text-2xl font-medium text-gray-900 dark:text-white;
+}
+.contactForm input,
+.contactForm select,
+.contactForm textarea {
+    @apply rounded-xl border border-gray-300 p-2.5 text-sm text-zinc-800 my-4;
+    @apply border-zinc-600 bg-zinc-100 placeholder-zinc-800 focus:border-red-700 focus:ring-red-700;
+}
+
+.contactForm {
+    @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2 w-[300px];
+}
+
+.map {
+    @apply flex justify-center items-center;
+    @apply rounded-xl mx-auto;
+    @apply md:w-[300px];
 }
 
 .infoSection {
@@ -232,13 +246,4 @@
 
 .infoItemText {
     @apply text-zinc-950 text-lg font-medium;
-}
-
-.contactForm {
-    @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2 w-[300px];
-}
-
-.map {
-    @apply flex justify-center items-center;
-    @apply rounded-xl mx-auto;
 }

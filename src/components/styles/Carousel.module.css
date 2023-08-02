@@ -1,14 +1,10 @@
 .slideshow {
     @apply h-screen w-full m-auto absolute top-0 left-0 z-0;
 }
-.slideshow img {
-    @apply inline-block h-screen w-screen object-cover object-center;
-}
 
 .slideButton {
     @apply flex items-center justify-center;
     @apply mx-auto text-white transition-all duration-700 ease-in-out;
-    @apply aspect-square w-[42px] text-center;
 }
 
 .slideButton svg path {
@@ -33,5 +29,11 @@
 }
 
 .slides {
-    @apply absolute left-0 top-0 h-full w-full object-fill object-center;
+    @apply absolute left-0 top-0 h-full w-full object-cover object-center;
+}
+
+@screen md {
+    .slides {
+        @apply w-1/2;
+    }
 }

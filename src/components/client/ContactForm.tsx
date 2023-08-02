@@ -58,9 +58,9 @@ const ContactForm = () => {
                     required={true}
                 />
 
-                <div
+                {/* <div
                     className="cf-turnstile"
-                    data-sitekey={cloudflareKey}></div>
+                    data-sitekey={cloudflareKey}></div> */}
 
                 <button className={utils.btnForm} type="submit">
                     Submit

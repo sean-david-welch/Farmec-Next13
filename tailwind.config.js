@@ -7,8 +7,8 @@ module.exports = {
     ],
     theme: {
         screens: {
-            md: { max: '768px' },
-            lg: { min: '768px' },
+            md: { max: '896px' },
+            lg: { min: '896px' },
         },
         extend: {
             backgroundImage: {

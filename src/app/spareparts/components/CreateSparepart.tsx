@@ -37,12 +37,13 @@ const SparepartsForm = () => {
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const sparepartFile = formData.get('parts_image') as File;
+        const pdfLink = formData.get('pdf_link') as File;
 
         const body = {
             name: formData.get('name'),
             supplier: formData.get('supplier'),
             parts_image: sparepartFile ? sparepartFile.name : null,
-            description: formData.get('description'),
+            pdf_link: pdfLink ? pdfLink.name : null,
             spare_parts_link: formData.get('spare_part_link'),
         };
 
@@ -50,10 +51,26 @@ const SparepartsForm = () => {
             const response = await axios.post('/api/spareparts', body);
 
             if (response.status >= 200 && response.status <= 300) {
-                const { sparepartSignature, sparepartTimestamp, folder } =
-                    response.data;
+                const {
+                    sparepartSignature,
+                    sparepartTimestamp,
+                    pdfSignature,
+                    pdfTimestamp,
+                    folder,
+                } = response.data;
 
                 const sparepartFile = formData.get('parts_image') as File;
+                const pdfLink = formData.get('pdf_link') as File;
+
+                if (pdfLink !== null && pdfLink !== undefined) {
+                    await uploadImage(
+                        pdfLink,
+                        pdfSignature,
+                        pdfTimestamp,
+                        pdfLink.name,
+                        folder
+                    );
+                }
 
                 if (sparepartFile) {
                     await uploadImage(

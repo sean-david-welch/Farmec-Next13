@@ -45,12 +45,13 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const sparepartFile = formData.get('parts_image') as File;
+        const pdfLink = formData.get('pdf_link') as File;
 
         const body = {
             name: formData.get('name'),
             supplier: formData.get('supplier'),
             sparepart_image: sparepartFile ? sparepartFile.name : null,
-            description: formData.get('description'),
+            pdf_link: pdfLink ? pdfLink.name : null,
             sparepart_link: formData.get('spare_part_link'),
         };
 
@@ -94,14 +95,14 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                         icon={faPenToSquare}
                         className={utils.updateIcon}
                     />
-                    {sparepart && (
-                        <DeleteButton
-                            modelId={sparepart?.id}
-                            route="spareparts"
-                            endpoint="spareparts"
-                        />
-                    )}
                 </button>
+                {sparepart && (
+                    <DeleteButton
+                        modelId={sparepart?.id}
+                        route="spareparts"
+                        endpoint="spareparts"
+                    />
+                )}
             </div>
             <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
                 <form

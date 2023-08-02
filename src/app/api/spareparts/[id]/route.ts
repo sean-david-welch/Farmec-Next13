@@ -13,10 +13,20 @@ export const PUT = async (request: NextRequest) => {
 
         const folder = 'Spareparts';
 
-        const { name, description, spare_parts_link, parts_image } = data;
+        const { name, pdf_link, spare_parts_link, parts_image } = data;
 
         if (!parts_image) {
             throw new Error('Parts image not found');
+        }
+
+        let pdfUrl = null,
+            pdfSignature = null,
+            pdfTimestamp = null;
+        if (pdf_link !== null && pdf_link !== undefined && pdf_link !== '') {
+            const pdfResponse = await uploadToCloudinary(pdf_link, folder);
+            pdfUrl = pdfResponse.url;
+            pdfSignature = pdfResponse.signature;
+            pdfTimestamp = pdfResponse.timestamp;
         }
 
         const {
@@ -43,7 +53,7 @@ export const PUT = async (request: NextRequest) => {
                 name: name,
                 supplierId: supplier.id,
                 parts_image: sparepartUrl,
-                description: description,
+                pdf_link: pdfUrl,
                 spare_parts_link: spare_parts_link,
             },
         });
@@ -52,6 +62,8 @@ export const PUT = async (request: NextRequest) => {
             sparepart,
             sparepartSignature,
             sparepartTimestamp,
+            pdfSignature,
+            pdfTimestamp,
             folder,
         });
     } catch (error: any) {

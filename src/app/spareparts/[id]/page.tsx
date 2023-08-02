@@ -10,6 +10,8 @@ import { SpareParts } from '@prisma/client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import UpdatePartForm from '../components/UpdateSparepart';
+import SparepartsForm from '../components/CreateSparepart';
 
 interface Props {
     params: { id: string };
@@ -35,33 +37,42 @@ const PartsDetail = async ({ params }: Props) => {
                         href: `#${sparepart.name}`,
                     }))}
             />
-            {spareparts.map(({ id, name, parts_image, spare_parts_link }) => (
-                <div className={styles.sparepartsCard} key={id} id={name || ''}>
-                    <div className={styles.sparepartsGrid}>
-                        <div className={styles.sparepartsInfo}>
-                            <h1 className={utils.mainHeading}>{name}</h1>
-                            <button className={utils.btnRound}>
-                                <Link
-                                    href={spare_parts_link || '#'}
-                                    target="_blank">
-                                    Parts Catalogue
-                                    <FontAwesomeIcon
-                                        icon={faRightFromBracket}
-                                    />
-                                </Link>
-                            </button>
-                        </div>
+            {spareparts.map(sparepart => (
+                <>
+                    <div
+                        className={styles.sparepartsCard}
+                        key={sparepart.id}
+                        id={sparepart.name || ''}>
+                        <div className={styles.sparepartsGrid}>
+                            <div className={styles.sparepartsInfo}>
+                                <h1 className={utils.mainHeading}>
+                                    {sparepart.name}
+                                </h1>
+                                <button className={utils.btnRound}>
+                                    <Link
+                                        href={sparepart.spare_parts_link || '#'}
+                                        target="_blank">
+                                        Parts Catalogue
+                                        <FontAwesomeIcon
+                                            icon={faRightFromBracket}
+                                        />
+                                    </Link>
+                                </button>
+                            </div>
 
-                        <Image
-                            src={parts_image || '/default.jpg'}
-                            alt={'/default.jpg'}
-                            className={styles.sparepartsLogo}
-                            width={600}
-                            height={600}
-                        />
+                            <Image
+                                src={sparepart.parts_image || '/default.jpg'}
+                                alt={'/default.jpg'}
+                                className={styles.sparepartsLogo}
+                                width={600}
+                                height={600}
+                            />
+                        </div>
                     </div>
-                </div>
+                    <UpdatePartForm sparepart={sparepart} />
+                </>
             ))}
+            <SparepartsForm />
         </section>
     );
 };

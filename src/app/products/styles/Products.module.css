@@ -1,5 +1,6 @@
 .productGrid {
     @apply grid grid-cols-1 mx-52 my-10;
+    @apply md:mx-5;
 }
 
 .productCard {
@@ -27,4 +28,5 @@
 
 .productCard p {
     @apply mx-52;
+    @apply md:mx-5;
 }
