@@ -17,7 +17,7 @@ const Header = async () => {
                 <Navbar>
                     <NavList suppliers={suppliers} />
                 </Navbar>
-                <Sidebar suppliers={suppliers} />
+                <Sidebar />
             </header>
         );
     }
@@ -26,7 +26,7 @@ const Header = async () => {
             <Navbar>
                 <NavList user={user} suppliers={suppliers} />
             </Navbar>
-            <Sidebar user={user} suppliers={suppliers} />
+            <Sidebar user={user} />
         </header>
     );
 };
