@@ -45,14 +45,14 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const sparepartFile = formData.get('parts_image') as File;
-        const pdfLink = formData.get('pdf_link') as File;
+        const pdfLink = formData.get('pdf_link') as Blob;
 
         const body = {
             name: formData.get('name'),
             supplier: formData.get('supplier'),
             sparepart_image: sparepartFile ? sparepartFile.name : null,
             pdf_link: pdfLink ? pdfLink.name : null,
-            sparepart_link: formData.get('spare_part_link'),
+            spare_parts_link: formData.get('spare_parts_link'),
         };
 
         try {
@@ -62,26 +62,10 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
             );
 
             if (response.status >= 200 && response.status <= 300) {
-                const {
-                    sparepartSignature,
-                    sparepartTimestamp,
-                    pdfSignature,
-                    pdfTimestamp,
-                    folder,
-                } = response.data;
+                const { sparepartSignature, sparepartTimestamp, folder } =
+                    response.data;
 
-                if (pdfLink !== null && pdfLink !== undefined) {
-                    await uploadImage(
-                        pdfLink,
-                        pdfSignature,
-                        pdfTimestamp,
-                        pdfLink.name,
-                        folder,
-                        'raw'
-                    );
-                }
-
-                if (sparepartFile) {
+                if (sparepartFile && sparepartSignature && sparepartTimestamp) {
                     await uploadImage(
                         sparepartFile,
                         sparepartSignature,

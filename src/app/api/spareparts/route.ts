@@ -24,16 +24,6 @@ export const POST = async (request: NextRequest) => {
             throw new Error('Parts image not found');
         }
 
-        let pdfUrl = null,
-            pdfSignature = null,
-            pdfTimestamp = null;
-        if (pdf_link !== null && pdf_link !== undefined && pdf_link !== '') {
-            const pdfResponse = await getCloudinaryUrl(pdf_link, folder);
-            pdfUrl = pdfResponse.url;
-            pdfSignature = pdfResponse.signature;
-            pdfTimestamp = pdfResponse.timestamp;
-        }
-
         const {
             url: sparepartUrl,
             signature: sparepartSignature,
@@ -55,7 +45,7 @@ export const POST = async (request: NextRequest) => {
                 name: name,
                 supplierId: supplier.id,
                 parts_image: sparepartUrl,
-                pdf_link: pdfUrl,
+                pdf_link: pdf_link,
                 spare_parts_link: spare_parts_link,
             },
         });
@@ -64,8 +54,6 @@ export const POST = async (request: NextRequest) => {
             sparepart,
             sparepartSignature,
             sparepartTimestamp,
-            pdfSignature,
-            pdfTimestamp,
             folder,
         });
     } catch (error: any) {
