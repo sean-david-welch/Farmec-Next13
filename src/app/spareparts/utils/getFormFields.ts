@@ -28,13 +28,13 @@ export const getFormFields = async (sparepart?: SpareParts) => {
         },
         {
             name: 'parts_image',
-            label: 'Parts Image',
+            label: 'Parts Image (Max 10MB)',
             type: 'file',
             placeholder: 'Upload parts image',
         },
         {
             name: 'pdf_link',
-            label: 'PDF Link',
+            label: 'PDF Link (Max 10MB)',
             type: 'file',
             placeholder: 'Enter pdf_link',
         },

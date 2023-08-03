@@ -129,12 +129,12 @@ model Product {
 }
 
 model SpareParts {
-  id         String   @id @default(uuid())
-  supplierId String
-  supplier   Supplier @relation(fields: [supplierId], references: [id] , onDelete: Cascade)
-  name       String?
+  id          String   @id @default(uuid())
+  supplierId  String
+  supplier    Supplier @relation(fields: [supplierId], references: [id] , onDelete: Cascade)
+  name        String?
   parts_image String?  @default("/default.jpg")
-  pdf_link String?
+  pdf_link    String?
   spare_parts_link String?
 }
 

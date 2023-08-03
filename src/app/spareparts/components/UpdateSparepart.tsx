@@ -76,7 +76,8 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                         pdfSignature,
                         pdfTimestamp,
                         pdfLink.name,
-                        folder
+                        folder,
+                        'raw'
                     );
                 }
 

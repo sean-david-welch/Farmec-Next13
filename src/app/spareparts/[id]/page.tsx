@@ -12,12 +12,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import UpdatePartForm from '../components/UpdateSparepart';
 import SparepartsForm from '../components/CreateSparepart';
+import { getSessionAndUser } from '~/utils/user';
 
 interface Props {
     params: { id: string };
 }
 
 const PartsDetail = async ({ params }: Props) => {
+    const { user } = await getSessionAndUser();
     const spareparts: SpareParts[] = await prisma.spareParts.findMany({
         where: {
             supplierId: params.id,
@@ -37,11 +39,11 @@ const PartsDetail = async ({ params }: Props) => {
                         href: `#${sparepart.name}`,
                     }))}
             />
+
             {spareparts.map(sparepart => (
-                <>
+                <div className={styles.sparepartGrid} key={sparepart.id}>
                     <div
                         className={styles.sparepartsCard}
-                        key={sparepart.id}
                         id={sparepart.name || ''}>
                         <div className={styles.sparepartsGrid}>
                             <div className={styles.sparepartsInfo}>
@@ -50,7 +52,11 @@ const PartsDetail = async ({ params }: Props) => {
                                 </h1>
                                 <button className={utils.btnRound}>
                                     <Link
-                                        href={sparepart.spare_parts_link || '#'}
+                                        href={
+                                            sparepart.spare_parts_link ||
+                                            sparepart.pdf_link ||
+                                            '#'
+                                        }
                                         target="_blank">
                                         Parts Catalogue
                                         <FontAwesomeIcon
@@ -59,7 +65,6 @@ const PartsDetail = async ({ params }: Props) => {
                                     </Link>
                                 </button>
                             </div>
-
                             <Image
                                 src={sparepart.parts_image || '/default.jpg'}
                                 alt={'/default.jpg'}
@@ -69,10 +74,12 @@ const PartsDetail = async ({ params }: Props) => {
                             />
                         </div>
                     </div>
-                    <UpdatePartForm sparepart={sparepart} />
-                </>
+                    {user && user.role === 'ADMIN' && (
+                        <UpdatePartForm sparepart={sparepart} />
+                    )}
+                </div>
             ))}
-            <SparepartsForm />
+            {user && user.role === 'ADMIN' && <SparepartsForm />}
         </section>
     );
 };

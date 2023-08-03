@@ -44,11 +44,12 @@ const SparepartsForm = () => {
             supplier: formData.get('supplier'),
             parts_image: sparepartFile ? sparepartFile.name : null,
             pdf_link: pdfLink ? pdfLink.name : null,
-            spare_parts_link: formData.get('spare_part_link'),
+            spare_parts_link: formData.get('spare_parts_link'),
         };
 
         try {
             const response = await axios.post('/api/spareparts', body);
+            console.log(response);
 
             if (response.status >= 200 && response.status <= 300) {
                 const {
@@ -65,7 +66,8 @@ const SparepartsForm = () => {
                         pdfSignature,
                         pdfTimestamp,
                         pdfLink.name,
-                        folder
+                        folder,
+                        'raw'
                     );
                 }
 
