@@ -14,7 +14,6 @@ export const POST = async (request: NextRequest) => {
     try {
         await validateUser();
         const data = await request.json();
-        console.log(data);
 
         const folder = 'Spareparts';
 

@@ -42,6 +42,7 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
         sparepartID: string
     ) {
         event.preventDefault();
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const sparepartFile = formData.get('parts_image') as File;
@@ -50,13 +51,13 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
         const body = {
             name: formData.get('name'),
             supplier: formData.get('supplier'),
-            sparepart_image: sparepartFile ? sparepartFile.name : null,
+            parts_image: sparepartFile ? sparepartFile.name : null,
             pdf_link: pdfLink ? pdfLink.name : null,
             spare_parts_link: formData.get('spare_parts_link'),
         };
 
         try {
-            const response = await axios.post(
+            const response = await axios.put(
                 `/api/spareparts/${sparepartID}`,
                 body
             );
@@ -118,7 +119,8 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                                 <select
                                     name={field.name}
                                     id={field.name}
-                                    placeholder={field.placeholder}>
+                                    placeholder={field.placeholder}
+                                    defaultValue={field.defaultValue || ''}>
                                     {field.options?.map(option => (
                                         <option
                                             key={option.value}
@@ -133,6 +135,7 @@ const UpdatePartForm = ({ sparepart }: { sparepart?: SpareParts }) => {
                                     name={field.name}
                                     id={field.name}
                                     placeholder={field.placeholder}
+                                    defaultValue={field.defaultValue || ''}
                                 />
                             )}
                         </div>

@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
-        serverComponentsExternalPackages: ['bcrypt'],
+        serverComponentsExternalPackages: [
+            'bcrypt',
+            '@aws-sdk/client-s3',
+            '@aws-sdk/s3-request-presigner',
+        ],
     },
     images: {
         domains: [
