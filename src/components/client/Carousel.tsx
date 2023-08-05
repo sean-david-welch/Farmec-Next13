@@ -1,9 +1,8 @@
 'use client';
 import styles from '../styles/Carousel.module.css';
-import Image from 'next/image';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChevronLeft,
@@ -11,10 +10,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
-    images: string[];
+    children: React.ReactNode;
 }
 
-export const Carousel = ({ images }: Props) => {
+export const Carousel = ({ children }: Props) => {
+    const images = React.Children.toArray(children);
     const [carouselState, setCarouselState] = useState({
         index: 0,
         direction: 0,
@@ -64,16 +64,10 @@ export const Carousel = ({ images }: Props) => {
                     animate="animate"
                     initial="initial"
                     exit="exit"
-                    key={images[carouselState.index]}
+                    key={carouselState.index}
+                    className={styles.motionELement}
                     custom={carouselState.direction}>
-                    <Image
-                        src={images[carouselState.index]}
-                        alt="slides"
-                        className={styles.slides}
-                        fill={true}
-                        quality={100}
-                        priority={carouselState.index === 0}
-                    />
+                    {images[carouselState.index]}
                 </motion.div>
             </AnimatePresence>
             <button

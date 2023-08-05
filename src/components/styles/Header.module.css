@@ -15,8 +15,8 @@
     @apply mx-10 whitespace-nowrap;
 }
 
-.navbar img {
-    @apply flex justify-center my-auto;
+.logo {
+    @apply w-auto h-auto;
 }
 
 .navList {
@@ -69,4 +69,15 @@
 
 .navDropItem:hover {
     @apply bg-red-600;
+}
+
+/* Carousel */
+.slides {
+    @apply absolute left-0 top-0 h-full w-full object-cover object-center;
+}
+
+@screen md {
+    .slides {
+        @apply w-1/2;
+    }
 }

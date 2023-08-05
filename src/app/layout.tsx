@@ -14,11 +14,7 @@ const dosis = Dosis({
 export const metadata = {
     title: 'Farmec Ireland Ltd',
     description: 'Importers & Distributors of Quality Farm Machinery',
-    viewport: {
-        width: 'device-width',
-        initialScale: 1,
-        maximumScale: 1,
-    },
+    viewport: { width: 'device-width', initialScale: 1 },
 };
 
 if (process.env.NODE_ENV === 'production') {

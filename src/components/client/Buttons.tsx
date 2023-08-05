@@ -8,26 +8,20 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 export const SignInButton = () => {
     const { data: session, status } = useSession();
 
-    if (status === 'loading') {
-        return <button className={styles.signInButton}>...</button>;
-    }
-
     if (status === 'authenticated') {
         return (
-            <>
-                <ul className={styles.signIn}>
-                    <SignOutButton />
-                    <Link href={'/account'}>
-                        <Image
-                            src={session.user?.image ?? '/favicon.ico'}
-                            width={42}
-                            height={42}
-                            alt={`Your Name`}
-                            className={styles.profileImage}
-                        />
-                    </Link>
-                </ul>
-            </>
+            <ul className={styles.signIn}>
+                <SignOutButton />
+                <Link href={'/account'}>
+                    <Image
+                        src={session.user?.image ?? '/default.jpg'}
+                        width={40}
+                        height={40}
+                        alt={`Your Name`}
+                        className={styles.profileImage}
+                    />
+                </Link>
+            </ul>
         );
     }
 
