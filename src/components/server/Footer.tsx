@@ -53,19 +53,25 @@ const Footer = () => {
                     <Link
                         className={styles.socials}
                         href={'https://www.facebook.com/FarmecIreland/'}
-                        target={'_blank'}>
+                        target={'_blank'}
+                        rel={'noopener noreferrer'}
+                        aria-label="Visit our Facebook page">
                         <FontAwesomeIcon icon={faFacebook} size={'2x'} />
                     </Link>
                     <Link
                         className={styles.socials}
                         href={'https://twitter.com/farmec1?lang=en'}
-                        target={'_blank'}>
+                        target={'_blank'}
+                        rel={'noopener noreferrer'}
+                        aria-label="Visit our Twiiter page">
                         <FontAwesomeIcon icon={faTwitter} size={'2x'} />
                     </Link>
                     <Link
                         className={styles.socials}
                         href={'https://twitter.com/farmec1?lang=en'}
-                        target={'_blank'}>
+                        target={'_blank'}
+                        rel={'noopener noreferrer'}
+                        aria-label="Visit our LinkedIn page">
                         <FontAwesomeIcon icon={faLinkedin} size={'2x'} />
                     </Link>
                 </div>

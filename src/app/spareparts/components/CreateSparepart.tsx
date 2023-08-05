@@ -49,7 +49,6 @@ const SparepartsForm = () => {
 
         try {
             const response = await axios.post('/api/spareparts', body);
-            console.log(response.data);
 
             if (response.status >= 200 && response.status <= 300) {
                 const { sparepartSignature, sparepartTimestamp, folder } =

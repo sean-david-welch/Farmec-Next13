@@ -9,8 +9,6 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@aws-sdk/client-s3": "^3.383.0",
-        "@aws-sdk/s3-request-presigner": "^3.383.0",
         "@fortawesome/free-brands-svg-icons": "^6.4.0",
         "@fortawesome/free-regular-svg-icons": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -30,7 +28,6 @@
         "eslint": "8.43.0",
         "eslint-config-next": "13.4.7",
         "framer-motion": "^10.12.17",
-        "google-auth-library": "^9.0.0",
         "googleapis": "^123.0.0",
         "next": "13.4.7",
         "next-auth": "^4.22.1",

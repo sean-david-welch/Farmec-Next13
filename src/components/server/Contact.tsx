@@ -12,6 +12,7 @@ const Contact = () => {
                 <iframe
                     width="650"
                     height="600"
+                    title="Farmec Ireland Ltd Location"
                     className={utils.map}
                     loading="lazy"
                     allowFullScreen

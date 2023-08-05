@@ -76,10 +76,16 @@ export const Carousel = ({ images }: Props) => {
                     />
                 </motion.div>
             </AnimatePresence>
-            <button className={styles.prevButton} onClick={prevStep}>
+            <button
+                className={styles.prevButton}
+                onClick={prevStep}
+                aria-label="Last Slide">
                 <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <button className={styles.nextButton} onClick={nextStep}>
+            <button
+                className={styles.nextButton}
+                onClick={nextStep}
+                aria-label="Next Slide">
                 <FontAwesomeIcon icon={faChevronRight} />
             </button>
         </div>

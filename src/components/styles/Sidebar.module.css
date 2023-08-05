@@ -36,12 +36,16 @@
 .navIcon {
     @apply grid grid-cols-2 gap-2;
     @apply justify-center items-center;
-    @apply fixed left-5 top-5;
-    @apply cursor-pointer hover:pointer-events-auto z-50;
+    @apply fixed bg-zinc-900;
+    @apply cursor-pointer hover:pointer-events-auto z-40;
     @apply lg:hidden;
 }
 
+.navIcon img {
+    @apply fixed left-5 top-5 z-50;
+}
+
 .navigation {
-    @apply h-8 w-8 fixed right-5;
+    @apply h-8 w-8 fixed right-5 top-7;
     @apply cursor-pointer hover:pointer-events-auto z-50;
 }
