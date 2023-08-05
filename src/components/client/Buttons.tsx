@@ -10,8 +10,9 @@ export const SignInButton = () => {
 
     if (status === 'authenticated') {
         return (
-            <ul className={styles.signIn}>
+            <div className={styles.signIn}>
                 <SignOutButton />
+
                 <Link href={'/account'}>
                     <Image
                         src={session.user?.image ?? '/default.jpg'}
@@ -21,7 +22,7 @@ export const SignInButton = () => {
                         className={styles.profileImage}
                     />
                 </Link>
-            </ul>
+            </div>
         );
     }
 

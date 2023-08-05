@@ -14,9 +14,11 @@ const Account = async () => {
     if (!user) {
         return (
             <section id="account">
-                <h1 className={utils.sectionHeading}>Account</h1>
-                <p className={utils.subHeading}>Not logged in</p>
-                <SignInButton />
+                <div className={utils.login}>
+                    <h1 className={utils.sectionHeading}>Account</h1>
+                    <p className={utils.subHeading}>Not logged in</p>
+                    <SignInButton />
+                </div>
             </section>
         );
     }

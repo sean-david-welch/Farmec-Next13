@@ -34,7 +34,7 @@ export const DownloadLink = ({ warranty, parts }: Props) => (
         document={<MyDocument warranty={warranty} parts={parts} />}
         fileName={`${warranty.owner_name}.warranty.pdf`}>
         {() => (
-            <button className={utils.btnRound}>
+            <button className={utils.btn}>
                 Download Form
                 <FontAwesomeIcon icon={faDownload} />
             </button>

@@ -38,7 +38,7 @@ export const DownloadLink = ({ registration }: Props) => (
         document={<MyDocument registration={registration} />}
         fileName={`${registration.owner_name}.registration.pdf`}>
         {() => (
-            <button className={utils.btnRound}>
+            <button className={utils.btn}>
                 Download Form
                 <FontAwesomeIcon icon={faDownload} />
             </button>

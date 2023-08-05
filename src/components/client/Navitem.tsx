@@ -15,12 +15,13 @@ export const NavItem: React.FC<NavItemProps> = ({ title, link, children }) => {
 
     return (
         <li className={styles.navItem}>
-            <div
+            <Link
+                href={link}
                 className={styles.navListItem}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}>
-                <Link href={link}>{title}</Link>
-            </div>
+                {title}
+            </Link>
             <ul
                 className={`${styles.navDrop} ${
                     hover ? styles.navDropActive : ''

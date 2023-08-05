@@ -29,7 +29,7 @@ const Typewriter = () => {
             </h1>
 
             <Link href={'#Info'}>
-                <button className={utils.btnRound}>
+                <button className={utils.btn}>
                     Find Out More:
                     <FontAwesomeIcon icon={faChevronCircleDown} />
                 </button>

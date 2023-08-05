@@ -50,7 +50,6 @@ model User {
   username      String?   @unique
   passwordHash  String?
   email         String?   @unique
-  emailVerified DateTime?
   image         String?
 
   role          Role      @default(USER)

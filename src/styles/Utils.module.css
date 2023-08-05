@@ -58,9 +58,10 @@
 
 /* Buttons */
 .btn {
-    @apply items-center justify-center rounded-xl bg-red-700;
+    @apply mx-auto my-2 bg-red-700 hover:bg-red-600;
+    @apply flex flex-row items-center justify-center rounded-xl;
     @apply px-8 py-2 text-center text-base font-semibold whitespace-nowrap;
-    @apply transition-all duration-700 ease-in-out hover:bg-red-600;
+    @apply transition-all duration-700 ease-in-out;
 }
 
 .btn:hover {
@@ -72,18 +73,12 @@
         0 0 0 4px rgba(200, 1, 1, 0.5), 0 0 0 5px rgba(200, 1, 1, 0.5);
 }
 
-.btnRound {
-    @apply btn rounded-3xl px-12;
-    @apply flex flex-row;
-    @apply mx-auto my-2 whitespace-nowrap;
-}
-
-.btnRound svg {
+.btn svg {
     @apply w-4 h-4 mx-1 whitespace-nowrap;
 }
 
 .btnForm {
-    @apply btnRound mx-auto pb-4 text-zinc-100;
+    @apply btn mx-auto pb-4 text-zinc-100;
 }
 
 .updateIcon {
@@ -99,12 +94,12 @@
 }
 
 .signIn {
-    @apply flex flex-row text-base;
+    @apply flex flex-row text-base justify-center;
     @apply md:my-5 md:mx-auto md:text-xl;
 }
 
 .profileImage {
-    @apply mx-4 rounded-lg;
+    @apply mx-2 my-2 rounded-lg;
 }
 
 .signInButton {
@@ -118,6 +113,10 @@
 }
 
 /* Mics */
+.login {
+    @apply flex flex-col items-center mx-auto;
+}
+
 .dialog {
     @apply w-[85vw] max-h-[90vh];
     @apply top-1/2 left-1/2 fixed z-50;

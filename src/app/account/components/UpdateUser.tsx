@@ -72,6 +72,7 @@ export const UpdateUser = ({ user }: { user?: User }) => {
                                 name={field.name}
                                 id={field.name}
                                 placeholder={field.placeholder}
+                                defaultValue={field.defaultValue || ''}
                             />
                         </div>
                     ))}

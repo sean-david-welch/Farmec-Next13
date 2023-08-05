@@ -50,7 +50,7 @@ const PartsDetail = async ({ params }: Props) => {
                                 <h1 className={utils.mainHeading}>
                                     {sparepart.name}
                                 </h1>
-                                <button className={utils.btnRound}>
+                                <button className={utils.btn}>
                                     <Link
                                         href={
                                             sparepart.spare_parts_link ||
