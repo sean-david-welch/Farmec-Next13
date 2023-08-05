@@ -243,11 +243,11 @@
 }
 
 .infoItem {
-    @apply bg-red-700 rounded-lg bottom-4 border-zinc-950;
-    @apply text-zinc-950 text-lg font-medium;
+    @apply bg-zinc-800 rounded-lg bottom-4 border-zinc-950;
+    @apply text-zinc-100 text-lg font-medium;
     @apply my-4 w-4/5 p-1;
 }
 
 .infoItemText {
-    @apply text-zinc-950 text-lg font-medium;
+    @apply text-zinc-100 text-lg font-medium;
 }

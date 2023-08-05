@@ -20,8 +20,8 @@ export const NavList = async ({ user, suppliers }: Props) => {
                         src="/farmeclogo.png"
                         className={styles.logo}
                         alt="logo"
-                        width={225}
-                        height={225}
+                        width={256}
+                        height={63}
                     />
                 </Link>
                 <NavItem link={'/about'} title="About Us">

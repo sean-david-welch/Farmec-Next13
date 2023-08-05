@@ -27,15 +27,18 @@ const StatsSection = () => {
         link,
     }) => {
         return (
-            <ul className={styles.statList}>
-                <Link href={link}>
+            <Link href={link}>
+                <ul className={styles.statList}>
                     <li className={styles.statListItem}>{title}</li>
                     <li className={styles.statListItem}>
-                        <FontAwesomeIcon icon={icon} size={'3x'} />
+                        <FontAwesomeIcon
+                            icon={icon}
+                            className={utils.mainIcon}
+                        />
                     </li>
                     <li className={styles.statListItem}>{description}</li>
-                </Link>
-            </ul>
+                </ul>
+            </Link>
         );
     };
 

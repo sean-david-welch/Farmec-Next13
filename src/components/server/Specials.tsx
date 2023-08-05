@@ -28,8 +28,8 @@ const SpecialsSection = () => {
         link,
     }) => {
         return (
-            <ul className={styles.specialList}>
-                <Link href={link}>
+            <Link href={link}>
+                <ul className={styles.specialList}>
                     <li className={styles.specialListItem}>
                         <FontAwesomeIcon
                             icon={icon}
@@ -38,8 +38,8 @@ const SpecialsSection = () => {
                     </li>
                     <li className={styles.specialListItem}>{title}</li>
                     <li className={styles.specialListItem}>{description}</li>
-                </Link>
-            </ul>
+                </ul>
+            </Link>
         );
     };
 

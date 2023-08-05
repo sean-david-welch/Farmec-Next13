@@ -29,7 +29,7 @@
 }
 
 .statList > * {
-    @apply my-2 mx-4;
+    @apply mx-4;
 }
 
 .statListItem {
@@ -41,7 +41,7 @@
 }
 
 .statListItem svg {
-    @apply mx-auto my-2;
+    @apply mx-auto;
 }
 
 .statListItem svg path {
@@ -74,15 +74,15 @@
 }
 
 .specialList > * {
-    @apply my-2 mx-4;
+    @apply mx-4;
 }
 
 .specialListItem {
-    @apply text-2xl font-semibold text-zinc-800 my-5;
+    @apply text-2xl font-semibold text-zinc-800;
 }
 
 .specialListItem:nth-child(3) {
-    @apply text-base font-normal mx-auto;
+    @apply text-base font-normal mx-10;
 }
 
 .specialListItem svg {
