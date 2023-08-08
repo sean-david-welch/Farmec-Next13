@@ -1,4 +1,8 @@
 /* Misc */
+.home {
+    @apply flex flex-col justify-center text-center items-center text-gray-800;
+}
+
 .sectionHeading {
     @apply my-5;
     @apply text-3xl font-semibold mx-auto;
@@ -261,11 +265,12 @@
     @apply text-zinc-100 text-lg font-medium;
 }
 
-/* Spinner */
-.overlay {
-    @apply fixed left-0 top-[50%] translate-y-2/4 translate-x-2/4 inset-0 bg-black bg-opacity-50 z-50;
+/* Loading */
+.loadingPage {
+    @apply w-screen h-screen;
 }
 
 .spinner {
-    @apply border border-solid border-t-4 border-red-700 rounded-full w-32 h-32 animate-spin;
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply w-[75px] h-[75px] rounded-[50px] border-[5px] border-solid border-red-700 border-t-[5px]  border-t-white;
 }

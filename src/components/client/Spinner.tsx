@@ -1,13 +1,26 @@
 'use client';
-
 import styles from '~/styles/Utils.module.css';
 
-const Spinner = () => {
-    return (
-        <div className={styles.overlay}>
-            <div className={styles.spinner}></div>
-        </div>
-    );
+import { motion } from 'framer-motion';
+
+const spinTransition = {
+    loop: Infinity,
+    ease: 'linear',
+    duration: 1,
 };
 
-export default Spinner;
+function LoadingSpinner() {
+    return (
+        <div className={styles.loadingPage}>
+            <>
+                <motion.div
+                    className={styles.spinner}
+                    animate={{ rotate: 360 }}
+                    transition={spinTransition}
+                />
+            </>
+        </div>
+    );
+}
+
+export default LoadingSpinner;
