@@ -46,7 +46,7 @@ const StatsSection = () => {
         <div className={styles.infoSection}>
             <h1 className={utils.sectionHeading}>Farmec At A Glance:</h1>
             <p className={utils.subHeading}>
-                This is a Quick Look at what Separates us from our Competetitors
+                This is a Quick Look at what Separates us from our Competitors
             </p>
             <div className={styles.stats}>
                 <StatsItem

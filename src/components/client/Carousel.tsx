@@ -47,14 +47,21 @@ export const Carousel = ({ images }: Props) => {
                         currentIndex === index ? styles.fadeIn : styles.fadeOut
                     }`}
                     quality={100}
-                    width={1400}
-                    height={1400}
+                    sizes="100vw"
+                    width={1200}
+                    height={1200}
                 />
             ))}
-            <button className={styles.prevButton} onClick={prevStep}>
+            <button
+                className={styles.prevButton}
+                onClick={prevStep}
+                aria-label="last slide">
                 <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <button className={styles.nextButton} onClick={nextStep}>
+            <button
+                className={styles.nextButton}
+                onClick={nextStep}
+                aria-label="next slide">
                 <FontAwesomeIcon icon={faChevronRight} />
             </button>
         </div>

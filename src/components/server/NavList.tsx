@@ -13,7 +13,7 @@ interface Props {
 export const NavList = async ({ user, suppliers }: Props) => {
     return (
         <ul className={styles.navList}>
-            <Link href={'/'}>
+            <Link href={'/'} aria-label="logo button">
                 <Logo />
             </Link>
             <NavItem link={'/about'} title="About Us">

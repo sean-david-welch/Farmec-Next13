@@ -99,7 +99,7 @@
 }
 
 .imageBlank {
-    @apply profileImage;
+    @apply profileImage h-[48px] w-[32px];
     @apply invisible;
 }
 

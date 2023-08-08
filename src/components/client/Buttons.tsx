@@ -13,7 +13,7 @@ export const SignInButton = () => {
             <div className={styles.signIn}>
                 <SignOutButton />
 
-                <Link href={'/account'}>
+                <Link href={'/account'} aria-label="account button">
                     <Image
                         src={session.user?.image ?? '/default.jpg'}
                         width={40}
@@ -32,7 +32,7 @@ export const SignInButton = () => {
                 Sign In
             </button>
 
-            <Link href={'/account'}>
+            <Link href={'/account'} aria-label="account button">
                 <Image
                     src={'/default.jpg'}
                     width={40}

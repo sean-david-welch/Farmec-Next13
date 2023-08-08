@@ -19,6 +19,7 @@ import {
     faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { SignInButton } from './Buttons';
+import { Logo } from './Logo';
 
 interface Props {
     user?: { role: string } | null;
@@ -35,12 +36,7 @@ const Sidebar = ({ user }: Props) => {
         <>
             {!isOpen ? (
                 <div className={styles.navIcon} onClick={toggleSidebar}>
-                    <Image
-                        src="/farmeclogo.png"
-                        alt="logo"
-                        width={225}
-                        height={225}
-                    />
+                    <Logo />
                     <FontAwesomeIcon
                         icon={faBars}
                         className={styles.navigation}
