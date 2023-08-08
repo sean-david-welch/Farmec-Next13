@@ -38,7 +38,7 @@ export const SignInButton = () => {
                     width={40}
                     height={40}
                     alt={`Your Name`}
-                    className={styles.profileImage}
+                    className={styles.imageBlank}
                 />
             </Link>
         </div>

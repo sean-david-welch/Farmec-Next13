@@ -1,85 +1,60 @@
 'use client';
-import styles from '../styles/Carousel.module.css';
 
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import styles from '../styles/Carousel.module.css';
+import Image from 'next/image';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChevronLeft,
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
-    children: React.ReactNode;
+    images: string[];
 }
 
-export const Carousel = ({ children }: Props) => {
-    const images = React.Children.toArray(children);
-    const [carouselState, setCarouselState] = useState({
-        index: 0,
-        direction: 0,
-    });
-
-    const variants = {
-        initial: {
-            opacity: 0,
-        },
-        animate: {
-            opacity: 1,
-            transition: {
-                opacity: { duration: 0.2 },
-            },
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                opacity: { duration: 0.2 },
-            },
-        },
-    };
+export const Carousel = ({ images }: Props) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     function nextStep() {
-        setCarouselState(prevState => {
-            if (prevState.index === images.length - 1) {
-                return { index: 0, direction: 1 };
+        setCurrentIndex(prevIndex => {
+            if (prevIndex === images.length - 1) {
+                return 0;
             }
-            return { index: prevState.index + 1, direction: 1 };
+            return prevIndex + 1;
         });
     }
 
     function prevStep() {
-        setCarouselState(prevState => {
-            if (prevState.index === 0) {
-                return { index: images.length - 1, direction: -1 };
+        setCurrentIndex(prevIndex => {
+            if (prevIndex === 0) {
+                return images.length - 1;
             }
-            return { index: prevState.index - 1, direction: -1 };
+            return prevIndex - 1;
         });
     }
 
     return (
         <div className={styles.slideshow}>
-            <AnimatePresence initial={false} custom={carouselState.direction}>
-                <motion.div
-                    variants={variants}
-                    animate="animate"
-                    initial="initial"
-                    exit="exit"
-                    key={carouselState.index}
-                    className={styles.motionELement}
-                    custom={carouselState.direction}>
-                    {images[carouselState.index]}
-                </motion.div>
-            </AnimatePresence>
-            <button
-                className={styles.prevButton}
-                onClick={prevStep}
-                aria-label="Last Slide">
+            {images.map((src, index) => (
+                <CldImage
+                    key={index}
+                    src={src}
+                    alt="slides"
+                    format="webp"
+                    className={`${styles.slides} ${
+                        currentIndex === index ? styles.fadeIn : styles.fadeOut
+                    }`}
+                    quality={100}
+                    width={1400}
+                    height={1400}
+                />
+            ))}
+            <button className={styles.prevButton} onClick={prevStep}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <button
-                className={styles.nextButton}
-                onClick={nextStep}
-                aria-label="Next Slide">
+            <button className={styles.nextButton} onClick={nextStep}>
                 <FontAwesomeIcon icon={faChevronRight} />
             </button>
         </div>

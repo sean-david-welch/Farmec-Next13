@@ -36,7 +36,7 @@ export const POST = async (request: NextRequest) => {
 
         const carousel = await prisma.carousel.create({
             data: {
-                name: name,
+                name: `Carousel/${name}`,
                 image: imageUrl,
             },
         });

@@ -31,7 +31,7 @@ export const PUT = async (request: NextRequest) => {
                 id: id,
             },
             data: {
-                name: name,
+                name: `Carousel/${name}`,
                 image: imageUrl,
             },
         });

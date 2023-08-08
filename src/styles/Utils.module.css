@@ -98,6 +98,11 @@
     @apply mx-2 my-2 rounded-lg h-[40px] w-[40px];
 }
 
+.imageBlank {
+    @apply profileImage;
+    @apply invisible;
+}
+
 .signInButton {
     @apply btn text-gray-200;
     @apply md:my-5 md:mx-auto md:text-xl;

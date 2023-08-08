@@ -3,26 +3,32 @@
 }
 
 .slideshow {
-    @apply h-screen w-full m-auto absolute top-0 left-0 z-0;
+    @apply h-screen w-full m-auto absolute top-0 left-0 z-0 overflow-hidden;
 }
 
 .slides {
-    @apply absolute left-0 top-0 h-full w-full object-cover object-center;
+    @apply absolute left-0 top-0 opacity-0;
+    @apply h-full w-full object-cover object-center;
+    @apply transition-all duration-200 ease-in-out;
+    @apply md:w-1/2;
 }
 
-@screen md {
-    .slides {
-        @apply w-1/2;
-    }
+.fadeIn {
+    @apply opacity-100;
 }
 
-.motionElement {
-    @apply relative;
+.fadeOut {
+    @apply opacity-0;
 }
 
 .slideButton {
     @apply flex items-center justify-center;
-    @apply mx-auto text-white transition-all duration-700 ease-in-out;
+}
+
+.slideButton svg {
+    @apply h-8 w-8;
+    @apply bg-zinc-900 bg-opacity-80 z-10;
+    @apply py-2 px-1 rounded-md;
 }
 
 .slideButton svg path {
@@ -37,11 +43,4 @@
 .nextButton {
     @apply absolute right-1 top-[50%] -translate-y-2/4;
     @apply slideButton whitespace-nowrap;
-}
-
-.nextButton svg,
-.prevButton svg {
-    @apply h-8 w-8;
-    @apply bg-zinc-900 bg-opacity-80 z-10;
-    @apply py-2 px-1 rounded-md;
 }
