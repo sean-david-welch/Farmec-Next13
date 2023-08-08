@@ -9,7 +9,11 @@ import { getSessionAndUser } from '~/utils/user';
 
 const Header = async () => {
     const { user, session } = await getSessionAndUser();
-    const suppliers = await prisma.supplier.findMany();
+    const suppliers = await prisma.supplier.findMany({
+        orderBy: {
+            created: 'asc',
+        },
+    });
 
     if (!session) {
         return (

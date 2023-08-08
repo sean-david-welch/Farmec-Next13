@@ -15,10 +15,6 @@
     @apply mx-10 whitespace-nowrap;
 }
 
-.logo {
-    @apply w-auto h-auto;
-}
-
 .navList {
     @apply flex flex-row justify-center my-auto;
 }

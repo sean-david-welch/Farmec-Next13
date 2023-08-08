@@ -11,6 +11,7 @@ import {
     faLinkedin,
     faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
+import { Ftmta } from '../client/Ftmta';
 
 const Footer = () => {
     return (
@@ -41,12 +42,7 @@ const Footer = () => {
                 <div className={styles.accreditation}>
                     <h1 className={utils.mainHeading}>Accreditation</h1>
                     <Link href={'https://ftmta.ie/'} target={'_blank'}>
-                        <Image
-                            src={'/ftmta-logo.png'}
-                            alt="logo"
-                            height={175}
-                            width={175}
-                        />
+                        <Ftmta />
                     </Link>
                 </div>
                 <div className={styles.socialLinks}>

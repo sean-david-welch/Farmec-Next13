@@ -113,6 +113,14 @@
 }
 
 /* Mics */
+.ftmta {
+    @apply transition-all duration-700 ease-in-out;
+}
+
+.ftmta:hover {
+    @apply transform scale-[1.0125];
+}
+
 .login {
     @apply flex flex-col items-center mx-auto;
 }
@@ -250,4 +258,13 @@
 
 .infoItemText {
     @apply text-zinc-100 text-lg font-medium;
+}
+
+/* Spinner */
+.overlay {
+    @apply fixed left-0 top-[50%] translate-y-2/4 translate-x-2/4 inset-0 bg-black bg-opacity-50 z-50;
+}
+
+.spinner {
+    @apply border border-solid border-t-4 border-red-700 rounded-full w-32 h-32 animate-spin;
 }

@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import { NavItem } from '../client/Navitem';
 import { SignInButton } from '../client/Buttons';
+import { Logo } from '../client/Logo';
 
 interface Props {
     user?: { role: string } | null;
@@ -16,13 +17,7 @@ export const NavList = async ({ user, suppliers }: Props) => {
         <>
             <ul className={styles.navList}>
                 <Link href={'/'}>
-                    <Image
-                        src="/farmeclogo.png"
-                        className={styles.logo}
-                        alt="logo"
-                        width={256}
-                        height={63}
-                    />
+                    <Logo />
                 </Link>
                 <NavItem link={'/about'} title="About Us">
                     <li className={styles.navDropItem}>
