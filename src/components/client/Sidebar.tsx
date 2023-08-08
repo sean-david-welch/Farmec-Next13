@@ -2,8 +2,8 @@
 import styles from '../styles/Sidebar.module.css';
 
 import Link from 'next/link';
-import Image from 'next/image';
 
+import { Logo } from './Logo';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,7 +19,6 @@ import {
     faQuestionCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { SignInButton } from './Buttons';
-import { Logo } from './Logo';
 
 interface Props {
     user?: { role: string } | null;
@@ -40,8 +39,6 @@ const Sidebar = ({ user }: Props) => {
                     <FontAwesomeIcon
                         icon={faBars}
                         className={styles.navigation}
-                        height={32}
-                        width={32}
                     />
                 </div>
             ) : (
@@ -50,16 +47,9 @@ const Sidebar = ({ user }: Props) => {
                         isOpen ? styles.sideNavOpen : styles.sideNavClosed
                     }>
                     <div className={styles.navIcon} onClick={toggleSidebar}>
-                        <Image
-                            src="/farmeclogo.png"
-                            alt="logo"
-                            width={200}
-                            height={200}
-                        />
+                        <Logo />
                         <FontAwesomeIcon
                             icon={faX}
-                            height={32}
-                            width={32}
                             className={styles.navigation}
                         />
                     </div>
