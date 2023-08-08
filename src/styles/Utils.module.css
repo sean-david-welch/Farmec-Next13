@@ -28,10 +28,6 @@
     @apply md:text-xl;
 }
 
-.heroContainer {
-    @apply relative overflow-hidden h-screen w-screen;
-}
-
 /* Forms */
 .form {
     @apply flex flex-col bg-zinc-800 text-center p-10;
@@ -99,7 +95,7 @@
 }
 
 .profileImage {
-    @apply mx-2 my-2 rounded-lg;
+    @apply mx-2 my-2 rounded-lg h-[40px] w-[40px];
 }
 
 .signInButton {

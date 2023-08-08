@@ -12,8 +12,8 @@ export const Logo = () => {
             crop="scale"
             sizes="100vw"
             format="webp"
-            className={utils.logo}
             alt="Farmec Logo"
+            priority={true}
         />
     );
 };

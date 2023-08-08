@@ -1,5 +1,19 @@
+.heroContainer {
+    @apply relative overflow-hidden h-screen w-screen;
+}
+
 .slideshow {
     @apply h-screen w-full m-auto absolute top-0 left-0 z-0;
+}
+
+.slides {
+    @apply absolute left-0 top-0 h-full w-full object-cover object-center;
+}
+
+@screen md {
+    .slides {
+        @apply w-1/2;
+    }
 }
 
 .motionElement {

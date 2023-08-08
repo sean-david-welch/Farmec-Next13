@@ -1,5 +1,4 @@
-import utils from '~/styles/Utils.module.css';
-import styles from '../styles/Header.module.css';
+import styles from '../styles/Carousel.module.css';
 
 import Image from 'next/image';
 import Typewriter from '../client/TypeWriter';
@@ -20,7 +19,7 @@ export const Hero = async () => {
 
     return (
         <section id="Hero">
-            <div className={utils.heroContainer}>
+            <div className={styles.heroContainer}>
                 <Carousel>
                     {images.map((src, index) => (
                         <Image

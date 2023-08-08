@@ -27,9 +27,21 @@ export const SignInButton = () => {
     }
 
     return (
-        <button className={styles.signInButton} onClick={() => signIn()}>
-            Sign In
-        </button>
+        <div className={styles.signIn}>
+            <button className={styles.signInButton} onClick={() => signIn()}>
+                Sign In
+            </button>
+
+            <Link href={'/account'}>
+                <Image
+                    src={'/default.jpg'}
+                    width={40}
+                    height={40}
+                    alt={`Your Name`}
+                    className={styles.profileImage}
+                />
+            </Link>
+        </div>
     );
 };
 

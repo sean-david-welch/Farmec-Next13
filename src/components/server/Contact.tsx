@@ -16,7 +16,7 @@ const Contact = () => {
                     className={utils.map}
                     loading="lazy"
                     allowFullScreen
-                    src={`https://www.google.com/maps/embed/v1/place?q=Farmec%20Ireland%20ltd&key=${process.env.NEXT_PUBLIC_MAPS_KEY}}`}
+                    src={`https://www.google.com/maps/embed/v1/place?q=Farmec%20Ireland%20ltd&key=${process.env.NEXT_PUBLIC_MAPS_KEY}`}
                 />
                 <InfoSection />
             </div>
