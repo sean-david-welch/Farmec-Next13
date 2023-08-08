@@ -27,7 +27,7 @@ const Account = async () => {
         <section id="account">
             <h1 className={utils.sectionHeading}>Account</h1>
             <p className={utils.subHeading}>
-                Logged in as {user?.name} - {user?.role}
+                Logged in as {user?.name || user?.username} - {user?.role}
             </p>
             {user.role === 'USER' && (
                 <AccountSection
