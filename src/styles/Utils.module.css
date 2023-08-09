@@ -81,6 +81,10 @@
     @apply btn mx-auto pb-4 text-zinc-100;
 }
 
+.btnFooter {
+    @apply btn w-[150px];
+}
+
 .updateIcon {
     @apply w-4 h-4 mx-2;
 }
@@ -213,9 +217,9 @@
 
 /* Contact form */
 .contactSection {
-    @apply grid gap-0 p-4 mb-10 mx-10;
+    @apply grid p-4 mb-10 mx-10;
     @apply bg-zinc-800 rounded-lg;
-    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-columns: 1fr 2fr 1fr;
     @apply md:grid-cols-1;
 }
 
@@ -227,6 +231,7 @@
 .contactForm label {
     @apply block text-2xl font-medium text-gray-900 dark:text-white;
 }
+
 .contactForm input,
 .contactForm select,
 .contactForm textarea {
@@ -235,20 +240,20 @@
 }
 
 .contactForm {
-    @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2 w-[300px];
+    @apply flex flex-col bg-zinc-800 text-center mx-2 rounded-lg py-2 w-[20vw];
     @apply md:mx-auto;
 }
 
 .map {
     @apply flex justify-center items-center;
     @apply rounded-xl mx-auto;
-    @apply md:w-[300px];
+    @apply md:w-[20vw];
 }
 
 .infoSection {
     @apply flex flex-col items-center;
     @apply bg-zinc-300 rounded-lg;
-    @apply mx-auto w-[300px];
+    @apply mx-auto w-[20vw];
 }
 
 .infoSection > * {

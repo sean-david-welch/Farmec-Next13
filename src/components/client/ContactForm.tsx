@@ -53,11 +53,12 @@ const ContactForm = () => {
                 name="message"
                 placeholder="Enter your message here..."
                 cols={30}
-                rows={10}
+                rows={5}
                 required={true}
             />
 
             <ReCAPTCHA
+                theme="dark"
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
                 onChange={value => setRecaptchaValue(value)}
             />
