@@ -5,7 +5,7 @@ import { transporter } from '~/lib/mail';
 import { errorResponse } from '~/utils/user';
 import { NextRequest, NextResponse } from 'next/server';
 
-const recaptcha = process.env.RECAPTCHA_SECRET;
+const recaptcha = process.env.RECAPTCHA_SECRET!;
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
     try {
@@ -13,28 +13,31 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
         const { name, email, message, recaptchaResponse } = data;
 
-        const googleResponse = await axios.post(
+        const params = new URLSearchParams();
+        params.append('secret', recaptcha);
+        params.append('response', recaptchaResponse);
+
+        await axios.post(
             'https://www.google.com/recaptcha/api/siteverify',
+            params,
             {
-                secret: recaptcha,
-                response: recaptchaResponse,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
             }
         );
 
-        if (googleResponse.data.success) {
-            const response = await transporter.sendMail({
-                from: emailUser,
-                to: emailUser,
-                subject: `New message from ${name} -  ${email}`,
-                text: message,
-            });
+        const response = await transporter.sendMail({
+            from: emailUser,
+            cc: email,
+            to: emailUser,
+            subject: `New Contact Form sent from: ${name} - ${email}`,
+            text: message,
+        });
 
-            return NextResponse.json(response);
-        } else {
-            return errorResponse(400, 'Invalid Captcha');
-        }
+        return NextResponse.json(response);
     } catch (error: any) {
-        console.error(error);
+        console.error('Error encountered:', error);
         return errorResponse(500, error.message || 'Internal Server Error');
     }
 };
