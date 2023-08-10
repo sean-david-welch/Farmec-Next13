@@ -10,6 +10,7 @@ import { useState, useRef } from 'react';
 const ContactForm = () => {
     const router = useRouter();
     const formRef = useRef<HTMLFormElement>(null);
+    const captchaRef = useRef<ReCAPTCHA>(null);
     const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -23,11 +24,12 @@ const ContactForm = () => {
             recaptchaResponse: recaptchaValue,
         };
 
+        const token = captchaRef.current ? captchaRef.current.execute() : null;
         const response = await axios.post('/api/contact', body);
 
         if (response.status === 200) {
             formRef.current?.reset();
-
+            token && captchaRef.current?.reset();
             router.push('/');
         } else if (response.status === 200 && !response.data.success) {
             alert('There was an error sending your message. Please try again.');
@@ -53,15 +55,19 @@ const ContactForm = () => {
                 name="message"
                 placeholder="Enter your message here..."
                 cols={30}
-                rows={5}
+                rows={11}
                 required={true}
             />
 
-            <ReCAPTCHA
-                theme="dark"
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
-                onChange={value => setRecaptchaValue(value)}
-            />
+            <div className={utils.recaptcha}>
+                <ReCAPTCHA
+                    theme="dark"
+                    size="invisible"
+                    ref={captchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
+                    onChange={value => setRecaptchaValue(value)}
+                />
+            </div>
 
             <button className={utils.btnForm} type="submit">
                 Submit

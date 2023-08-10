@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../styles/Carousel.module.css';
-import Image from 'next/image';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,7 +13,7 @@ interface Props {
     images: string[];
 }
 
-export const Carousel = ({ images }: Props) => {
+export const Carousel: React.FC<Props> = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     function nextStep() {

@@ -244,6 +244,10 @@
     @apply md:mx-auto;
 }
 
+.recapcha {
+    @apply mx-auto;
+}
+
 .map {
     @apply flex justify-center items-center;
     @apply rounded-xl mx-auto;
