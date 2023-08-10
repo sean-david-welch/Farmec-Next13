@@ -46,10 +46,11 @@ export const Carousel = ({ images }: Props) => {
                     className={`${styles.slides} ${
                         currentIndex === index ? styles.fadeIn : styles.fadeOut
                     }`}
-                    quality={100}
+                    quality={90}
                     sizes="100vw"
-                    width={1200}
-                    height={1200}
+                    width={1100}
+                    height={1100}
+                    loading={index === 0 ? 'eager' : 'lazy'}
                 />
             ))}
             <button
