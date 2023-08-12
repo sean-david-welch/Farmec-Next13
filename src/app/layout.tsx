@@ -1,14 +1,16 @@
 import '~/styles/globals.css';
-import axios from 'axios';
+
 import { Dosis } from 'next/font/google';
-
 import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-config.autoAddCss = false;
+import { Analytics } from '@vercel/analytics/react';
 
+import axios from 'axios';
 import Header from '~/components/server/Header';
 import Footer from '~/components/server/Footer';
 import AuthProvider from './AuthProvider';
+
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
 
 const dosis = Dosis({
     weight: ['400', '500', '600', '700'],
@@ -38,6 +40,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
                         {children}
                     </main>
                     <Footer />
+                    <Analytics />
                 </body>
             </html>
         </AuthProvider>
