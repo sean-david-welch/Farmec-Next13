@@ -39,7 +39,8 @@ export const Carousel: React.FC<Props> = ({ images }) => {
             {images.map((src, index) => (
                 <CldImage
                     key={index}
-                    src={src}
+                    src={images[currentIndex]}
+                    crop="fit"
                     alt="slides"
                     format="webp"
                     className={`${styles.slides} ${
@@ -47,8 +48,8 @@ export const Carousel: React.FC<Props> = ({ images }) => {
                     }`}
                     quality={90}
                     sizes="100vw"
-                    width={1100}
-                    height={1100}
+                    width={1000}
+                    height={1000}
                     loading={index === 0 ? 'eager' : 'lazy'}
                 />
             ))}
