@@ -2,6 +2,10 @@ import '~/styles/globals.css';
 import axios from 'axios';
 import { Dosis } from 'next/font/google';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
+
 import Header from '~/components/server/Header';
 import Footer from '~/components/server/Footer';
 import AuthProvider from './AuthProvider';
