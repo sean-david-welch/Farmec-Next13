@@ -67,18 +67,18 @@ export const POST = async (request: NextRequest) => {
 
             const { profile_image } = data;
 
-            if (!profile_image) {
-                throw new Error('Profile image not found');
+            let profileUrl: string | undefined = undefined;
+
+            if (profile_image) {
+                const { url, signature, timestamp } = await getCloudinaryUrl(
+                    profile_image,
+                    folder
+                );
+
+                profileUrl = url;
+                profileSignature = signature;
+                profileTimestamp = timestamp;
             }
-
-            const {
-                url: profileUrl,
-                signature,
-                timestamp,
-            } = await getCloudinaryUrl(profile_image, folder);
-
-            profileSignature = signature;
-            profileTimestamp = timestamp;
 
             result = await prisma.employee.create({
                 data: {

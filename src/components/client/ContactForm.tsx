@@ -62,8 +62,9 @@ const ContactForm = () => {
             <div className={utils.recaptcha}>
                 <ReCAPTCHA
                     theme="dark"
-                    size="invisible"
                     ref={captchaRef}
+                    size="invisible"
+                    badge="bottomleft"
                     sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
                     onChange={value => setRecaptchaValue(value)}
                 />

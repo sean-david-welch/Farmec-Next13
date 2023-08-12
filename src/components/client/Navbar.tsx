@@ -1,17 +1,27 @@
 'use client';
 import styles from '../styles/Header.module.css';
-import useTransparentHeader from '~/hooks/useTransparentHeader';
+
+import { useInView } from 'react-intersection-observer';
+import { usePathname } from 'next/navigation';
 
 interface Props {
     children: React.ReactNode;
 }
 
 const Navbar = ({ children }: Props) => {
-    const isTransparent = useTransparentHeader();
+    const pathname = usePathname();
+    const isHomePage = pathname === '/';
+
+    const [ref, inView] = useInView({
+        threshold: 0,
+        triggerOnce: false,
+    });
+
+    const isTransparent = isHomePage && inView;
 
     return (
         <nav className={isTransparent ? styles.transparentNav : styles.navbar}>
-            {children}
+            {<div ref={ref}>{children}</div>}
         </nav>
     );
 };

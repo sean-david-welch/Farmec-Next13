@@ -28,12 +28,12 @@ const Typewriter = () => {
                 />
             </h1>
 
-            <Link href={'#Info'}>
-                <button className={utils.btn}>
+            <button className={utils.btn}>
+                <Link href={'#Info'}>
                     Find Out More:
                     <FontAwesomeIcon icon={faChevronCircleDown} />
-                </button>
-            </Link>
+                </Link>
+            </button>
         </div>
     );
 };

@@ -19,7 +19,10 @@ interface Data {
 export const PUT = async (request: NextRequest): Promise<NextResponse> => {
     try {
         await validateUser();
+
         const { model, id, data } = await request.json();
+
+        console.log(model, id, data);
 
         if (!model || !data) {
             return NextResponse.json({ error: 'Invalid request' });
@@ -53,20 +56,25 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
         if (model === 'employee') {
             folder = 'Employees';
 
+            const existingImage = await prisma.employee.findUnique({
+                where: { id },
+                select: { profile_image: true },
+            });
+
             const { profile_image } = data;
 
-            if (!profile_image) {
-                throw new Error('Profile image not found');
+            let profileUrl: string | undefined = undefined;
+
+            if (profile_image) {
+                const { url, signature, timestamp } = await getCloudinaryUrl(
+                    profile_image,
+                    folder
+                );
+
+                profileUrl = url;
+                profileSignature = signature;
+                profileTimestamp = timestamp;
             }
-
-            const {
-                url: profileUrl,
-                signature,
-                timestamp,
-            } = await getCloudinaryUrl(data.profile_image, folder);
-
-            profileSignature = signature;
-            profileTimestamp = timestamp;
 
             result = await prisma.employee.update({
                 where: { id },
@@ -76,7 +84,9 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
                     phone: data.phone,
                     role: data.role,
                     bio: data.bio,
-                    profile_image: profileUrl,
+                    profile_image: profileUrl
+                        ? profileUrl
+                        : existingImage?.profile_image,
                 },
             });
         } else if (Object.keys(updateFunctions).includes(model)) {

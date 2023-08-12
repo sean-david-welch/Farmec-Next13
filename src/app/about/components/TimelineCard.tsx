@@ -2,7 +2,6 @@
 
 import styles from '../styles/About.module.css';
 import utils from '~/styles/Utils.module.css';
-import useWindowWidth from '~/hooks/useWindowWidth';
 
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -20,45 +19,21 @@ interface Props {
     direction: string;
 }
 
-const TimelineCard: React.FC<Props> = ({ event, user, direction }) => {
+const TimelineCard: React.FC<Props> = ({ event, user }) => {
     const controls = useAnimation();
     const [ref, inView] = useInView();
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         if (inView) controls.start('visible');
     }, [controls, inView]);
 
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     const timelineVariant = {
         visible: {
-            x:
-                direction === 'left'
-                    ? windowWidth > 768
-                        ? -300
-                        : 0
-                    : windowWidth > 768
-                    ? 300
-                    : 0,
-            transition: { duration: 0.4 },
+            opacity: 1,
+            scale: 1,
+            transition: { duration: 0.5 },
         },
-        hidden: {
-            x:
-                direction === 'left'
-                    ? windowWidth > 768
-                        ? -1100
-                        : -300
-                    : windowWidth > 768
-                    ? 1100
-                    : 300,
-        },
+        hidden: { opacity: 0, scale: 0 },
     };
 
     return (

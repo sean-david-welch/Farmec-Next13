@@ -14,6 +14,12 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt',
     },
     secret: process.env.NEXTAUTH_SECRET!,
+    theme: {
+        colorScheme: 'dark',
+        logo: 'https://res.cloudinary.com/dgpquyhuy/image/upload/c_scale,w_256,h_63/f_webp/q_auto/farmeclogo?_a=BAVC24Gd0',
+        brandColor: '#B91C1C',
+    },
+
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -52,8 +58,9 @@ export const authOptions: NextAuthOptions = {
                             username: user.username,
                             role: user.role,
                         };
+                    } else {
+                        throw new Error('Invalid username or password');
                     }
-                    throw new Error('Invalid username or password');
                 } catch (error) {
                     throw new Error('Invalid username or password');
                 }

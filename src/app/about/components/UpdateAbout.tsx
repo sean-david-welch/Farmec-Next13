@@ -19,6 +19,7 @@ import {
     getTermFormData,
     getPrivacyFormData,
 } from '../utils/getFormData';
+import Loading from '../loading';
 
 interface FormField {
     name: string;
@@ -36,6 +37,8 @@ interface Props {
 
 export const UpdateAbout = ({ modelName, model }: Props) => {
     const router = useRouter();
+    const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -46,8 +49,6 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
 
         fetchFields();
     }, [modelName]);
-
-    const [showForm, setShowForm] = useState(false);
 
     const getFormDataFunctions = {
         employee: getEmployeeFormData,
@@ -88,7 +89,7 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                 const { profileSignature, profileTimestamp, folder } =
                     response.data;
 
-                if (EmployeeFile) {
+                if (EmployeeFile && profileSignature && profileTimestamp) {
                     await uploadImage(
                         EmployeeFile,
                         profileSignature,
@@ -114,70 +115,87 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
             }
         }
         setShowForm(false);
+        setIsSubmitting(false);
         router.refresh();
     };
 
     return (
         <section id="form">
-            <div className={utils.optionsBtn}>
-                <button
-                    className={utils.btnForm}
-                    onClick={() => setShowForm(!showForm)}>
-                    <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        className={utils.updateIcon}
-                    />
-                </button>
-                {model && (
-                    <DeleteButton
-                        modelId={model?.id}
-                        modelName={modelName}
-                        route="about"
-                        endpoint="about"
-                    />
-                )}
-            </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={event => model && handleSubmit(event, model.id)}
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Update {modelName}</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={field.defaultValue || ''}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={
-                                        field.type === 'file'
-                                            ? undefined
-                                            : field.defaultValue || ''
-                                    }
-                                />
-                            )}
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <div className={utils.optionsBtn}>
+                        <button
+                            className={utils.btnForm}
+                            onClick={() => setShowForm(!showForm)}>
+                            <FontAwesomeIcon
+                                icon={faPenToSquare}
+                                className={utils.updateIcon}
+                            />
+                        </button>
+                        {model && (
+                            <DeleteButton
+                                modelId={model?.id}
+                                modelName={modelName}
+                                route="about"
+                                endpoint="about"
+                            />
+                        )}
+                    </div>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={event =>
+                                model && handleSubmit(event, model.id)
+                            }
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                Update {modelName}
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.type === 'file'
+                                                    ? undefined
+                                                    : field.defaultValue || ''
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

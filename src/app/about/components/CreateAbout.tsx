@@ -14,6 +14,7 @@ import {
     getTermFormData,
     getPrivacyFormData,
 } from '../utils/getFormData';
+import Loading from '../loading';
 
 interface FormField {
     name: string;
@@ -30,6 +31,8 @@ interface Props {
 
 export const AboutForm = ({ modelName }: Props) => {
     const router = useRouter();
+    const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -41,8 +44,6 @@ export const AboutForm = ({ modelName }: Props) => {
         fetchFields();
     }, [modelName]);
 
-    const [showForm, setShowForm] = useState(false);
-
     const getFormDataFunctions = {
         employee: getEmployeeFormData,
         timeline: getTimelineFormData,
@@ -52,9 +53,9 @@ export const AboutForm = ({ modelName }: Props) => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setIsSubmitting(true);
 
         const formData = new FormData(event.currentTarget);
-
         const getFormDataFunction = getFormDataFunctions[modelName];
 
         if (modelName === 'employee') {
@@ -78,7 +79,7 @@ export const AboutForm = ({ modelName }: Props) => {
                 const { profileSignature, profileTimestamp, folder } =
                     response.data;
 
-                if (EmployeeFile) {
+                if (EmployeeFile && profileSignature && profileTimestamp) {
                     await uploadImage(
                         EmployeeFile,
                         profileSignature,
@@ -103,6 +104,7 @@ export const AboutForm = ({ modelName }: Props) => {
             }
         }
         setShowForm(false);
+        setIsSubmitting(false);
         router.refresh();
     };
 
@@ -115,50 +117,60 @@ export const AboutForm = ({ modelName }: Props) => {
 
     return (
         <section id="form">
-            <button
-                className={utils.btnForm}
-                onClick={() => setShowForm(!showForm)}>
-                {buttonTexts[modelName] || 'Add'}
-            </button>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={handleSubmit}
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <button
+                        className={utils.btnForm}
+                        onClick={() => setShowForm(!showForm)}>
                         {buttonTexts[modelName] || 'Add'}
-                    </h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    placeholder={field.placeholder}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    placeholder={field.placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
                     </button>
-                </form>
-            </FormDialog>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={handleSubmit}
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                {buttonTexts[modelName] || 'Add'}
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            placeholder={field.placeholder}>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            placeholder={field.placeholder}
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };
