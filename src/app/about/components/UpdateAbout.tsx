@@ -1,6 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useRouter } from 'next/navigation';
@@ -19,7 +21,6 @@ import {
     getTermFormData,
     getPrivacyFormData,
 } from '../utils/getFormData';
-import Loading from '../loading';
 
 interface FormField {
     name: string;
@@ -70,18 +71,14 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
         if (modelName === 'employee') {
             const EmployeeFile = formData.get(`profile_image`) as File;
 
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      id: modelId,
-                      data: {
-                          ...getFormDataFunction(formData),
-                          ['profile_image']: EmployeeFile
-                              ? EmployeeFile.name
-                              : null,
-                      },
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                id: modelId,
+                data: {
+                    ...getFormDataFunction(formData),
+                    ['profile_image']: EmployeeFile ? EmployeeFile.name : null,
+                },
+            };
 
             const response = await axios.put(`/api/about/${modelId}`, body);
 
@@ -100,13 +97,11 @@ export const UpdateAbout = ({ modelName, model }: Props) => {
                 }
             }
         } else {
-            const body = getFormDataFunction
-                ? {
-                      model: modelName,
-                      id: modelId,
-                      data: getFormDataFunction(formData),
-                  }
-                : {};
+            const body = {
+                model: modelName,
+                id: modelId,
+                data: getFormDataFunction(formData),
+            };
 
             try {
                 await axios.put(`/api/about/${modelId}`, body);

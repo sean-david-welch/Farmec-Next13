@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { Product } from '@prisma/client';
@@ -27,7 +28,7 @@ interface FormField {
 const UpdateProduct = ({ product }: { product?: Product }) => {
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -43,6 +44,8 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
         productId: string
     ) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const productFile = formData.get('product_image') as File;
@@ -65,7 +68,7 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                 const { productSignature, productTimestamp, folder } =
                     response.data;
 
-                if (productFile) {
+                if (productFile && productSignature && productTimestamp) {
                     await uploadImage(
                         productFile,
                         productSignature,
@@ -79,8 +82,8 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
             console.error('Failed to create product', error);
         }
         setShowForm(false);
-
         router.refresh();
+        setIsSubmitting(false);
     }
 
     return (
@@ -102,46 +105,62 @@ const UpdateProduct = ({ product }: { product?: Product }) => {
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={event =>
-                        product && handleSubmit(event, product.id)
-                    }
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Update Product</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={field.defaultValue || ''}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={field.defaultValue || ''}
-                                />
-                            )}
-                        </div>
-                    ))}
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={event =>
+                                product && handleSubmit(event, product.id)
+                            }
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                Update Product
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            ))}
 
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

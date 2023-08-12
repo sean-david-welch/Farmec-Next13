@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useState } from 'react';
@@ -12,10 +13,14 @@ import { getFormFields } from '../utils/GetFormFields';
 export const CreatePaymentProduct = () => {
     const router = useRouter();
     const formFields = getFormFields();
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const productFile = formData.get('image') as File;
@@ -33,7 +38,7 @@ export const CreatePaymentProduct = () => {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
-                if (productFile) {
+                if (productFile && imageSignature && imageTimestamp) {
                     await uploadImage(
                         productFile,
                         imageSignature,
@@ -49,6 +54,8 @@ export const CreatePaymentProduct = () => {
         setShowForm(false);
 
         router.refresh();
+
+        setIsSubmitting(false);
     }
 
     return (
@@ -58,28 +65,41 @@ export const CreatePaymentProduct = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Product
             </button>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    className={utils.form}
-                    onSubmit={handleSubmit}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Payment Product Form</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                            />
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            className={utils.form}
+                            onSubmit={handleSubmit}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                Payment Product Form
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        name={field.name}
+                                        id={field.name}
+                                        placeholder={field.placeholder}
+                                    />
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

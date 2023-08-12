@@ -15,15 +15,27 @@ export const PUT = async (request: NextRequest) => {
 
         const { name, product_image, description, product_link } = data;
 
-        if (!product_image) {
-            throw new Error('Product image not found');
-        }
+        const existingImage = await prisma.product.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                product_image: true,
+            },
+        });
 
-        const {
-            url: productUrl,
-            signature: productSignature,
-            timestamp: productTimestamp,
-        } = await getCloudinaryUrl(product_image, folder);
+        let productUrl: string | undefined = undefined;
+        let productSignature, productTimestamp;
+        if (product_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                product_image,
+                folder
+            );
+
+            productUrl = url;
+            productSignature = signature;
+            productTimestamp = timestamp;
+        }
 
         const machine = await prisma.machine.findUnique({
             where: {
@@ -42,7 +54,9 @@ export const PUT = async (request: NextRequest) => {
             data: {
                 name: name,
                 machineId: machine.id,
-                product_image: productUrl,
+                product_image: productUrl
+                    ? productUrl
+                    : existingImage?.product_image,
                 description: description,
                 product_link: product_link,
             },

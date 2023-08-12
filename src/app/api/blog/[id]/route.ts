@@ -28,6 +28,11 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
 
         let result, folder, blogSignature, blogTimestamp, blogUrl: string;
 
+        const existingImage = await prisma.blog.findUnique({
+            where: { id: data.id },
+            select: { main_image: true },
+        });
+
         const createFunctions = {
             blog: (data: Data) =>
                 prisma.blog.update({
@@ -37,7 +42,9 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
                     data: {
                         title: data.title,
                         date: data.date,
-                        main_image: blogUrl,
+                        main_image: blogUrl
+                            ? blogUrl
+                            : existingImage?.main_image,
                         subheading: data.subheading,
                         body: data.body,
                     },
@@ -61,18 +68,18 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
 
             const { main_image } = data;
 
-            if (!main_image) {
-                throw new Error('Main image not found');
+            let blogUrl: string | undefined = undefined;
+
+            if (main_image) {
+                const { url, signature, timestamp } = await getCloudinaryUrl(
+                    main_image,
+                    folder
+                );
+
+                blogUrl = url;
+                blogSignature = signature;
+                blogTimestamp = timestamp;
             }
-
-            const { url, signature, timestamp } = await getCloudinaryUrl(
-                main_image,
-                folder
-            );
-
-            blogUrl = url;
-            blogSignature = signature;
-            blogTimestamp = timestamp;
 
             result = await createFunctions[
                 model as keyof typeof createFunctions

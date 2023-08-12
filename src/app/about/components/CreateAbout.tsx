@@ -14,7 +14,7 @@ import {
     getTermFormData,
     getPrivacyFormData,
 } from '../utils/getFormData';
-import Loading from '../loading';
+import Loading from '~/app/loading';
 
 interface FormField {
     name: string;

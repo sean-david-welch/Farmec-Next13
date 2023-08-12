@@ -3,6 +3,7 @@ import { prisma } from '~/lib/prisma';
 import { NextResponse, NextRequest } from 'next/server';
 import { validateUser, errorResponse } from '~/utils/user';
 import { getCloudinaryUrl } from '~/lib/cloudinary';
+import { url } from 'inspector';
 
 export const PUT = async (request: NextRequest) => {
     const id = request.nextUrl.pathname.split('/')[3];
@@ -12,19 +13,28 @@ export const PUT = async (request: NextRequest) => {
 
         const data = await request.json();
 
+        const existingImage = await prisma.carousel.findUnique({
+            where: { id: id },
+            select: { image: true },
+        });
+
         const folder = 'Carousel';
 
         const { name, image } = data;
 
-        if (!image) {
-            throw new Error('image not found');
-        }
+        let imageUrl: string | undefined = undefined;
+        let imageSignature, imageTimestamp;
 
-        const {
-            url: imageUrl,
-            signature: imageSignature,
-            timestamp: imageTimestamp,
-        } = await getCloudinaryUrl(image, folder);
+        if (image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                image,
+                folder
+            );
+
+            imageUrl = url;
+            imageSignature = signature;
+            imageTimestamp = timestamp;
+        }
 
         const carousel = await prisma.carousel.update({
             where: {
@@ -32,7 +42,7 @@ export const PUT = async (request: NextRequest) => {
             },
             data: {
                 name: `Carousel/${name}`,
-                image: imageUrl,
+                image: imageUrl ? imageUrl : existingImage?.image,
             },
         });
 

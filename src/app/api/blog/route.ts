@@ -66,18 +66,18 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
             const { main_image } = data;
 
-            if (!main_image) {
-                throw new Error('Main image not found');
+            let blogUrl: string | undefined = undefined;
+
+            if (main_image) {
+                const { url, signature, timestamp } = await getCloudinaryUrl(
+                    main_image,
+                    folder
+                );
+
+                blogUrl = url;
+                blogSignature = signature;
+                blogTimestamp = timestamp;
             }
-
-            const { url, signature, timestamp } = await getCloudinaryUrl(
-                main_image,
-                folder
-            );
-
-            blogUrl = url;
-            blogSignature = signature;
-            blogTimestamp = timestamp;
 
             result = await createFunctions[
                 model as keyof typeof createFunctions

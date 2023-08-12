@@ -34,6 +34,7 @@ const SpecialsSection = () => {
                         <FontAwesomeIcon
                             icon={icon}
                             className={utils.mainIcon}
+                            size="3x"
                         />
                     </li>
                     <li className={styles.specialListItem}>{title}</li>

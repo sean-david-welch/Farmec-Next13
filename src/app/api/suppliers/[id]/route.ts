@@ -13,6 +13,16 @@ export const PUT = async (request: NextRequest) => {
 
         const folder = 'Suppliers';
 
+        const existingImages = await prisma.supplier.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                logo_image: true,
+                marketing_image: true,
+            },
+        });
+
         const {
             name,
             description,
@@ -26,24 +36,33 @@ export const PUT = async (request: NextRequest) => {
             social_website,
         } = data;
 
-        if (!logo_image) {
-            throw new Error('Logo image not found');
+        let logoUrl: string | undefined = undefined;
+        let logoSignature, logoTimestamp;
+
+        let marketingUrl: string | undefined = undefined;
+        let marketingSignature, marketingTimestamp;
+
+        if (logo_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                data.logo_image,
+                folder
+            );
+
+            logoUrl = url;
+            logoSignature = signature;
+            logoTimestamp = timestamp;
         }
 
-        if (!marketing_image) {
-            throw new Error('Marketing image not found');
-        }
+        if (marketing_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                data.marketing_image,
+                folder
+            );
 
-        const {
-            url: logoUrl,
-            signature: logoSignature,
-            timestamp: logoTimestamp,
-        } = await getCloudinaryUrl(data.logo_image, folder);
-        const {
-            url: marketingUrl,
-            signature: marketingSignature,
-            timestamp: marketingTimestamp,
-        } = await getCloudinaryUrl(data.marketing_image, folder);
+            marketingUrl = url;
+            marketingSignature = signature;
+            marketingTimestamp = timestamp;
+        }
 
         const supplier = await prisma.supplier.update({
             where: {
@@ -52,8 +71,10 @@ export const PUT = async (request: NextRequest) => {
             data: {
                 name: name,
                 description: description,
-                logo_image: logoUrl,
-                marketing_image: marketingUrl,
+                logo_image: logoUrl ? logoUrl : existingImages?.logo_image,
+                marketing_image: marketingUrl
+                    ? marketingUrl
+                    : existingImages?.marketing_image,
                 social_facebook: social_facebook,
                 social_twitter: social_twitter,
                 social_instagram: social_instagram,

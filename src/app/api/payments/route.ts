@@ -15,15 +15,18 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
 
         const { name, price, image } = data;
 
-        if (!image) {
-            throw new Error('Image not found');
-        }
+        let imageUrl: string | undefined = undefined;
+        let imageSignature, imageTimestamp;
+        if (image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                image,
+                folder
+            );
 
-        const {
-            url: imageUrl,
-            signature: imageSignature,
-            timestamp: imageTimestamp,
-        } = await getCloudinaryUrl(data.image, folder);
+            imageUrl = url;
+            imageSignature = signature;
+            imageTimestamp = timestamp;
+        }
 
         const paymentProduct = await prisma.paymentProduct.create({
             data: {

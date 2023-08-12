@@ -211,7 +211,7 @@
     @apply transition-all duration-150 ease-in-out;
 }
 
-.mainIcon {
+.mainIcon svg {
     @apply w-20 h-20 mx-auto;
 }
 

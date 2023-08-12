@@ -15,15 +15,28 @@ export const PUT = async (request: NextRequest) => {
 
         const { name, machine_image, description, machine_link } = data;
 
-        if (!machine_image) {
-            throw new Error('Machine image not found');
-        }
+        const existingImage = await prisma.machine.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                machine_image: true,
+            },
+        });
 
-        const {
-            url: machineUrl,
-            signature: machineSignature,
-            timestamp: machineTimestamp,
-        } = await getCloudinaryUrl(machine_image, folder);
+        let machineUrl: string | undefined = undefined;
+        let machineSignature, machineTimestamp;
+
+        if (machine_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                machine_image,
+                folder
+            );
+
+            machineUrl = url;
+            machineSignature = signature;
+            machineTimestamp = timestamp;
+        }
 
         const supplier = await prisma.supplier.findUnique({
             where: {
@@ -42,7 +55,9 @@ export const PUT = async (request: NextRequest) => {
             data: {
                 name: name,
                 supplierId: supplier.id,
-                machine_image: machineUrl,
+                machine_image: machineUrl
+                    ? machineUrl
+                    : existingImage?.machine_image,
                 description: description,
                 machine_link: machine_link,
             },

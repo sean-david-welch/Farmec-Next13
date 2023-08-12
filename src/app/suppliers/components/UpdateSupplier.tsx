@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { Supplier } from '@prisma/client';
@@ -18,13 +19,17 @@ import { DeleteButton } from '~/components/client/DeleteButton';
 export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
     const router = useRouter();
     const formFields = getFormFields(supplier);
+
     const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>,
         supplierID: string
     ) => {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const logoFile = formData.get('logo_image') as File;
@@ -58,7 +63,7 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                     folder,
                 } = response.data;
 
-                if (logoFile) {
+                if (logoFile && logoSignature && logoTimestamp) {
                     await uploadImage(
                         logoFile,
                         logoSignature,
@@ -67,7 +72,7 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                         folder
                     );
                 }
-                if (marketingFile) {
+                if (marketingFile && marketingSignature && marketingTimestamp) {
                     await uploadImage(
                         marketingFile,
                         marketingSignature,
@@ -81,8 +86,8 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
             console.error('Failed to create supplier', error);
         }
         setShowForm(false);
-
         router.refresh();
+        setIsSubmitting(false);
     };
 
     return (
@@ -104,31 +109,42 @@ export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    className={utils.form}
-                    onSubmit={event =>
-                        supplier && handleSubmit(event, supplier.id)
-                    }
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Supplier Form</h1>
 
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                defaultValue={field.defaultValue || ''}
-                            />
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            className={utils.form}
+                            onSubmit={event =>
+                                supplier && handleSubmit(event, supplier.id)
+                            }
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>Supplier Form</h1>
+
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        name={field.name}
+                                        id={field.name}
+                                        defaultValue={field.defaultValue || ''}
+                                    />
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

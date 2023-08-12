@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { Machine } from '@prisma/client';
@@ -27,7 +28,7 @@ interface FormField {
 const UpdateMachine = ({ machine }: { machine?: Machine }) => {
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
-
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -43,6 +44,7 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
         machineID: string
     ) {
         event.preventDefault();
+        setIsSubmitting(true);
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const machineFile = formData.get('machine_image') as File;
@@ -65,7 +67,7 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                 const { machineSignature, machineTimestamp, folder } =
                     response.data;
 
-                if (machineFile) {
+                if (machineFile && machineSignature && machineTimestamp) {
                     await uploadImage(
                         machineFile,
                         machineSignature,
@@ -81,6 +83,8 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
         setShowForm(false);
 
         router.refresh();
+
+        setIsSubmitting(false);
     }
 
     return (
@@ -102,47 +106,62 @@ const UpdateMachine = ({ machine }: { machine?: Machine }) => {
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={event =>
-                        machine && handleSubmit(event, machine.id)
-                    }
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Machine Form</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    placeholder={field.placeholder}
-                                    defaultValue={field.defaultValue || ''}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={field.defaultValue || ''}
-                                />
-                            )}
-                        </div>
-                    ))}
 
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={event =>
+                                machine && handleSubmit(event, machine.id)
+                            }
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>Machine Form</h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            placeholder={field.placeholder}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            ))}
+
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

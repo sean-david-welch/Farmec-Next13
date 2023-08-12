@@ -13,15 +13,19 @@ export const POST = async (request: NextRequest) => {
 
         const { name, product_image, product_link, description } = data;
 
-        if (!product_image) {
-            throw new Error('Product image not found');
-        }
+        let productUrl: string | undefined = undefined;
+        let productSignature, productTimestamp;
 
-        const {
-            url: productUrl,
-            signature: productSignature,
-            timestamp: productTimestamp,
-        } = await getCloudinaryUrl(data.product_image, folder);
+        if (product_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                data.product_image,
+                folder
+            );
+
+            productUrl = url;
+            productSignature = signature;
+            productTimestamp = timestamp;
+        }
 
         const machine = await prisma.machine.findUnique({
             where: {

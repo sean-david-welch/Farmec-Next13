@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useState } from 'react';
@@ -21,6 +22,8 @@ export const UpdatePaymentProduct = ({
 }) => {
     const router = useRouter();
     const formFields = getFormFields(paymentProduct);
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
     async function handleSubmit(
@@ -28,6 +31,8 @@ export const UpdatePaymentProduct = ({
         paymentProductID: string
     ) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const productFile = formData.get('image') as File;
@@ -48,7 +53,7 @@ export const UpdatePaymentProduct = ({
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
-                if (productFile) {
+                if (productFile && imageSignature && imageTimestamp) {
                     await uploadImage(
                         productFile,
                         imageSignature,
@@ -64,6 +69,8 @@ export const UpdatePaymentProduct = ({
         setShowForm(false);
 
         router.refresh();
+
+        setIsSubmitting(false);
     }
 
     return (
@@ -85,31 +92,44 @@ export const UpdatePaymentProduct = ({
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    className={utils.form}
-                    onSubmit={event =>
-                        paymentProduct && handleSubmit(event, paymentProduct.id)
-                    }
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Payment Product Form</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                                defaultValue={field.defaultValue || ''}
-                            />
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            className={utils.form}
+                            onSubmit={event =>
+                                paymentProduct &&
+                                handleSubmit(event, paymentProduct.id)
+                            }
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                Payment Product Form
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        name={field.name}
+                                        id={field.name}
+                                        placeholder={field.placeholder}
+                                        defaultValue={field.defaultValue || ''}
+                                    />
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

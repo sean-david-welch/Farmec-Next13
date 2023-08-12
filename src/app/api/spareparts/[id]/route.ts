@@ -15,15 +15,27 @@ export const PUT = async (request: NextRequest) => {
 
         const { name, pdf_link, spare_parts_link, parts_image } = data;
 
-        if (!parts_image) {
-            throw new Error('Parts image not found');
-        }
+        const existingImage = await prisma.spareParts.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                parts_image: true,
+            },
+        });
 
-        const {
-            url: sparepartUrl,
-            signature: sparepartSignature,
-            timestamp: sparepartTimestamp,
-        } = await getCloudinaryUrl(parts_image, folder);
+        let sparepartUrl: string | undefined = undefined;
+        let sparepartSignature, sparepartTimestamp;
+        if (parts_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                parts_image,
+                folder
+            );
+
+            sparepartUrl = url;
+            sparepartSignature = signature;
+            sparepartTimestamp = timestamp;
+        }
 
         const supplier = await prisma.supplier.findUnique({
             where: {
@@ -42,7 +54,9 @@ export const PUT = async (request: NextRequest) => {
             data: {
                 name: name,
                 supplierId: supplier.id,
-                parts_image: sparepartUrl,
+                parts_image: sparepartUrl
+                    ? sparepartUrl
+                    : existingImage?.parts_image,
                 pdf_link: pdf_link,
                 spare_parts_link: spare_parts_link,
             },

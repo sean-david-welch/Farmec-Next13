@@ -1,6 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useRouter } from 'next/navigation';
@@ -32,6 +34,7 @@ interface Props {
 export const UpdateBlog = ({ modelName, model }: Props) => {
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -53,6 +56,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
         modelId: string
     ) => {
         event.preventDefault();
+        setIsSubmitting(true);
 
         const formData = new FormData(event.currentTarget);
 
@@ -101,6 +105,7 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
             }
         }
         setShowForm(false);
+        setIsSubmitting(false);
         router.refresh();
     };
 
@@ -129,49 +134,64 @@ export const UpdateBlog = ({ modelName, model }: Props) => {
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={event => model && handleSubmit(event, model.id)}
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>
-                        {buttonTexts[modelName] || 'Add Blog'}
-                    </h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={field.defaultValue || ''}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    defaultValue={
-                                        field.type === 'file'
-                                            ? undefined
-                                            : field.defaultValue || ''
-                                    }
-                                />
-                            )}
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={event =>
+                                model && handleSubmit(event, model.id)
+                            }
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>
+                                {buttonTexts[modelName] || 'Add Blog'}
+                            </h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.defaultValue || ''
+                                            }>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            defaultValue={
+                                                field.type === 'file'
+                                                    ? undefined
+                                                    : field.defaultValue || ''
+                                            }
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

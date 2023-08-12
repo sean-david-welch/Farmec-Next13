@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,6 +26,7 @@ interface FormField {
 export const UpdateVideo = ({ video }: { video?: Video }) => {
     const router = useRouter();
     const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formFields, setFormFields] = useState<FormField[]>([]);
 
     useEffect(() => {
@@ -40,6 +42,8 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
         videoID: string
     ) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const body = {
@@ -53,8 +57,8 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
             console.error('Failed to create machine', error);
         }
         setShowForm(false);
-
         router.refresh();
+        setIsSubmitting(false);
     }
 
     return (
@@ -77,45 +81,57 @@ export const UpdateVideo = ({ video }: { video?: Video }) => {
                 )}
             </div>
 
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    onSubmit={event => video && handleSubmit(event, video.id)}
-                    className={utils.form}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Video Form</h1>
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            onSubmit={event =>
+                                video && handleSubmit(event, video.id)
+                            }
+                            className={utils.form}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>Video Form</h1>
 
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            {field.type === 'select' ? (
-                                <select
-                                    name={field.name}
-                                    id={field.name}
-                                    placeholder={field.placeholder}>
-                                    {field.options?.map(option => (
-                                        <option
-                                            key={option.value}
-                                            value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : (
-                                <input
-                                    type={field.type}
-                                    name={field.name}
-                                    id={field.name}
-                                    placeholder={field.placeholder}
-                                />
-                            )}
-                        </div>
-                    ))}
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    {field.type === 'select' ? (
+                                        <select
+                                            name={field.name}
+                                            id={field.name}
+                                            placeholder={field.placeholder}>
+                                            {field.options?.map(option => (
+                                                <option
+                                                    key={option.value}
+                                                    value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <input
+                                            type={field.type}
+                                            name={field.name}
+                                            id={field.name}
+                                            placeholder={field.placeholder}
+                                        />
+                                    )}
+                                </div>
+                            ))}
 
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

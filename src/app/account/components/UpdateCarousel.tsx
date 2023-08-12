@@ -2,6 +2,7 @@
 import utils from '~/styles/Utils.module.css';
 
 import axios from 'axios';
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useState } from 'react';
@@ -18,12 +19,15 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
     const router = useRouter();
     const formFields = getFormFields(carousel);
     const [showForm, setShowForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(
         event: React.FormEvent<HTMLFormElement>,
         modelId: string
     ) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const imageFile = formData.get('image') as File;
@@ -40,7 +44,7 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                 const { imageSignature, imageTimestamp, folder } =
                     response.data;
 
-                if (imageFile) {
+                if (imageFile && imageSignature && imageTimestamp) {
                     await uploadImage(
                         imageFile,
                         imageSignature,
@@ -53,8 +57,9 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
         } catch (error: any) {
             console.error('Failed to create carousel', error);
         }
-        router.refresh();
         setShowForm(false);
+        setIsSubmitting(false);
+        router.refresh();
     }
 
     return (
@@ -76,31 +81,42 @@ export const UpdateCarousel = ({ carousel }: { carousel?: Carousel }) => {
                     />
                 )}
             </div>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    className={utils.form}
-                    onSubmit={event =>
-                        carousel && handleSubmit(event, carousel?.id)
-                    }
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Carousel Form</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                                defaultValue={field.defaultValue || ''}
-                            />
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            className={utils.form}
+                            onSubmit={event =>
+                                carousel && handleSubmit(event, carousel?.id)
+                            }
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>Carousel Form</h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        name={field.name}
+                                        id={field.name}
+                                        placeholder={field.placeholder}
+                                        defaultValue={field.defaultValue || ''}
+                                    />
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

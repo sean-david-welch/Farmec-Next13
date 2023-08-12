@@ -19,15 +19,18 @@ export const POST = async (request: NextRequest) => {
 
         const { name, pdf_link, spare_parts_link, parts_image } = data;
 
-        if (!parts_image) {
-            throw new Error('Parts image not found');
-        }
+        let sparepartUrl: string | undefined = undefined;
+        let sparepartSignature, sparepartTimestamp;
+        if (parts_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                parts_image,
+                folder
+            );
 
-        const {
-            url: sparepartUrl,
-            signature: sparepartSignature,
-            timestamp: sparepartTimestamp,
-        } = await getCloudinaryUrl(parts_image, folder);
+            sparepartUrl = url;
+            sparepartSignature = signature;
+            sparepartTimestamp = timestamp;
+        }
 
         const supplier = await prisma.supplier.findUnique({
             where: {

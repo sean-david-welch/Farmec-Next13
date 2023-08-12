@@ -1,7 +1,8 @@
 'use client';
 import utils from '~/styles/Utils.module.css';
-
 import axios from 'axios';
+
+import Loading from '~/app/loading';
 import FormDialog from '~/components/client/Dialog';
 
 import { useState } from 'react';
@@ -12,10 +13,14 @@ import { getFormFields } from '../utils/getFormFields';
 const SupplierForm = () => {
     const router = useRouter();
     const formFields = getFormFields();
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsSubmitting(true);
+
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         const logoFile = formData.get('logo_image') as File;
@@ -46,7 +51,7 @@ const SupplierForm = () => {
                     folder,
                 } = response.data;
 
-                if (logoFile) {
+                if (logoFile && logoSignature && logoTimestamp) {
                     await uploadImage(
                         logoFile,
                         logoSignature,
@@ -55,7 +60,7 @@ const SupplierForm = () => {
                         folder
                     );
                 }
-                if (marketingFile) {
+                if (marketingFile && marketingSignature && marketingTimestamp) {
                     await uploadImage(
                         marketingFile,
                         marketingSignature,
@@ -71,6 +76,7 @@ const SupplierForm = () => {
         setShowForm(false);
 
         router.refresh();
+        setIsSubmitting(false);
     }
 
     return (
@@ -80,28 +86,39 @@ const SupplierForm = () => {
                 onClick={() => setShowForm(!showForm)}>
                 Create Supplier
             </button>
-            <FormDialog visible={showForm} onClose={() => setShowForm(false)}>
-                <form
-                    className={utils.form}
-                    onSubmit={handleSubmit}
-                    encType="multipart/form-data">
-                    <h1 className={utils.mainHeading}>Supplier Form</h1>
-                    {formFields.map(field => (
-                        <div key={field.name}>
-                            <label htmlFor={field.name}>{field.label}</label>
-                            <input
-                                type={field.type}
-                                name={field.name}
-                                id={field.name}
-                                placeholder={field.placeholder}
-                            />
-                        </div>
-                    ))}
-                    <button className={utils.btnForm} type="submit">
-                        Submit
-                    </button>
-                </form>
-            </FormDialog>
+
+            {isSubmitting ? (
+                <Loading />
+            ) : (
+                <>
+                    <FormDialog
+                        visible={showForm}
+                        onClose={() => setShowForm(false)}>
+                        <form
+                            className={utils.form}
+                            onSubmit={handleSubmit}
+                            encType="multipart/form-data">
+                            <h1 className={utils.mainHeading}>Supplier Form</h1>
+                            {formFields.map(field => (
+                                <div key={field.name}>
+                                    <label htmlFor={field.name}>
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        name={field.name}
+                                        id={field.name}
+                                        placeholder={field.placeholder}
+                                    />
+                                </div>
+                            ))}
+                            <button className={utils.btnForm} type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </FormDialog>
+                </>
+            )}
         </section>
     );
 };

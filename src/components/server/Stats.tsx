@@ -34,6 +34,7 @@ const StatsSection = () => {
                         <FontAwesomeIcon
                             icon={icon}
                             className={utils.mainIcon}
+                            size="3x"
                         />
                     </li>
                     <li className={styles.statListItem}>{description}</li>

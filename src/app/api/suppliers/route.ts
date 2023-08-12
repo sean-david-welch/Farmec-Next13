@@ -30,24 +30,33 @@ export const POST = async (request: NextRequest) => {
             social_website,
         } = data;
 
-        if (!logo_image) {
-            throw new Error('Logo image not found');
+        let logoUrl: string | undefined = undefined;
+        let logoSignature, logoTimestamp;
+
+        let marketingUrl: string | undefined = undefined;
+        let marketingSignature, marketingTimestamp;
+
+        if (logo_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                data.logo_image,
+                folder
+            );
+
+            logoUrl = url;
+            logoSignature = signature;
+            logoTimestamp = timestamp;
         }
 
-        if (!marketing_image) {
-            throw new Error('Marketing image not found');
-        }
+        if (marketing_image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                data.marketing_image,
+                folder
+            );
 
-        const {
-            url: logoUrl,
-            signature: logoSignature,
-            timestamp: logoTimestamp,
-        } = await getCloudinaryUrl(data.logo_image, folder);
-        const {
-            url: marketingUrl,
-            signature: marketingSignature,
-            timestamp: marketingTimestamp,
-        } = await getCloudinaryUrl(data.marketing_image, folder);
+            marketingUrl = url;
+            marketingSignature = signature;
+            marketingTimestamp = timestamp;
+        }
 
         const supplier = await prisma.supplier.create({
             data: {

@@ -15,15 +15,27 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
 
         const { name, price, image } = data;
 
-        if (!image) {
-            throw new Error('Image not found');
-        }
+        const existingImage = await prisma.paymentProduct.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                image: true,
+            },
+        });
 
-        const {
-            url: imageUrl,
-            signature: imageSignature,
-            timestamp: imageTimestamp,
-        } = await getCloudinaryUrl(image, folder);
+        let imageUrl: string | undefined = undefined;
+        let imageSignature, imageTimestamp;
+        if (image) {
+            const { url, signature, timestamp } = await getCloudinaryUrl(
+                image,
+                folder
+            );
+
+            imageUrl = url;
+            imageSignature = signature;
+            imageTimestamp = timestamp;
+        }
 
         const payment = await prisma.paymentProduct.update({
             where: {
@@ -32,7 +44,7 @@ export const PUT = async (request: NextRequest): Promise<NextResponse> => {
             data: {
                 name: name,
                 price: price,
-                image: imageUrl,
+                image: imageUrl ? imageUrl : existingImage?.image,
             },
         });
 
