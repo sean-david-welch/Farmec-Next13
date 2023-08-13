@@ -13,6 +13,7 @@ import { getSessionAndUser } from '~/utils/user';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { UpdateSupplier } from './components/UpdateSupplier';
 
 const Suppliers = async () => {
     const { user } = await getSessionAndUser();
@@ -39,69 +40,58 @@ const Suppliers = async () => {
                         href: `#${supplier.name}`,
                     }))}
             />
-            {suppliers.map(
-                ({
-                    id,
-                    name,
-                    logo_image,
-                    marketing_image,
-                    description,
-                    social_facebook,
-                    social_twitter,
-                    social_instagram,
-                    social_linkedin,
-                    social_website,
-                    social_youtube,
-                }) => (
-                    <div
-                        className={styles.supplierCard}
-                        key={id}
-                        id={name || ''}>
-                        <div className={styles.supplierGrid}>
-                            <div className={styles.supplierHead}>
-                                <h1 className={utils.mainHeading}>{name}</h1>
-                                <Image
-                                    src={logo_image || '/default.jpg'}
-                                    alt={'/default.jpg'}
-                                    className={styles.supplierLogo}
-                                    width={200}
-                                    height={200}
-                                />
-
-                                <SocialLinks
-                                    facebook={social_facebook}
-                                    twitter={social_twitter}
-                                    instagram={social_instagram}
-                                    linkedin={social_linkedin}
-                                    website={social_website}
-                                    youtube={social_youtube}
-                                />
-                            </div>
+            {suppliers.map(supplier => (
+                <div
+                    className={styles.supplierCard}
+                    key={supplier.id}
+                    id={supplier.name || ''}>
+                    <div className={styles.supplierGrid}>
+                        <div className={styles.supplierHead}>
+                            <h1 className={utils.mainHeading}>
+                                {supplier.name}
+                            </h1>
                             <Image
-                                src={marketing_image || '/default.jpg'}
+                                src={supplier.logo_image || '/default.jpg'}
                                 alt={'/default.jpg'}
-                                className={styles.supplierImage}
-                                width={550}
-                                height={550}
+                                className={styles.supplierLogo}
+                                width={200}
+                                height={200}
+                            />
+
+                            <SocialLinks
+                                facebook={supplier.social_facebook}
+                                twitter={supplier.social_twitter}
+                                instagram={supplier.social_instagram}
+                                linkedin={supplier.social_linkedin}
+                                website={supplier.social_website}
+                                youtube={supplier.social_youtube}
                             />
                         </div>
-
-                        <div className={styles.supplierInfo}>
-                            <p className={styles.supplierDescription}>
-                                {description}
-                            </p>
-                            <button className={utils.btn}>
-                                <Link href={`/suppliers/${id}`}>
-                                    Learn More
-                                    <FontAwesomeIcon
-                                        icon={faRightFromBracket}
-                                    />
-                                </Link>
-                            </button>
-                        </div>
+                        <Image
+                            src={supplier.marketing_image || '/default.jpg'}
+                            alt={'/default.jpg'}
+                            className={styles.supplierImage}
+                            width={550}
+                            height={550}
+                        />
                     </div>
-                )
-            )}
+
+                    <div className={styles.supplierInfo}>
+                        <p className={styles.supplierDescription}>
+                            {supplier.description}
+                        </p>
+                        <button className={utils.btn}>
+                            <Link href={`/suppliers/${supplier.id}`}>
+                                Learn More
+                                <FontAwesomeIcon icon={faRightFromBracket} />
+                            </Link>
+                        </button>
+                    </div>
+                    {user && user.role === 'ADMIN' && (
+                        <UpdateSupplier supplier={supplier} />
+                    )}
+                </div>
+            ))}
             {user && user.role === 'ADMIN' && <SupplierForm />}
         </section>
     );

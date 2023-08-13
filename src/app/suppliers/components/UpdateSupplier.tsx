@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { DeleteButton } from '~/components/client/DeleteButton';
 
-export const SupplierForm = ({ supplier }: { supplier?: Supplier }) => {
+export const UpdateSupplier = ({ supplier }: { supplier?: Supplier }) => {
     const router = useRouter();
     const formFields = getFormFields(supplier);
 

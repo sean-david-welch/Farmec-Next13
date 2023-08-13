@@ -6,7 +6,7 @@ import Index from '~/components/server/Index';
 import Machines from '../components/Machines';
 
 import { prisma } from '~/lib/prisma';
-import { SupplierForm } from '../components/UpdateSupplier';
+import { UpdateSupplier } from '../components/UpdateSupplier';
 import { SocialLinks } from '../components/SocialLinks';
 import { getSessionAndUser } from '~/utils/user';
 import Videos from '../components/Videos';
@@ -79,7 +79,7 @@ const SupplierDetail = async ({ params }: Props) => {
 
                 <p className={styles.supplierDescription}>{description}</p>
                 {user && user.role === 'ADMIN' && (
-                    <SupplierForm supplier={supplier} />
+                    <UpdateSupplier supplier={supplier} />
                 )}
             </div>
 

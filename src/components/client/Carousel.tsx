@@ -46,7 +46,7 @@ export const Carousel: React.FC<Props> = ({ images }) => {
                     className={`${styles.slides} ${
                         currentIndex === index ? styles.fadeIn : styles.fadeOut
                     }`}
-                    quality={90}
+                    quality={100}
                     sizes="100vw"
                     width={1000}
                     height={1000}

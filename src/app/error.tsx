@@ -15,7 +15,7 @@ export default function Error({
     }, [error]);
 
     return (
-        <div>
+        <div className={utils.loadingPage}>
             <h1 className={utils.sectionHeading}>Something went wrong!</h1>
             <button className={utils.btn} onClick={() => reset()}>
                 Try again
