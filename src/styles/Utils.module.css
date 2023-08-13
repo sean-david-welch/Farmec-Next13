@@ -28,10 +28,22 @@
 }
 
 .typewriter {
-    @apply absolute bottom-0 left-0 right-0 z-10 text-gray-300 font-bold text-4xl py-10;
+    @apply absolute z-10;
+    @apply text-gray-300 font-bold text-4xl py-2;
+    @apply h-[15vh] w-[70vw];
+    @apply left-1/2 bottom-5;
+    @apply transform translate-x-[-50%];
     @apply md:text-xl;
 }
 
+.typewriterSkeleton {
+    @apply absolute z-10 py-5;
+    @apply bg-gray-200;
+    @apply h-[15vh] w-[70vw] invisible;
+    @apply left-1/2 bottom-5;
+    @apply transform translate-x-[-50%];
+    @apply md:text-xl;
+}
 /* Forms */
 .form {
     @apply flex flex-col bg-zinc-800 text-center p-10;
